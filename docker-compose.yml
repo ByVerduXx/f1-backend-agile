@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: f1-agile-db
+    image: mysql:8.0.32
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: f1-agile
+      MYSQL_USER: f1-agile
+      MYSQL_PASSWORD: f1-agile
+    ports:
+      - "3307:3306"
