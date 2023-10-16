@@ -2,7 +2,7 @@ version: '2'
 
 services:
   db:
-    container_name: management-testing-db
+    container_name: f1backend-testing-db
     image: mysql:8.0.32
     restart: always
     environment:
