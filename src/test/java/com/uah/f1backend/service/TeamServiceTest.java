@@ -4,6 +4,7 @@ import com.uah.f1backend.configuration.HttpStatus;
 import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
+import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.model.mapper.team.TeamMappers;
 import com.uah.f1backend.repository.TeamModelRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TeamServiceTest {
     @Mock
@@ -37,8 +39,8 @@ public class TeamServiceTest {
     void getAllTeamsEmptyTest(){
         final var teamList = new ArrayList<TeamModel>();
         Mockito.doReturn(teamList).when(teamModelRepository).findAll();
-        final var expectedResultList = new ArrayList<TeamDTORequest>();
-        assert teamService.getAllTeams().equals(expectedResultList);
+        final var actualResultList = teamService.getAllTeams();
+        Assertions.assertEquals(0, actualResultList.size());
     }
 
     @Test
@@ -57,9 +59,11 @@ public class TeamServiceTest {
         final var actualResult = teamService.getAllTeams();
 
         for (int i = 0; i < 4; i++) {
-            assert actualResult.get(i).getName().equals(Integer.toString(i));
-            assert actualResult.get(i).getLogo().equals(Integer.toString(i));
-            assert actualResult.get(i).getTwitter().equals(Integer.toString(i));
+            var team = actualResult.get(i);
+            Assertions.assertEquals(i, team.getId());
+            Assertions.assertEquals(Integer.toString(i), team.getName());
+            Assertions.assertEquals(Integer.toString(i), team.getLogo());
+            Assertions.assertEquals(Integer.toString(i), team.getTwitter());
         }
     }
 
@@ -73,7 +77,22 @@ public class TeamServiceTest {
         Mockito.doReturn(team).when(teamModelRepository).findByName("name");
 
         final var actualResult = teamService.getTeamByName("name");
-        final var expectedResult = new TeamDTORequest("name", "logo", "twitter");
+        final var expectedResult = new TeamDTOResponse(1, "name", "logo", "twitter");
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void getTeamByIdTest(){
+        final var team = new TeamModel();
+        team.setId(1);
+        team.setName("name");
+        team.setLogo("logo");
+        team.setTwitter("twitter");
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(1L);
+
+        final var actualResult = teamService.getTeamById(1);
+        final var expectedResult = new TeamDTOResponse(1, "name", "logo", "twitter");
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -87,11 +106,22 @@ public class TeamServiceTest {
     }
 
     @Test
+    void getTeamByIdNotFoundTest(){
+        Mockito.doReturn(null).when(teamModelRepository).findById(1L);
+        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+            teamService.getTeamById(1);
+        });
+    }
+
+    @Test
     void insertTeamTest(){
-        final var expectedResult = new TeamDTORequest("name", "logo", "twitter");
+        final var teamToInsert = new TeamDTORequest( "name", "logo", "twitter");
+        final var expectedResult = new TeamDTOResponse(1, "name", "logo", "twitter");
         final var team = TeamMappers.toTeamModelMapper(expectedResult);
+
         Mockito.doReturn(team).when(teamModelRepository).save(team);
-        final var actualRestult = teamService.insertTeam(expectedResult);
+
+        final var actualRestult = teamService.insertTeam(teamToInsert);
         Assertions.assertEquals(expectedResult, actualRestult);
     }
 
@@ -103,7 +133,7 @@ public class TeamServiceTest {
     }
 
     @Test
-    void deleteTeamTest(){
+    void deleteTeamByNameTest(){
         final var teamName = "name";
         final var team = new TeamModel();
         team.setId(1);
@@ -114,17 +144,43 @@ public class TeamServiceTest {
         Mockito.doNothing().when(teamModelRepository).delete(team);
 
         final var expectedResult = new DeletedTeamDTOResponse("Team deleted", teamName);
-        final var actualRestult = teamService.deleteTeam(teamName);
+        final var actualRestult = teamService.deleteTeamByName(teamName);
 
         Assertions.assertEquals(expectedResult, actualRestult);
     }
 
     @Test
-    void deleteTeamNotFoundTest(){
+    void deleteTeamByIdTest(){
+        final var teamId = 1;
+        final var team = new TeamModel();
+        team.setId(teamId);
+        team.setName("name");
+        team.setLogo("logo");
+        team.setTwitter("twitter");
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById((long) teamId);
+        Mockito.doNothing().when(teamModelRepository).delete(team);
+
+        final var expectedResult = new DeletedTeamDTOResponse("Team deleted", team.getName());
+        final var actualRestult = teamService.deleteTeamById(teamId);
+
+        Assertions.assertEquals(expectedResult, actualRestult);
+    }
+
+    @Test
+    void deleteTeamByNameNotFoundTest(){
         final var teamName = "name";
         Mockito.doReturn(null).when(teamModelRepository).findByName(teamName);
         Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
-            teamService.deleteTeam(teamName);
+            teamService.deleteTeamByName(teamName);
+        });
+    }
+
+    @Test
+    void deleteTeamByIdNotFoundTest(){
+        final var teamId = 1;
+        Mockito.doReturn(null).when(teamModelRepository).findById((long) teamId);
+        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+            teamService.deleteTeamById(teamId);
         });
     }
 }

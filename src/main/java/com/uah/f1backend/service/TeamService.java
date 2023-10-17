@@ -34,7 +34,7 @@ public class TeamService {
     // Retrieve the team matching the given id
     public TeamDTOResponse getTeamById(Integer id){
         final var team = teamModelRepository.findById(Long.valueOf(id));
-        if (team.isPresent()) {
+        if (team != null && team.isPresent()) {
             return TeamMappers.toTeamDTOResponseMapper(team.get());
         } else {
             throw new HttpStatus.TeamDoesntExistException();
@@ -64,7 +64,7 @@ public class TeamService {
     // Remove team from db given its id
     public DeletedTeamDTOResponse deleteTeamById(Integer id){
         final var team = teamModelRepository.findById(Long.valueOf(id));
-        if (team.isPresent()) {
+        if (team != null && team.isPresent()) {
             teamModelRepository.deleteById(Long.valueOf(id));
             return new DeletedTeamDTOResponse("Team deleted", team.get().getName());
         } else {

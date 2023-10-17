@@ -37,6 +37,20 @@ public class TeamMappers {
     }
 
     // Maps a given TeamDTORequest object to TeamModel object
+    public static TeamModel toTeamModelMapper(TeamDTOResponse tm) {
+        try {
+            final var teamModel = new TeamModel();
+            teamModel.setId(tm.getId());
+            teamModel.setName(tm.getName());
+            teamModel.setLogo(tm.getLogo());
+            teamModel.setTwitter(tm.getTwitter());
+            return teamModel;
+        } catch (NullPointerException e){
+            return null;
+        }
+    }
+
+    // Maps a given TeamDTORequest object to TeamModel object
     public static TeamModel toTeamModelMapper(TeamDTORequest tm) {
         try {
             final var teamModel = new TeamModel();
