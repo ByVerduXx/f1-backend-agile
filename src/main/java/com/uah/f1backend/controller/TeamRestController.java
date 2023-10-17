@@ -23,30 +23,16 @@ public class TeamRestController {
 
     @GetMapping(params = "name")
     public TeamDTOResponseRequest getTeams(@RequestParam String name){
-        final var result = teamService.getTeamByName(name);
-        if (result == null) {
-            throw new HttpStatus.TeamDoesntExistException();
-        }
-        return result;
+        return teamService.getTeamByName(name);
     }
 
     @PutMapping()
     public TeamDTOResponseRequest insertTeam(@RequestBody TeamDTOResponseRequest team){
-        final var result = teamService.insertTeam(team);
-        if (result == null) {
-            throw new HttpStatus.ResourceNotSavedException();
-        }
-        return result;
+        return teamService.insertTeam(team);
     }
 
     @DeleteMapping()
     public DeletedTeamDTOResponse deleteTeam(@RequestParam String name){
-        final var isDeleted = teamService.deleteTeam(name);
-        if (isDeleted) {
-            return new DeletedTeamDTOResponse("Team deleted", name);
-        } else {
-            throw new HttpStatus.TeamDoesntExistException();
-        }
-
+        return teamService.deleteTeam(name);
     }
 }
