@@ -1,6 +1,5 @@
 package com.uah.f1backend.service;
 
-import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.TeamDTOResponseRequest;
 import com.uah.f1backend.model.mapper.team.TeamMappers;
 import com.uah.f1backend.repository.TeamModelRepository;
@@ -28,5 +27,15 @@ public class TeamService {
         final var teamModel = TeamMappers.teamModelMapper(team);
         if (teamModel == null) return null;
         return TeamMappers.teamDTOResponseRequestMapper(teamModelRepository.save(teamModel));
+    }
+
+    public Boolean deleteTeam(String name){
+        final var teamModel = teamModelRepository.findByName(name);
+        if (teamModel != null) {
+            teamModelRepository.delete(teamModel);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
