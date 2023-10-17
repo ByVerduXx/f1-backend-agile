@@ -1,6 +1,6 @@
 package com.uah.f1backend.service;
 
-import com.uah.f1backend.configuration.HttpStatus;
+import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
@@ -100,7 +100,7 @@ public class TeamServiceTest {
     @Test
     void getTeamByNameNotFoundTest(){
         Mockito.doReturn(Optional.empty()).when(teamModelRepository).findByName("name");
-        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.getTeamByName("name");
         });
     }
@@ -108,7 +108,7 @@ public class TeamServiceTest {
     @Test
     void getTeamByIdNotFoundTest(){
         Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(1L);
-        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.getTeamById(1);
         });
     }
@@ -127,7 +127,7 @@ public class TeamServiceTest {
 
     @Test
     void insertTeamObjectNullTest(){
-        Assertions.assertThrows(HttpStatus.ResourceNotSavedException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.ResourceNotSavedException.class, () -> {
             teamService.insertTeam(null);
         });
     }
@@ -170,7 +170,7 @@ public class TeamServiceTest {
     void deleteTeamByNameNotFoundTest(){
         final var teamName = "name";
         Mockito.doReturn(Optional.empty()).when(teamModelRepository).findByName(teamName);
-        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.deleteTeamByName(teamName);
         });
     }
@@ -179,7 +179,7 @@ public class TeamServiceTest {
     void deleteTeamByIdNotFoundTest(){
         final var teamId = 1;
         Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById((long) teamId);
-        Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.deleteTeamById(teamId);
         });
     }

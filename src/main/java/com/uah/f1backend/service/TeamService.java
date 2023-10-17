@@ -1,6 +1,6 @@
 package com.uah.f1backend.service;
 
-import com.uah.f1backend.configuration.HttpStatus;
+import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
@@ -24,14 +24,14 @@ public class TeamService {
     // Retrieve the team matching the given name
     public TeamDTOResponse getTeamByName(String name){
         final var team = teamModelRepository.findByName(name)
-                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         return TeamMappers.toTeamDTOResponseMapper(team);
     }
 
     // Retrieve the team matching the given id
     public TeamDTOResponse getTeamById(Integer id){
         final var team = teamModelRepository.findById(Long.valueOf(id))
-                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         return TeamMappers.toTeamDTOResponseMapper(team);
     }
 
@@ -39,7 +39,7 @@ public class TeamService {
     public TeamDTOResponse insertTeam(TeamDTORequest team){
         final var teamModel = TeamMappers.toTeamModelMapper(team);
         if (teamModel == null) {
-            throw new HttpStatus.ResourceNotSavedException();
+            throw new HttpExceptions.ResourceNotSavedException();
         }
         return TeamMappers.toTeamDTOResponseMapper(teamModelRepository.save(teamModel));
     }
@@ -47,7 +47,7 @@ public class TeamService {
     // Remove team from db given its name
     public DeletedTeamDTOResponse deleteTeamByName(String name){
         final var team = teamModelRepository.findByName(name)
-                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         teamModelRepository.delete(team);
         return new DeletedTeamDTOResponse("Team deleted", name);
     }
@@ -55,7 +55,7 @@ public class TeamService {
     // Remove team from db given its id
     public DeletedTeamDTOResponse deleteTeamById(Integer id){
         final var team = teamModelRepository.findById(Long.valueOf(id))
-                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         teamModelRepository.deleteById(Long.valueOf(id));
         return new DeletedTeamDTOResponse("Team deleted", team.getName());
     }
