@@ -1,10 +1,10 @@
 package com.uah.f1backend.model.dto.team;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Data
+@Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class TeamDTOResponse {

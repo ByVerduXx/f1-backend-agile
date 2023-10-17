@@ -2,7 +2,7 @@ package com.uah.f1backend.model.dto.team;
 
 import lombok.*;
 
-@Data
+@Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public class DeletedTeamDTOResponse {

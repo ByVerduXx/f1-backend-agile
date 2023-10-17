@@ -1,10 +1,11 @@
 package com.uah.f1backend.model.dto.team;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Data
+@Getter
 public class TeamDTORequest {
     private final String name;
     private final String logo;

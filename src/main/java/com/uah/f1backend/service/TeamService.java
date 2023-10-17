@@ -1,6 +1,7 @@
 package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
+import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
@@ -58,5 +59,16 @@ public class TeamService {
                 .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         teamModelRepository.deleteById(Long.valueOf(id));
         return new DeletedTeamDTOResponse("Team deleted", team.getName());
+    }
+
+    // Update a team existing in db
+    public TeamDTOResponse updateTeamById(Integer id, TeamDTORequest team){
+        TeamModel tm = teamModelRepository.findById(Long.valueOf(id))
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        tm.setName(team.getName());
+        tm.setLogo(team.getLogo());
+        tm.setTwitter(team.getTwitter());
+        teamModelRepository.save(tm);
+        return TeamMappers.toTeamDTOResponseMapper(tm);
     }
 }

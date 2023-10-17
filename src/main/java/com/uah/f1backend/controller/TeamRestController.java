@@ -5,6 +5,7 @@ import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class TeamRestController {
 
     private final TeamService teamService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<TeamDTOResponse>> getTeams(){
         return ResponseEntity.ok(teamService.getAllTeams());
     }
@@ -27,22 +28,27 @@ public class TeamRestController {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }
 
-    @GetMapping(params = "id")
-    public ResponseEntity<TeamDTOResponse> getTeams(@RequestParam Integer id){
+    @GetMapping("{id}")
+    public ResponseEntity<TeamDTOResponse> getTeams(@PathVariable Integer id){
         return ResponseEntity.ok(teamService.getTeamById(id));
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<TeamDTOResponse> insertTeam(@RequestBody TeamDTORequest team){
-        return ResponseEntity.ok(teamService.insertTeam(team));
+        return new ResponseEntity<>(teamService.insertTeam(team), HttpStatus.CREATED);
     }
 
     @DeleteMapping(params = "name")
     public ResponseEntity<DeletedTeamDTOResponse> deleteTeamByName(@RequestParam String name){
         return ResponseEntity.ok(teamService.deleteTeamByName(name));
     }
-    @DeleteMapping(params = "id")
-    public ResponseEntity<DeletedTeamDTOResponse> deleteTeamById(@RequestParam Integer id){
+    @DeleteMapping("{id}")
+    public ResponseEntity<DeletedTeamDTOResponse> deleteTeamById(@PathVariable Integer id){
         return ResponseEntity.ok(teamService.deleteTeamById(id));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<TeamDTOResponse> updateTeamById(@PathVariable Integer id, @RequestBody TeamDTORequest team){
+        return new ResponseEntity<>(teamService.updateTeamById(id, team), HttpStatus.CREATED);
     }
 }

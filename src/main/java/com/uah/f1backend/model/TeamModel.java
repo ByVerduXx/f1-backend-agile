@@ -3,12 +3,15 @@ package com.uah.f1backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 
 @Entity(name = "team")
 @Data
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
