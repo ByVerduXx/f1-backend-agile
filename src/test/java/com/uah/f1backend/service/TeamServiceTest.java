@@ -74,7 +74,7 @@ public class TeamServiceTest {
         team.setName("name");
         team.setLogo("logo");
         team.setTwitter("twitter");
-        Mockito.doReturn(team).when(teamModelRepository).findByName("name");
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findByName("name");
 
         final var actualResult = teamService.getTeamByName("name");
         final var expectedResult = new TeamDTOResponse(1, "name", "logo", "twitter");
@@ -99,7 +99,7 @@ public class TeamServiceTest {
 
     @Test
     void getTeamByNameNotFoundTest(){
-        Mockito.doReturn(null).when(teamModelRepository).findByName("name");
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findByName("name");
         Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
             teamService.getTeamByName("name");
         });
@@ -107,7 +107,7 @@ public class TeamServiceTest {
 
     @Test
     void getTeamByIdNotFoundTest(){
-        Mockito.doReturn(null).when(teamModelRepository).findById(1L);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(1L);
         Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
             teamService.getTeamById(1);
         });
@@ -140,7 +140,7 @@ public class TeamServiceTest {
         team.setName(teamName);
         team.setLogo("logo");
         team.setTwitter("twitter");
-        Mockito.doReturn(team).when(teamModelRepository).findByName(teamName);
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findByName(teamName);
         Mockito.doNothing().when(teamModelRepository).delete(team);
 
         final var expectedResult = new DeletedTeamDTOResponse("Team deleted", teamName);
@@ -169,7 +169,7 @@ public class TeamServiceTest {
     @Test
     void deleteTeamByNameNotFoundTest(){
         final var teamName = "name";
-        Mockito.doReturn(null).when(teamModelRepository).findByName(teamName);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findByName(teamName);
         Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
             teamService.deleteTeamByName(teamName);
         });
@@ -178,7 +178,7 @@ public class TeamServiceTest {
     @Test
     void deleteTeamByIdNotFoundTest(){
         final var teamId = 1;
-        Mockito.doReturn(null).when(teamModelRepository).findById((long) teamId);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById((long) teamId);
         Assertions.assertThrows(HttpStatus.TeamDoesntExistException.class, () -> {
             teamService.deleteTeamById(teamId);
         });

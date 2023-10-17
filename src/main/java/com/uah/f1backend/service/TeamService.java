@@ -23,22 +23,16 @@ public class TeamService {
 
     // Retrieve the team matching the given name
     public TeamDTOResponse getTeamByName(String name){
-        final var result = TeamMappers.toTeamDTOResponseMapper(teamModelRepository.findByName(name));
-        if (result == null) {
-            throw new HttpStatus.TeamDoesntExistException();
-        } else {
-            return result;
-        }
+        final var team = teamModelRepository.findByName(name)
+                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+        return TeamMappers.toTeamDTOResponseMapper(team);
     }
 
     // Retrieve the team matching the given id
     public TeamDTOResponse getTeamById(Integer id){
-        final var team = teamModelRepository.findById(Long.valueOf(id));
-        if (team != null && team.isPresent()) {
-            return TeamMappers.toTeamDTOResponseMapper(team.get());
-        } else {
-            throw new HttpStatus.TeamDoesntExistException();
-        }
+        final var team = teamModelRepository.findById(Long.valueOf(id))
+                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+        return TeamMappers.toTeamDTOResponseMapper(team);
     }
 
     // Add new team in the db
@@ -52,23 +46,17 @@ public class TeamService {
 
     // Remove team from db given its name
     public DeletedTeamDTOResponse deleteTeamByName(String name){
-        final var team = teamModelRepository.findByName(name);
-        if (team != null) {
-            teamModelRepository.delete(team);
-            return new DeletedTeamDTOResponse("Team deleted", name);
-        } else {
-            throw new HttpStatus.TeamDoesntExistException();
-        }
+        final var team = teamModelRepository.findByName(name)
+                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+        teamModelRepository.delete(team);
+        return new DeletedTeamDTOResponse("Team deleted", name);
     }
 
     // Remove team from db given its id
     public DeletedTeamDTOResponse deleteTeamById(Integer id){
-        final var team = teamModelRepository.findById(Long.valueOf(id));
-        if (team != null && team.isPresent()) {
-            teamModelRepository.deleteById(Long.valueOf(id));
-            return new DeletedTeamDTOResponse("Team deleted", team.get().getName());
-        } else {
-            throw new HttpStatus.TeamDoesntExistException();
-        }
+        final var team = teamModelRepository.findById(Long.valueOf(id))
+                .orElseThrow(HttpStatus.TeamDoesntExistException::new);
+        teamModelRepository.deleteById(Long.valueOf(id));
+        return new DeletedTeamDTOResponse("Team deleted", team.getName());
     }
 }
