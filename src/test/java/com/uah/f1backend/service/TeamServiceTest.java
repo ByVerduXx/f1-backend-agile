@@ -3,7 +3,7 @@ package com.uah.f1backend.service;
 import com.uah.f1backend.configuration.HttpStatus;
 import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
-import com.uah.f1backend.model.dto.team.TeamDTOResponseRequest;
+import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.mapper.team.TeamMappers;
 import com.uah.f1backend.repository.TeamModelRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -37,7 +37,7 @@ public class TeamServiceTest {
     void getAllTeamsEmptyTest(){
         final var teamList = new ArrayList<TeamModel>();
         Mockito.doReturn(teamList).when(teamModelRepository).findAll();
-        final var expectedResultList = new ArrayList<TeamDTOResponseRequest>();
+        final var expectedResultList = new ArrayList<TeamDTORequest>();
         assert teamService.getAllTeams().equals(expectedResultList);
     }
 
@@ -73,7 +73,7 @@ public class TeamServiceTest {
         Mockito.doReturn(team).when(teamModelRepository).findByName("name");
 
         final var actualResult = teamService.getTeamByName("name");
-        final var expectedResult = new TeamDTOResponseRequest("name", "logo", "twitter");
+        final var expectedResult = new TeamDTORequest("name", "logo", "twitter");
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
@@ -88,8 +88,8 @@ public class TeamServiceTest {
 
     @Test
     void insertTeamTest(){
-        final var expectedResult = new TeamDTOResponseRequest("name", "logo", "twitter");
-        final var team = TeamMappers.teamModelMapper(expectedResult);
+        final var expectedResult = new TeamDTORequest("name", "logo", "twitter");
+        final var team = TeamMappers.toTeamModelMapper(expectedResult);
         Mockito.doReturn(team).when(teamModelRepository).save(team);
         final var actualRestult = teamService.insertTeam(expectedResult);
         Assertions.assertEquals(expectedResult, actualRestult);

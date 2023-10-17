@@ -1,10 +1,11 @@
 package com.uah.f1backend.controller;
 
-import com.uah.f1backend.configuration.HttpStatus;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
-import com.uah.f1backend.model.dto.team.TeamDTOResponseRequest;
+import com.uah.f1backend.model.dto.team.TeamDTORequest;
+import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.service.TeamService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +18,31 @@ public class TeamRestController {
     private final TeamService teamService;
 
     @GetMapping()
-    public List<TeamDTOResponseRequest> getTeams(){
-        return teamService.getAllTeams();
+    public ResponseEntity<List<TeamDTOResponse>> getTeams(){
+        return ResponseEntity.ok(teamService.getAllTeams());
     }
 
     @GetMapping(params = "name")
-    public TeamDTOResponseRequest getTeams(@RequestParam String name){
-        return teamService.getTeamByName(name);
+    public ResponseEntity<TeamDTOResponse> getTeams(@RequestParam String name){
+        return ResponseEntity.ok(teamService.getTeamByName(name));
     }
 
-    @PutMapping()
-    public TeamDTOResponseRequest insertTeam(@RequestBody TeamDTOResponseRequest team){
-        return teamService.insertTeam(team);
+    @GetMapping(params = "id")
+    public ResponseEntity<TeamDTOResponse> getTeams(@RequestParam Integer id){
+        return ResponseEntity.ok(teamService.getTeamById(id));
     }
 
-    @DeleteMapping()
-    public DeletedTeamDTOResponse deleteTeam(@RequestParam String name){
-        return teamService.deleteTeam(name);
+    @PostMapping()
+    public ResponseEntity<TeamDTOResponse> insertTeam(@RequestBody TeamDTORequest team){
+        return ResponseEntity.ok(teamService.insertTeam(team));
+    }
+
+    @DeleteMapping(params = "name")
+    public ResponseEntity<DeletedTeamDTOResponse> deleteTeamByName(@RequestParam String name){
+        return ResponseEntity.ok(teamService.deleteTeamByName(name));
+    }
+    @DeleteMapping(params = "id")
+    public ResponseEntity<DeletedTeamDTOResponse> deleteTeamById(@RequestParam Integer id){
+        return ResponseEntity.ok(teamService.deleteTeamById(id));
     }
 }
