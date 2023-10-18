@@ -6,8 +6,9 @@ import lombok.*;
 import java.io.Serializable;
 
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
 
-@Entity(name = "team")
+@Entity(name = TEAM_TABLE)
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor
