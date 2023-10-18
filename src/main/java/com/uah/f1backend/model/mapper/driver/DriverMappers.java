@@ -8,51 +8,59 @@ import java.util.List;
 
 public class DriverMappers {
 
-    public DriverDTORequest toDriverDTORequest(DriverModel dm){
+    public static DriverDTORequest toDriverDTORequest(DriverModel dm){
         return new DriverDTORequest(dm.getName(), dm.getLastName(), dm.getInitial(), dm.getPhoto(), dm.getTwitter(), dm.getIdCountry());
     }
 
-    public DriverDTOResponse toDriverDTOResponse(DriverModel dm){
+    public static DriverDTOResponse toDriverDTOResponse(DriverModel dm){
         return new DriverDTOResponse(dm.getId(), dm.getName(), dm.getLastName(), dm.getInitial(), dm.getPhoto(), dm.getTwitter(), dm.getIdCountry());
     }
 
-    public List<DriverDTORequest> driverDTORequests(List<DriverModel> dml){
-        return dml.stream().map(this::toDriverDTORequest).toList();
+    public static List<DriverDTORequest> toDriverDTORequests(List<DriverModel> dml){
+        return dml.stream().map(DriverMappers::toDriverDTORequest).toList();
     }
 
-    public List<DriverDTOResponse> driverDTOResponses(List<DriverModel> dml){
-        return dml.stream().map(this::toDriverDTOResponse).toList();
+    public static List<DriverDTOResponse> toDriverDTOResponses(List<DriverModel> dml){
+        return dml.stream().map(DriverMappers::toDriverDTOResponse).toList();
     }
 
-    public DriverModel toDriverModel(DriverDTORequest ddreq){
-        final var dm = new DriverModel();
-        dm.setName(ddreq.getName());
-        dm.setLastName(ddreq.getLastName());
-        dm.setInitial(ddreq.getInitial());
-        dm.setPhoto(ddreq.getPhoto());
-        dm.setTwitter(ddreq.getTwitter());
-        dm.setIdCountry(ddreq.getIdCountry());
-        return dm;
+    public static DriverModel toDriverModel(DriverDTORequest ddreq){
+        try{
+            final var dm = new DriverModel();
+            dm.setName(ddreq.getName());
+            dm.setLastName(ddreq.getLastName());
+            dm.setInitial(ddreq.getInitial());
+            dm.setPhoto(ddreq.getPhoto());
+            dm.setTwitter(ddreq.getTwitter());
+            dm.setIdCountry(ddreq.getIdCountry());
+            return dm;
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
-    public DriverModel toDriverModel(DriverDTOResponse ddres){
-        final var dm = new DriverModel();
-        dm.setId(ddres.getId());
-        dm.setName(ddres.getName());
-        dm.setLastName(ddres.getLastName());
-        dm.setInitial(ddres.getInitial());
-        dm.setPhoto(ddres.getPhoto());
-        dm.setTwitter(ddres.getTwitter());
-        dm.setIdCountry(ddres.getIdCountry());
-        return dm;
+    public static DriverModel toDriverModel(DriverDTOResponse ddres){
+        try {
+            final var dm = new DriverModel();
+            dm.setId(ddres.getId());
+            dm.setName(ddres.getName());
+            dm.setLastName(ddres.getLastName());
+            dm.setInitial(ddres.getInitial());
+            dm.setPhoto(ddres.getPhoto());
+            dm.setTwitter(ddres.getTwitter());
+            dm.setIdCountry(ddres.getIdCountry());
+            return dm;
+        }catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    public List<DriverModel> toDriverModelReq(List<DriverDTORequest> ddreq){
-        return ddreq.stream().map(this::toDriverModel).toList();
+    public static List<DriverModel> toDriverModelReq(List<DriverDTORequest> ddreq){
+        return ddreq.stream().map(DriverMappers::toDriverModel).toList();
     }
 
-    public List<DriverModel> toDriverModelRes(List<DriverDTOResponse> ddres){
-        return ddres.stream().map(this::toDriverModel).toList();
+    public static List<DriverModel> toDriverModelRes(List<DriverDTOResponse> ddres){
+        return ddres.stream().map(DriverMappers::toDriverModel).toList();
     }
 
 

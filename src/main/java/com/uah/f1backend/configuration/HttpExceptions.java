@@ -13,4 +13,8 @@ public class HttpExceptions {
     @ResponseStatus(code = NOT_FOUND, reason = "Team not found")
     public static class TeamDoesntExistException extends RuntimeException {
     }
+
+    @ResponseStatus(code = NOT_FOUND, reason = "Driver not found")
+    public static class DriverDoesntExistException extends RuntimeException {
+    }
 }
