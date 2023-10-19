@@ -1,15 +1,15 @@
 package com.uah.f1backend.common;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import static com.uah.f1backend.common.GenericValidations.isValidTwitter;
 import static com.uah.f1backend.common.GenericValidations.isValidUrl;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class GenericValidationsTest {
 
     @Test
-    void isValidUrlTest(){
+    void isValidUrlTest() {
         Assertions.assertAll(
                 "Image URL tests",
                 // Casos verdaderos
@@ -22,12 +22,11 @@ public class GenericValidationsTest {
                 () -> Assertions.assertFalse(isValidUrl("http://example.com/imagepng")), // wrong extension
                 () -> Assertions.assertFalse(isValidUrl("www.example/image..jpg")), // wrong extension
                 () -> Assertions.assertFalse(isValidUrl("./.jpg")),
-                () -> Assertions.assertFalse(isValidUrl("http:/malformed.com/image.jpg"))
-        );
+                () -> Assertions.assertFalse(isValidUrl("http:/malformed.com/image.jpg")));
     }
 
     @Test
-    void isValidTwitterTest(){
+    void isValidTwitterTest() {
         Assertions.assertAll(
                 "Twitter accounts tests",
                 () -> Assertions.assertTrue(isValidTwitter("@twitter")), // Common Twitter account
@@ -38,6 +37,6 @@ public class GenericValidationsTest {
                 () -> Assertions.assertTrue(isValidTwitter("@t")), // Can be 1 to 15 characters
                 () -> Assertions.assertTrue(isValidTwitter("@123456789012345")),
                 () -> Assertions.assertFalse(isValidTwitter("@1234567890123456")) // Can't be more than 15 chars
-        );
+                );
     }
 }

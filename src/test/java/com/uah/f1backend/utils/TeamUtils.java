@@ -3,7 +3,6 @@ package com.uah.f1backend.utils;
 import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class TeamUtils {
 
     public static List<TeamDTOResponse> dummyListTeamDTOResponse() {
         final var dummyList = new ArrayList<TeamDTOResponse>();
-        for (var i = 0; i <= 3; i ++) {
+        for (var i = 0; i <= 3; i++) {
             dummyList.add(new TeamDTOResponse(i, "name" + i, String.format("logo%s.png", i), "@twitter" + i));
         }
         return dummyList;
@@ -52,7 +51,7 @@ public class TeamUtils {
 
     public static List<TeamModel> dummyListTeamModel() {
         final var dummyList = new ArrayList<TeamModel>();
-        for (var i = 0; i <= 3; i ++) {
+        for (var i = 0; i <= 3; i++) {
             final var tm = new TeamModel();
             tm.setId(i);
             tm.setName("name" + i);
