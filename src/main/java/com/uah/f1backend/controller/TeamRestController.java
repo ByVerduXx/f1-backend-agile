@@ -18,17 +18,17 @@ public class TeamRestController {
     private final TeamService teamService;
 
     @GetMapping
-    public ResponseEntity<List<TeamDTOResponse>> getTeams() {
+    public ResponseEntity<List<TeamDTOResponse>> obtainAll() {
         return ResponseEntity.ok(teamService.getAllTeams());
     }
 
     @GetMapping(params = "name")
-    public ResponseEntity<TeamDTOResponse> getTeams(@RequestParam String name) {
+    public ResponseEntity<TeamDTOResponse> obtainByName(@RequestParam String name) {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<TeamDTOResponse> getTeams(@PathVariable Integer id) {
+    public ResponseEntity<TeamDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamById(id));
     }
 

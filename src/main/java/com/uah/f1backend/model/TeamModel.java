@@ -1,11 +1,12 @@
 package com.uah.f1backend.model;
 
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity(name = "team")
+@Entity(name = TEAM_TABLE)
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor
