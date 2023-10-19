@@ -1,6 +1,5 @@
 package com.uah.f1backend.model.dto.team;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
