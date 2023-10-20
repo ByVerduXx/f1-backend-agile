@@ -28,14 +28,19 @@ mvn spring-boot:run
 Esto levantará el servidor Spring Boot, y la aplicación estará accesible en http://localhost:8080/.
 
 ## Tests
-
 Para ejecutar los tests, simplemente ejecuta:
 ```bash
 mvn verify
 ```
 Esto ejecutará todos los tests unitarios y de integración.
 
-
-
-
-
+## Spotless
+Para mantener siempre un mismo formato en el código, independientemente de quien lo realice, utilizamos el plugin Spotless.
+Puedes comprobar si tu código cumple con los requisitos de spotless mediante:
+```bash
+mvn spotless:check
+```
+Si tu código no pasa las validaciones de spotless ejecuta el isguiente comando para formatear el código:
+```bash
+mvn spotless:apply
+```
