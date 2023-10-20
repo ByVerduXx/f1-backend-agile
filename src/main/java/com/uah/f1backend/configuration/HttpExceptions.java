@@ -26,4 +26,7 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Team name has to be at least 4 characters")
     public static class TeamNameLengthException extends RuntimeException {}
+    //Car Exceptions
+    @ResponseStatus(code = NOT_FOUND, reason = "Car not found")
+    public static class CarDoesntExistException extends RuntimeException {}
 }

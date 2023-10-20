@@ -1,13 +1,13 @@
 package com.uah.f1backend.controller;
 
+import com.uah.f1backend.model.dto.car.CarDTORequest;
 import com.uah.f1backend.model.dto.car.CarDTOResponse;
 import com.uah.f1backend.service.CarService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("cars")
@@ -18,5 +18,25 @@ public class CarRestController {
     @GetMapping
     public ResponseEntity<List<CarDTOResponse>> obtainAll() {
         return ResponseEntity.ok(carService.getAllCars());
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CarDTOResponse> obtainById(@PathVariable Integer id) {
+        return ResponseEntity.ok(carService.getCarById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<CarDTOResponse> saveCar(@RequestBody CarDTORequest carDTORequest) {
+        return new ResponseEntity<>(carService.saveCar(carDTORequest), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CarDTOResponse> updateCar(@PathVariable Integer id, @RequestBody CarDTORequest carDTORequest) {
+        return new ResponseEntity<>(carService.updateCar(id, carDTORequest), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCar(@PathVariable Integer id) {
+        return ResponseEntity.ok(carService.deleteCar(id));
     }
 }
