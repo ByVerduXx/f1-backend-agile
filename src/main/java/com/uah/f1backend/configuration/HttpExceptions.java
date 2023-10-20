@@ -29,4 +29,25 @@ public class HttpExceptions {
     //Car Exceptions
     @ResponseStatus(code = NOT_FOUND, reason = "Car not found")
     public static class CarDoesntExistException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, code, ersSlow, ersMedium, ersFast, consumption]")
+    public static class CarNotSavedException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car name has to be at least 1 character")
+    public static class CarNameNotValidException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car name already exists")
+    public static class CarNameInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car code already exists")
+    public static class CarCodeInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car code has to be at least 3 characters")
+    public static class CarCodeNotValidException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car ERS value has to be greater than zero")
+    public static class CarErsValueNotValidException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car consumption value has to be greater or equal to zero")
+    public static class CarConsumptionNotValidException extends RuntimeException {}
 }

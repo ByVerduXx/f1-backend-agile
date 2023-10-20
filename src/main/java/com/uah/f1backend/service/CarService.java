@@ -6,6 +6,8 @@ import com.uah.f1backend.model.dto.car.CarDTORequest;
 import com.uah.f1backend.model.dto.car.CarDTOResponse;
 import com.uah.f1backend.model.mapper.car.CarMappers;
 import com.uah.f1backend.repository.CarModelRepository;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,13 +31,21 @@ public class CarService {
     }
 
     public CarDTOResponse saveCar(CarDTORequest carDTORequest) {
-        CarModel carModel = CarMappers.toCarModel(carDTORequest);
-        carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+        try {
+            CarModel carModel = CarMappers.toCarModel(carDTORequest);
+            carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
 
-        return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
+            isCarNameInUse(carModel.getName());
+            isCarCodeInUse(carModel.getCode());
+            validateCarFields(carModel);
+            return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
+        } catch (Exception e) {
+            throw new HttpExceptions.CarNotSavedException();
+        }
     }
 
     public CarDTOResponse updateCar(Integer id, CarDTORequest carDTORequest) {
+        try {
         CarModel carModel = carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
 
         carModel.setName(carDTORequest.getName());
@@ -49,12 +59,53 @@ public class CarService {
             carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
         }
 
+        isCarNameInUse(carModel.getName());
+        isCarCodeInUse(carModel.getCode());
+        validateCarFields(carModel);
+
         return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
+        } catch (Exception e) {
+            throw new HttpExceptions.CarNotSavedException();
+        }
     }
 
     public String deleteCar(Integer id) {
         CarModel carModel = carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
         carModelRepository.delete(carModel);
         return "Car with id " + id + " and name " + carModel.getName() + " has been deleted";
+    }
+
+    private void validateCarFields(CarModel car) {
+        if (car.getName() == null || car.getName().isEmpty()) {
+            throw new HttpExceptions.CarNameNotValidException();
+        }
+        if (car.getCode() == null || car.getCode().isEmpty() || car.getCode().length() < 3) {
+            throw new HttpExceptions.CarCodeNotValidException();
+        }
+        validateErsValue(car.getErsGainSlow());
+        validateErsValue(car.getErsGainMedium());
+        validateErsValue(car.getErsGainFast());
+
+        if (car.getConsumption() == null || car.getConsumption().compareTo(BigDecimal.ZERO) < 0) {
+            throw new HttpExceptions.CarConsumptionNotValidException();
+        }
+    }
+
+    private void validateErsValue(BigDecimal value) {
+        if (value != null && value.compareTo(BigDecimal.ZERO) >= 0) {
+            throw new HttpExceptions.CarErsValueNotValidException();
+        }
+    }
+
+    private void isCarNameInUse(String name) {
+        if (carModelRepository.findCarModelByName(name).isPresent()) {
+            throw new HttpExceptions.CarNameInUseException();
+        }
+    }
+
+    private void isCarCodeInUse(String code) {
+        if (carModelRepository.findCarModelByCode(code).isPresent()) {
+            throw new HttpExceptions.CarCodeInUseException();
+        }
     }
 }
