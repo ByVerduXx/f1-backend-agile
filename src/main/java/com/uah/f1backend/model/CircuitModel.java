@@ -26,19 +26,19 @@ public class CircuitModel {
     @Column(name = CIRCUIT_CITY)
     private String city;
     @Column(name = CIRCUIT_IDCOUNTRY)
-    private String id_country;
+    private Integer id_country;
     @Column(name = CIRCUIT_IMAGE)
     private String image;
     @Column(name = CIRCUIT_LAPS)
-    private String laps;
+    private Integer laps;
     @Column(name = CIRCUIT_LENGTH)
-    private String length;
+    private Integer length;
     @Column(name = CIRCUIT_SLOW_TURNS)
-    private String slow_turns;
+    private Integer slow_turns;
     @Column(name = CIRCUIT_MEDIUM_TURNS)
-    private String medium_turns;
+    private Integer medium_turns;
     @Column(name = CIRCUIT_FAST_TURNS)
-    private String fast_turns;
+    private Integer fast_turns;
 
 }
 

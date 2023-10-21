@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 public class CircuitDTORequest {
     private final String name;
     private final String city;
-    private final String id_country;
+    private final Integer id_country;
     private final String image;
-    private final String laps;
-    private final String length;
-    private final String slow_turns;
-    private final String medium_turns;
-    private final String fast_turns;
+    private final Integer laps;
+    private final Integer length;
+    private final Integer slow_turns;
+    private final Integer medium_turns;
+    private final Integer fast_turns;
 }
