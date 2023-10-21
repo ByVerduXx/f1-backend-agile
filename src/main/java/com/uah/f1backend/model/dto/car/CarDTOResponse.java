@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import lombok.*;
 
 @Getter
+@EqualsAndHashCode
 @RequiredArgsConstructor
 public class CarDTOResponse {
 

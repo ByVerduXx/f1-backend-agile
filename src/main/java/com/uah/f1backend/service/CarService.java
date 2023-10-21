@@ -39,32 +39,32 @@ public class CarService {
             isCarCodeInUse(carModel.getCode());
             validateCarFields(carModel);
             return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             throw new HttpExceptions.CarNotSavedException();
         }
     }
 
     public CarDTOResponse updateCar(Integer id, CarDTORequest carDTORequest) {
         try {
-        CarModel carModel = carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
+            CarModel carModel = carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
 
-        carModel.setName(carDTORequest.getName());
-        carModel.setCode(carDTORequest.getCode());
-        carModel.setErsGainSlow(carDTORequest.getErsGainSlow());
-        carModel.setErsGainMedium(carDTORequest.getErsGainMedium());
-        carModel.setErsGainFast(carDTORequest.getErsGainFast());
-        carModel.setConsumption(carDTORequest.getConsumption());
+            carModel.setName(carDTORequest.getName());
+            carModel.setCode(carDTORequest.getCode());
+            carModel.setErsGainSlow(carDTORequest.getErsGainSlow());
+            carModel.setErsGainMedium(carDTORequest.getErsGainMedium());
+            carModel.setErsGainFast(carDTORequest.getErsGainFast());
+            carModel.setConsumption(carDTORequest.getConsumption());
 
-        if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
-            carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
-        }
+            if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
+                carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+            }
 
-        isCarNameInUse(carModel.getName());
-        isCarCodeInUse(carModel.getCode());
-        validateCarFields(carModel);
+            isCarNameInUse(carModel.getName());
+            isCarCodeInUse(carModel.getCode());
+            validateCarFields(carModel);
 
-        return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
-        } catch (Exception e) {
+            return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));
+        } catch (NullPointerException e) {
             throw new HttpExceptions.CarNotSavedException();
         }
     }
@@ -92,7 +92,7 @@ public class CarService {
     }
 
     private void validateErsValue(BigDecimal value) {
-        if (value != null && value.compareTo(BigDecimal.ZERO) >= 0) {
+        if (value != null && value.compareTo(BigDecimal.ZERO) < 0) {
             throw new HttpExceptions.CarErsValueNotValidException();
         }
     }
