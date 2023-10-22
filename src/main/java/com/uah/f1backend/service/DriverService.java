@@ -1,6 +1,8 @@
 package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
+import com.uah.f1backend.model.DriverModel;
+import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.driver.DriverDTORequest;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
@@ -9,6 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.uah.f1backend.common.GenericValidations.isValidTwitter;
+import static com.uah.f1backend.common.GenericValidations.isValidUrl;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +33,10 @@ public class DriverService {
         final var dm = DriverMappers.toDriverModel(driverDTORequest);
 
         if(dm == null) {
-            throw new HttpExceptions.ResourceNotSavedException();
+            throw new HttpExceptions.DriverNotSavedException();
         }
+
+        validateDriverFields(dm);
 
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
     }
@@ -59,6 +66,21 @@ public class DriverService {
         dm.setPhoto(driverDTORequest.getPhoto());
         dm.setIdCountry(driverDTORequest.getIdCountry());
 
+        validateDriverFields(dm);
+
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
     }
+
+    private static void validateDriverFields(DriverModel dm) {
+        // Validate that photo is a valid url
+        if (!isValidUrl(dm.getPhoto())) {
+            throw new HttpExceptions.InvalidUrlFormatException();
+        }
+
+        // Validate that twitter is a valid Twitter account (can be empty)
+        if (dm.getTwitter() != null && !isValidTwitter(dm.getTwitter())) {
+            throw new HttpExceptions.InvalidTwitterFormatException();
+        }
+    }
+
 }
