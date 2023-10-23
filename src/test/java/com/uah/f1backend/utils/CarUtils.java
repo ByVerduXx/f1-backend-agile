@@ -3,7 +3,6 @@ package com.uah.f1backend.utils;
 import com.uah.f1backend.model.CarModel;
 import com.uah.f1backend.model.dto.car.CarDTORequest;
 import com.uah.f1backend.model.dto.car.CarDTOResponse;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,15 @@ public class CarUtils {
     public static List<CarDTOResponse> dummyListCarDTOResponse() {
         final var dummyList = new ArrayList<CarDTOResponse>();
         for (var i = 0; i <= 3; i++) {
-            dummyList.add(new CarDTOResponse(i, "name" + i, String.format("code%s", i), BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), TeamUtils.dummyTeamModel().getName()));
+            dummyList.add(new CarDTOResponse(
+                    i,
+                    "name" + i,
+                    String.format("code%s", i),
+                    BigDecimal.valueOf(3.4),
+                    BigDecimal.valueOf(2.4),
+                    BigDecimal.valueOf(6.4),
+                    BigDecimal.valueOf(1.4),
+                    TeamUtils.dummyTeamModel().getName()));
         }
         return dummyList;
     }
@@ -62,34 +69,138 @@ public class CarUtils {
     }
 
     public static CarDTOResponse dummyCarDTOResponse() {
-        return new CarDTOResponse(1, "name", "code", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), TeamUtils.dummyTeamModel().getName());
+        return new CarDTOResponse(
+                1,
+                "name",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                TeamUtils.dummyTeamModel().getName());
     }
 
     public static CarDTOResponse dummyCarDTOResponse2() {
-        return new CarDTOResponse(2, "name2", "code2", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), TeamUtils.dummyTeamModel().getName());
+        return new CarDTOResponse(
+                2,
+                "name2",
+                "code2",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                TeamUtils.dummyTeamModel().getName());
     }
 
     public static CarDTORequest dummyCarDTORequest() {
-        return new CarDTORequest("name", "code", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), 1);
+        return new CarDTORequest(
+                "name",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                1);
     }
+
     public static CarDTORequest dummyCarDTORequest2() {
-        return new CarDTORequest("name2", "code2", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), 2);
+        return new CarDTORequest(
+                "name2",
+                "code2",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                2);
     }
 
     public static CarDTORequest dummyCarDTORequestBadName() {
-        return new CarDTORequest("", "code", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), 1);
+        return new CarDTORequest(
+                "",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                1);
     }
 
     public static CarDTORequest dummyCarDTORequestBadCode() {
-        return new CarDTORequest("name", "23", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(1.4), 1);
+        return new CarDTORequest(
+                "name",
+                "23",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                1);
     }
 
     public static CarDTORequest dummyCarDTORequestBadErs() {
-        return new CarDTORequest("name", "code", BigDecimal.valueOf(-3.4), BigDecimal.valueOf(-2.4), BigDecimal.valueOf(-6.4), BigDecimal.valueOf(1.4), 1);
+        return new CarDTORequest(
+                "name",
+                "code",
+                BigDecimal.valueOf(-3.4),
+                BigDecimal.valueOf(-2.4),
+                BigDecimal.valueOf(-6.4),
+                BigDecimal.valueOf(1.4),
+                1);
     }
 
     public static CarDTORequest dummyCarDTORequestBadConsumption() {
-        return new CarDTORequest("name", "code", BigDecimal.valueOf(3.4), BigDecimal.valueOf(2.4), BigDecimal.valueOf(6.4), BigDecimal.valueOf(-1.4), 1);
+        return new CarDTORequest(
+                "name",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(-1.4),
+                1);
     }
 
+    public static CarDTORequest dummyCarDTORequestIT(Integer id) {
+        return new CarDTORequest(
+                "name",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                id);
+    }
+
+    public static CarDTORequest dummyCarDTORequestIT2(Integer id) {
+        return new CarDTORequest(
+                "Pedro de los cojoens",
+                "code2",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                id);
+    }
+
+    public static CarDTOResponse dummyCarDTOResponseIT(String teamName) {
+        return new CarDTOResponse(
+                1,
+                "name",
+                "code",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                teamName);
+    }
+
+    public static CarDTOResponse dummyCarDTOResponseIT2(String teamName) {
+        return new CarDTOResponse(
+                1,
+                "Pedro de los cojoens",
+                "code2",
+                BigDecimal.valueOf(3.4),
+                BigDecimal.valueOf(2.4),
+                BigDecimal.valueOf(6.4),
+                BigDecimal.valueOf(1.4),
+                teamName);
+    }
 }

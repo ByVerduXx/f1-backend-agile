@@ -15,21 +15,23 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class TeamServiceTest {
+    @InjectMocks
+    TeamService teamService;
+
     @Mock
     TeamModelRepository teamModelRepository;
 
     AutoCloseable closeable;
-    TeamService teamService;
 
     @BeforeEach
     void initMocks() {
         closeable = MockitoAnnotations.openMocks(this);
-        teamService = new TeamService(teamModelRepository);
     }
 
     @AfterEach

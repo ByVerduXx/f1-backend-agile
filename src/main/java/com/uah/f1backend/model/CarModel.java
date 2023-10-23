@@ -6,8 +6,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import lombok.*;
 
-@Entity
-@Table(name = TableNameConstants.CAR_TABLE)
+@Entity(name = TableNameConstants.CAR_TABLE)
 @Data
 @EqualsAndHashCode
 @NoArgsConstructor

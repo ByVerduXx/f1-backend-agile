@@ -6,12 +6,10 @@ import com.uah.f1backend.model.dto.car.CarDTORequest;
 import com.uah.f1backend.model.dto.car.CarDTOResponse;
 import com.uah.f1backend.model.mapper.car.CarMappers;
 import com.uah.f1backend.repository.CarModelRepository;
-
+import com.uah.f1backend.repository.TeamModelRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
-
-import com.uah.f1backend.repository.TeamModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,13 +25,16 @@ public class CarService {
     }
 
     public CarDTOResponse getCarById(Integer id) {
-        return CarMappers.toCarDTOResponse(carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new));
+        return CarMappers.toCarDTOResponse(
+                carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new));
     }
 
     public CarDTOResponse saveCar(CarDTORequest carDTORequest) {
         try {
             CarModel carModel = CarMappers.toCarModel(carDTORequest);
-            carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+            carModel.setTeam(teamModelRepository
+                    .findById(carDTORequest.getTeamId())
+                    .orElseThrow(HttpExceptions.TeamDoesntExistException::new));
 
             isCarNameInUse(carModel.getName());
             isCarCodeInUse(carModel.getCode());
@@ -46,7 +47,17 @@ public class CarService {
 
     public CarDTOResponse updateCar(Integer id, CarDTORequest carDTORequest) {
         try {
-            CarModel carModel = carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
+            CarModel carModel =
+                    carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
+
+            if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
+                carModel.setTeam(teamModelRepository
+                        .findById(carDTORequest.getTeamId())
+                        .orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+            }
+
+            isCarNameInUse(carDTORequest.getName());
+            isCarCodeInUse(carDTORequest.getCode());
 
             carModel.setName(carDTORequest.getName());
             carModel.setCode(carDTORequest.getCode());
@@ -55,12 +66,6 @@ public class CarService {
             carModel.setErsGainFast(carDTORequest.getErsGainFast());
             carModel.setConsumption(carDTORequest.getConsumption());
 
-            if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
-                carModel.setTeam(teamModelRepository.findById(carDTORequest.getTeamId()).orElseThrow(HttpExceptions.TeamDoesntExistException::new));
-            }
-
-            isCarNameInUse(carModel.getName());
-            isCarCodeInUse(carModel.getCode());
             validateCarFields(carModel);
 
             return CarMappers.toCarDTOResponse(carModelRepository.save(carModel));

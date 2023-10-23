@@ -13,16 +13,20 @@ import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class TeamEnd2EndIT {
 
     @Autowired
@@ -37,11 +41,20 @@ public class TeamEnd2EndIT {
     @Autowired
     ObjectMapper objectMapper;
 
+    @BeforeEach
+    void emptyDataBase() {
+        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
+    }
+
+    @AfterEach
+    void emptyDataBaseAfter() {
+        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
+    }
+
     @Test
     void insertAndDeleteTeam() throws Exception {
 
         final var teamDTORequest = dummyTeamDTORequest();
-        final var expectedTeamDTOResponse = dummyTeamDTOResponseOnIT();
 
         final var gson = new Gson();
 
@@ -54,6 +67,8 @@ public class TeamEnd2EndIT {
                 .getContentAsString();
 
         final var insertResponseEntity = objectMapper.readValue(insertResponseAsString, TeamDTOResponse.class);
+
+        final var expectedTeamDTOResponse = dummyTeamDTOResponseOnIT(insertResponseEntity.getId());
 
         // Check that response object is the one expected
         Assertions.assertEquals(expectedTeamDTOResponse, insertResponseEntity);
@@ -83,7 +98,6 @@ public class TeamEnd2EndIT {
 
         // Update team
         final var updatedTeamDTORequest = dummyTeamDTORequest2();
-        final var updatedExpectedTeamDTOResponse = dummyTeamDTOResponseOnUpdateIT();
 
         final var updateResponseAsString = mockMvc.perform(put("/teams/" + actualTeamModel.getId())
                         .content(gson.toJson(updatedTeamDTORequest))
@@ -94,6 +108,7 @@ public class TeamEnd2EndIT {
                 .getContentAsString();
 
         final var updateResponseEntity = objectMapper.readValue(updateResponseAsString, TeamDTOResponse.class);
+        final var updatedExpectedTeamDTOResponse = dummyTeamDTOResponseOnUpdateIT(updateResponseEntity.getId());
 
         Assertions.assertEquals(updatedExpectedTeamDTOResponse, updateResponseEntity);
 
