@@ -20,16 +20,16 @@ public class TeamUtils {
         return new TeamDTOResponse(1, "name", "logo.png", "@twitter");
     }
 
-    public static TeamDTOResponse dummyTeamDTOResponseOnIT() {
-        return new TeamDTOResponse(4, "name", "logo.png", "@twitter");
+    public static TeamDTOResponse dummyTeamDTOResponseOnIT(Integer id) {
+        return new TeamDTOResponse(id, "name", "logo.png", "@twitter");
     }
 
     public static TeamDTOResponse dummyTeamDTOResponseOnUpdate() {
         return new TeamDTOResponse(1, "name2", "logo2.png", "@twitter2");
     }
 
-    public static TeamDTOResponse dummyTeamDTOResponseOnUpdateIT() {
-        return new TeamDTOResponse(4, "name2", "logo2.png", "@twitter2");
+    public static TeamDTOResponse dummyTeamDTOResponseOnUpdateIT(Integer id) {
+        return new TeamDTOResponse(id, "name2", "logo2.png", "@twitter2");
     }
 
     public static List<TeamDTOResponse> dummyListTeamDTOResponse() {
