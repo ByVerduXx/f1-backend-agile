@@ -31,7 +31,8 @@ public class CarRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarDTOResponse> updateCar(@PathVariable Integer id, @RequestBody CarDTORequest carDTORequest) {
+    public ResponseEntity<CarDTOResponse> updateCar(
+            @PathVariable Integer id, @RequestBody CarDTORequest carDTORequest) {
         return new ResponseEntity<>(carService.updateCar(id, carDTORequest), HttpStatus.CREATED);
     }
 

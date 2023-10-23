@@ -8,6 +8,9 @@ import com.uah.f1backend.repository.CarModelRepository;
 import com.uah.f1backend.repository.TeamModelRepository;
 import com.uah.f1backend.utils.CarUtils;
 import com.uah.f1backend.utils.TeamUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,10 +20,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 public class CarServiceTest {
 
     @InjectMocks
@@ -28,8 +27,10 @@ public class CarServiceTest {
 
     @Mock
     CarModelRepository carModelRepository;
+
     @Mock
     TeamModelRepository teamModelRepository;
+
     AutoCloseable closeable;
 
     @BeforeEach
@@ -146,12 +147,12 @@ public class CarServiceTest {
         });
     }
 
-
     @Test
     void saveCarNameNotValidTest() {
         CarDTORequest carDTORequest = CarUtils.dummyCarDTORequestBadName();
 
-        Mockito.when(teamModelRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
+        Mockito.when(teamModelRepository.findById(Mockito.anyInt()))
+                .thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
 
         Assertions.assertThrows(HttpExceptions.CarNameNotValidException.class, () -> {
             carService.saveCar(carDTORequest);
@@ -162,7 +163,8 @@ public class CarServiceTest {
     void saveCarCodeNotValidTest() {
         CarDTORequest carDTORequest = CarUtils.dummyCarDTORequestBadCode();
 
-        Mockito.when(teamModelRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
+        Mockito.when(teamModelRepository.findById(Mockito.anyInt()))
+                .thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
 
         Assertions.assertThrows(HttpExceptions.CarCodeNotValidException.class, () -> {
             carService.saveCar(carDTORequest);
@@ -173,7 +175,8 @@ public class CarServiceTest {
     void saveCarErsNotValidTest() {
         CarDTORequest carDTORequest = CarUtils.dummyCarDTORequestBadErs();
 
-        Mockito.when(teamModelRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
+        Mockito.when(teamModelRepository.findById(Mockito.anyInt()))
+                .thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
 
         Assertions.assertThrows(HttpExceptions.CarErsValueNotValidException.class, () -> {
             carService.saveCar(carDTORequest);
@@ -184,7 +187,8 @@ public class CarServiceTest {
     void saveCarConsumptionNotValidTest() {
         CarDTORequest carDTORequest = CarUtils.dummyCarDTORequestBadConsumption();
 
-        Mockito.when(teamModelRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
+        Mockito.when(teamModelRepository.findById(Mockito.anyInt()))
+                .thenReturn(Optional.of(TeamUtils.dummyTeamModel()));
 
         Assertions.assertThrows(HttpExceptions.CarConsumptionNotValidException.class, () -> {
             carService.saveCar(carDTORequest);
