@@ -164,7 +164,7 @@ public class CircuitServiceTest {
 
     @Test
     void insertCircuitObjectNullTest(){
-        Assertions.assertThrows(HttpExceptions.ResourceNotSavedException.class, () -> {
+        Assertions.assertThrows(HttpExceptions.CircuitNotSavedException.class, () -> {
             circuitService.insertCircuit(null);
         });
     }
@@ -267,6 +267,5 @@ public class CircuitServiceTest {
             circuitService.updateCircuitById(circuitId, c);
         });
     }
-
 
 }

@@ -45,7 +45,7 @@ public class CircuitService {
     public CircuitDTOResponse insertCircuit(CircuitDTORequest circuit) {
         final var cm = CircuitMappers.toCircuitModel(circuit);
         if (cm == null) {
-            throw new HttpExceptions.ResourceNotSavedException();
+            throw new HttpExceptions.CircuitNotSavedException();
         }
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
     }

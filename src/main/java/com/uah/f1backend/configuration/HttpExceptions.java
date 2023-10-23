@@ -33,5 +33,14 @@ public class HttpExceptions {
     // Circuit Exceptions
     @ResponseStatus(code = NOT_FOUND, reason = "Circuit not found")
     public static class CircuitDoesntExistException extends RuntimeException { }
+
+    @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, city, id_country, image, laps, length, slow_turns, medium_turns, fast_turns]")
+    public static class CircuitNotSavedException extends RuntimeException {}
+
+
 }
+
+
+
+
 
