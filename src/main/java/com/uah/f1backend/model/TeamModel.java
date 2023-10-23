@@ -1,13 +1,12 @@
 package com.uah.f1backend.model;
 
+import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
-
-import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
-
-@Entity(name = "team")
+@Entity(name = TEAM_TABLE)
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -16,12 +15,15 @@ public class TeamModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Exclude
-    @Column(name=TEAM_ID)
+    @Column(name = TEAM_ID)
     private Integer id;
-    @Column(name=TEAM_NAME)
+
+    @Column(name = TEAM_NAME)
     private String name;
-    @Column(name=TEAM_LOGO)
+
+    @Column(name = TEAM_LOGO)
     private String logo;
-    @Column(name=TEAM_TWITTER)
+
+    @Column(name = TEAM_TWITTER)
     private String twitter;
 }
