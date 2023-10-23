@@ -30,10 +30,6 @@ public class CircuitMappers {
         return cm.stream().map(CircuitMappers::toCircuitDTOResponse).toList();
     }
 
-    public static List<CircuitDTORequest> toCircuitListDTORequest(List<CircuitModel> cm){
-        return cm.stream().map(CircuitMappers::toCircuitDTORequest).toList();
-    }
-
     public static CircuitModel toCircuitModel(CircuitDTORequest cdr){
         try{
             final var cm = new CircuitModel();

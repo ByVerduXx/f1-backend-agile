@@ -13,4 +13,10 @@ public class HttpExceptions {
     @ResponseStatus(code = NOT_FOUND, reason = "Team not found")
     public static class TeamDoesntExistException extends RuntimeException {
     }
+
+
+    @ResponseStatus(code = NOT_FOUND, reason = "Circuit not found")
+    public static class CircuitDoesntExistException extends RuntimeException {
+    }
+
 }
