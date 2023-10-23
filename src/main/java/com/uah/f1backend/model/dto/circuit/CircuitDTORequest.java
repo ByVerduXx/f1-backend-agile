@@ -1,9 +1,11 @@
 package com.uah.f1backend.model.dto.circuit;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@EqualsAndHashCode
 @Getter
 public class CircuitDTORequest {
     private final String name;

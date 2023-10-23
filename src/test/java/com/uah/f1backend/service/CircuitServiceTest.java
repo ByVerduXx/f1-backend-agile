@@ -153,7 +153,8 @@ public class CircuitServiceTest {
     void insertCircuitTest(){
         final var circuitToInsert = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
         final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
-        final var circuit = CircuitMappers.toCircuitModel(expectedResult);
+        final var circuit = CircuitMappers.toCircuitModel(circuitToInsert);
+        circuit.setId(1);
 
         Mockito.doReturn(circuit).when(circuitModelRepository).save(circuit);
 

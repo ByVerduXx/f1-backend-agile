@@ -51,25 +51,5 @@ public class CircuitMappers {
     }
 
 
-    public static CircuitModel toCircuitModel(CircuitDTOResponse cdr){
-        try{
-            final var cm = new CircuitModel();
-            cm.setName(cdr.getName());
-            cm.setCity(cdr.getCity());
-            cm.setId_country(cdr.getId_country());
-            cm.setImage(cdr.getImage());
-            cm.setLaps(cdr.getLaps());
-            cm.setLength(cdr.getLength());
-            cm.setSlow_turns(cdr.getSlow_turns());
-            cm.setMedium_turns(cdr.getMedium_turns());
-            cm.setFast_turns(cdr.getFast_turns());
-            return cm;
-
-        }catch (NullPointerException e){
-            return null;
-        }
-
-    }
-
 
 }
