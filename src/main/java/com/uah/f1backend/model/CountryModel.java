@@ -7,8 +7,9 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.COUNTRY_TABLE;
 
-@Entity(name = COUNTRY_ENTITY)
+@Entity(name = COUNTRY_TABLE)
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor

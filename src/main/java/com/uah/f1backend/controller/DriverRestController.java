@@ -1,5 +1,6 @@
 package com.uah.f1backend.controller;
 
+import com.uah.f1backend.model.dto.driver.DeletedDriverDTOResponse;
 import com.uah.f1backend.model.dto.driver.DriverDTORequest;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
 import com.uah.f1backend.service.DriverService;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("drivers")
 @RequiredArgsConstructor
@@ -19,12 +22,17 @@ public class DriverRestController {
 
     @GetMapping
     public ResponseEntity<List<DriverDTOResponse>> obtainAllDrivers(){
-        return ResponseEntity.ok(driverService.findAllDrivers());
+        return ok(driverService.findAllDrivers());
     }
 
     @GetMapping("{id}")
     public ResponseEntity<DriverDTOResponse> obtainDriverById(@PathVariable Integer id){
-        return ResponseEntity.ok(driverService.findDriverById(id));
+        return ok(driverService.findDriverById(id));
+    }
+
+    @GetMapping(params = "dorsal")
+    public ResponseEntity<DriverDTOResponse> obtainDriverByDorsal(@RequestParam Integer dorsal){
+        return ok(driverService.findDriverByDorsal(dorsal));
     }
 
     @PostMapping()
@@ -32,20 +40,18 @@ public class DriverRestController {
         return new ResponseEntity<>(driverService.insertDriver(driverDTORequest), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(params = "name")
-    public ResponseEntity<Void> deleteDriverByName(@RequestParam String name){
-        driverService.deleteDriverByName(name);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteDriverById(@PathVariable Integer id){
-        driverService.deleteDriverById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<DeletedDriverDTOResponse> deleteDriverById(@PathVariable Integer id){
+        return ok(driverService.deleteDriverById(id));
     }
 
     @PutMapping("{id}")
     public ResponseEntity<DriverDTOResponse> updateDriverById(@PathVariable Integer id, @RequestBody DriverDTORequest driverDTORequest){
         return new ResponseEntity<>(driverService.updateDriverById(id, driverDTORequest), HttpStatus.CREATED);
+    }
+
+    @PutMapping(params = "dorsal")
+    public ResponseEntity<DriverDTOResponse> updateDriverByDorsal(@RequestParam Integer dorsal, @RequestBody DriverDTORequest driverDTORequest){
+        return new ResponseEntity<>(driverService.updateDriverByDorsal(dorsal, driverDTORequest), HttpStatus.CREATED);
     }
 }

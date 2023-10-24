@@ -10,8 +10,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.DRIVER_TABLE;
 
-@Entity(name = DRIVER_ENTITY)
+@Entity(name = DRIVER_TABLE)
 @Data
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -31,6 +32,9 @@ public class DriverModel {
 
     @Column(name= DRIVER_INITIAL)
     private String initial;
+
+    @Column(name= DRIVER_DORSAL)
+    private Integer dorsal;
 
     @Column(name= DRIVER_PHOTO)
     private String photo;

@@ -5,23 +5,17 @@ public class ColumnNameConstants {
     final public static String TEAM_NAME = "name";
     final public static String TEAM_LOGO = "logo";
     final public static String TEAM_TWITTER = "twitter";
-    final public static String COUNTRY_ENTITY = "country";
     final public static String COUNTRY_ID = "id";
     final public static String COUNTRY_CODE = "code";
     final public static String COUNTRY_NAME = "name";
-    final public static String DRIVER_ENTITY = "driver";
     final public static String DRIVER_ID = "id";
     final public static String DRIVER_NAME = "name";
     final public static String DRIVER_LAST_NAME = "last_name";
     final public static String DRIVER_INITIAL = "initial";
+    final public static String DRIVER_DORSAL = "dorsal";
     final public static String DRIVER_PHOTO = "photo";
     final public static String DRIVER_TWITTER = "twitter";
     final public static String DRIVER_ID_COUNTRY = "id_country";
-    public static final String TEAM_ID = "id";
-    public static final String TEAM_NAME = "name";
-    public static final String TEAM_LOGO = "logo";
-    public static final String TEAM_TWITTER = "twitter";
-
     public static final String CAR_ID = "id";
     public static final String CAR_TEAM_ID = "id_team";
     public static final String CAR_NAME = "name";
