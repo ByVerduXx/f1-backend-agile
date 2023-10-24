@@ -19,8 +19,7 @@ public class HttpExceptions {
     public static class TeamNotSavedException extends RuntimeException {}
 
     @ResponseStatus(code = NOT_FOUND, reason = "Team not found")
-    public static class TeamDoesntExistException extends RuntimeException {
-    }
+    public static class TeamDoesntExistException extends RuntimeException {}
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Team name already exists")
     public static class TeamNameInUseException extends RuntimeException {}
@@ -28,12 +27,13 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Team name has to be at least 4 characters")
     public static class TeamNameLengthException extends RuntimeException {}
 
-    //Driver Exceptions
+    // Driver Exceptions
     @ResponseStatus(code = NOT_FOUND, reason = "Driver not found")
-    public static class DriverDoesntExistException extends RuntimeException {
-    }
+    public static class DriverDoesntExistException extends RuntimeException {}
 
-    @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, lastName, initial, dorsal, photo, twitter (optional), idCountry]")
+    @ResponseStatus(
+            value = UNPROCESSABLE_ENTITY,
+            reason = "Needed fields: [name, lastName, initial, dorsal, photo, twitter (optional), idCountry]")
     public static class DriverNotSavedException extends RuntimeException {}
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Driver dorsal already exists")

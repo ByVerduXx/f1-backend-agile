@@ -1,18 +1,16 @@
 package com.uah.f1backend.service;
 
+import static com.uah.f1backend.configuration.HttpExceptions.*;
+import static com.uah.f1backend.utils.DriverUtils.*;
 
 import com.uah.f1backend.model.DriverModel;
 import com.uah.f1backend.repository.DriverModelRepository;
+import java.util.ArrayList;
+import java.util.Optional;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static com.uah.f1backend.utils.DriverUtils.*;
-import static com.uah.f1backend.configuration.HttpExceptions.*;
 
 public class DriverServiceTest {
 
@@ -23,13 +21,13 @@ public class DriverServiceTest {
     private DriverService driverService;
 
     @BeforeEach
-    public void initMocks(){
+    public void initMocks() {
         this.closeable = MockitoAnnotations.openMocks(this);
         this.driverService = new DriverService(driverModelRepository);
     }
 
     @AfterEach
-    public void closeService() throws Exception{
+    public void closeService() throws Exception {
         this.closeable.close();
     }
 
@@ -48,7 +46,7 @@ public class DriverServiceTest {
         final var actualResult = driverService.findAllDrivers();
         final var expectedResult = dummyListDriverDTOResponse();
 
-        for (var i = 0; i < actualResult.size(); i++){
+        for (var i = 0; i < actualResult.size(); i++) {
             Assertions.assertEquals(expectedResult.get(i), actualResult.get(i));
         }
     }
@@ -110,7 +108,8 @@ public class DriverServiceTest {
     @Test
     public void updateDriverByIdNotFoundTest() {
         Mockito.doReturn(Optional.empty()).when(driverModelRepository).findById(1);
-        Assertions.assertThrows(DriverDoesntExistException.class, () -> driverService.updateDriverById(1, dummyDriverDTORequest()));
+        Assertions.assertThrows(
+                DriverDoesntExistException.class, () -> driverService.updateDriverById(1, dummyDriverDTORequest()));
     }
 
     @Test
@@ -126,7 +125,8 @@ public class DriverServiceTest {
     @Test
     public void updateDriverByDorsalNotFoundTest() {
         Mockito.doReturn(Optional.empty()).when(driverModelRepository).findByDorsal(1);
-        Assertions.assertThrows(DriverDoesntExistException.class, () -> driverService.updateDriverByDorsal(1, dummyDriverDTORequest()));
+        Assertions.assertThrows(
+                DriverDoesntExistException.class, () -> driverService.updateDriverByDorsal(1, dummyDriverDTORequest()));
     }
 
     @Test
@@ -143,5 +143,4 @@ public class DriverServiceTest {
         Mockito.doReturn(Optional.empty()).when(driverModelRepository).findById(1);
         Assertions.assertThrows(DriverDoesntExistException.class, () -> driverService.deleteDriverById(1));
     }
-
 }

@@ -1,13 +1,13 @@
 package com.uah.f1backend.model;
 
+import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.COUNTRY_TABLE;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
-
-import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
-import static com.uah.f1backend.configuration.common.TableNameConstants.COUNTRY_TABLE;
 
 @Entity(name = COUNTRY_TABLE)
 @Data
