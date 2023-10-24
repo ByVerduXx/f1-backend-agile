@@ -33,9 +33,7 @@ public class TeamService {
 
     // Retrieve the team matching the given id
     public TeamDTOResponse getTeamById(Integer id) {
-        final var team = teamModelRepository
-                .findById(Long.valueOf(id))
-                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        final var team = teamModelRepository.findById(id).orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         return TeamMappers.toTeamDTOResponseMapper(team);
     }
 
@@ -67,19 +65,15 @@ public class TeamService {
 
     // Remove team from db given its id
     public DeletedTeamDTOResponse deleteTeamById(Integer id) {
-        final var team = teamModelRepository
-                .findById(Long.valueOf(id))
-                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
-        teamModelRepository.deleteById(Long.valueOf(id));
+        final var team = teamModelRepository.findById(id).orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        teamModelRepository.deleteById(id);
         return new DeletedTeamDTOResponse("Team deleted", team.getName());
     }
 
     // Update a team existing in db
     public TeamDTOResponse updateTeamById(Integer id, TeamDTORequest team) {
         try {
-            final var tm = teamModelRepository
-                    .findById(Long.valueOf(id))
-                    .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+            final var tm = teamModelRepository.findById(id).orElseThrow(HttpExceptions.TeamDoesntExistException::new);
             tm.setName(team.getName());
             tm.setLogo(team.getLogo());
             tm.setTwitter(team.getTwitter());

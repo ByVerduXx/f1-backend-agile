@@ -15,21 +15,23 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class TeamServiceTest {
+    @InjectMocks
+    TeamService teamService;
+
     @Mock
     TeamModelRepository teamModelRepository;
 
     AutoCloseable closeable;
-    TeamService teamService;
 
     @BeforeEach
     void initMocks() {
         closeable = MockitoAnnotations.openMocks(this);
-        teamService = new TeamService(teamModelRepository);
     }
 
     @AfterEach
@@ -71,7 +73,7 @@ public class TeamServiceTest {
     @Test
     void getTeamByIdTest() {
         final var team = dummyTeamModel();
-        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(Long.valueOf(team.getId()));
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(team.getId());
 
         final var actualResult = teamService.getTeamById(1);
         final var expectedResult = dummyTeamDTOResponse();
@@ -89,7 +91,7 @@ public class TeamServiceTest {
 
     @Test
     void getTeamByIdNotFoundTest() {
-        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(1L);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(1);
         Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.getTeamById(1);
         });
@@ -129,7 +131,7 @@ public class TeamServiceTest {
     @Test
     void deleteTeamByIdTest() {
         final var team = dummyTeamModel();
-        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById((long) team.getId());
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(team.getId());
         Mockito.doNothing().when(teamModelRepository).delete(team);
 
         final var expectedResult = new DeletedTeamDTOResponse("Team deleted", team.getName());
@@ -151,7 +153,7 @@ public class TeamServiceTest {
     void updateTeamByIdTest() {
         final var team = dummyTeamModel();
 
-        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById((long) team.getId());
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(team.getId());
         Mockito.doReturn(team).when(teamModelRepository).save(team);
 
         final var teamRequest = new TeamDTORequest(team.getName(), team.getLogo(), team.getTwitter());
@@ -164,7 +166,7 @@ public class TeamServiceTest {
     @Test
     void deleteTeamByIdNotFoundTest() {
         final var teamId = 1;
-        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById((long) teamId);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(teamId);
         Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.deleteTeamById(teamId);
         });
@@ -174,7 +176,7 @@ public class TeamServiceTest {
     void updateTeamByIdNotFoundTest() {
         final var unknownTeamId = 1;
         final var team = dummyTeamDTORequest();
-        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById((long) unknownTeamId);
+        Mockito.doReturn(Optional.empty()).when(teamModelRepository).findById(unknownTeamId);
         Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {
             teamService.updateTeamById(unknownTeamId, team);
         });
