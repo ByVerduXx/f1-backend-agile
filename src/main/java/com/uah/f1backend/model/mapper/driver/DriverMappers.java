@@ -15,7 +15,8 @@ public class DriverMappers {
                 dm.getDorsal(),
                 dm.getPhoto(),
                 dm.getTwitter(),
-                dm.getIdCountry());
+                dm.getIdCountry(),
+                dm.getIdTeam());
     }
 
     public static DriverDTOResponse toDriverDTOResponse(DriverModel dm) {
@@ -27,7 +28,8 @@ public class DriverMappers {
                 dm.getDorsal(),
                 dm.getPhoto(),
                 dm.getTwitter(),
-                dm.getIdCountry());
+                dm.getIdCountry(),
+                dm.getIdTeam());
     }
 
     public static List<DriverDTORequest> toDriverDTORequests(List<DriverModel> dml) {
@@ -48,6 +50,7 @@ public class DriverMappers {
             dm.setPhoto(ddreq.getPhoto());
             dm.setTwitter(ddreq.getTwitter());
             dm.setIdCountry(ddreq.getIdCountry());
+            dm.setIdTeam(ddreq.getIdTeam());
             return dm;
         } catch (NullPointerException e) {
             return null;

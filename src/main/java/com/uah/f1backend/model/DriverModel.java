@@ -44,4 +44,7 @@ public class DriverModel {
 
     @Column(name = DRIVER_ID_COUNTRY)
     private Integer idCountry;
+
+    @Column(name = DRIVER_ID_TEAM)
+    private Integer idTeam;
 }

@@ -16,6 +16,7 @@ public class ColumnNameConstants {
     public static final String DRIVER_PHOTO = "photo";
     public static final String DRIVER_TWITTER = "twitter";
     public static final String DRIVER_ID_COUNTRY = "id_country";
+    public static final String DRIVER_ID_TEAM = "id_team";
     public static final String CAR_ID = "id";
     public static final String CAR_TEAM_ID = "id_team";
     public static final String CAR_NAME = "name";

@@ -66,6 +66,7 @@ public class DriverService {
         dm.setTwitter(driverDTORequest.getTwitter());
         dm.setPhoto(driverDTORequest.getPhoto());
         dm.setIdCountry(driverDTORequest.getIdCountry());
+        dm.setIdTeam(driverDTORequest.getIdTeam());
 
         final var driverByDorsal = driverModelRepository.findByDorsal(driverDTORequest.getDorsal());
 
@@ -88,6 +89,7 @@ public class DriverService {
         dm.setTwitter(driverDTORequest.getTwitter());
         dm.setPhoto(driverDTORequest.getPhoto());
         dm.setIdCountry(driverDTORequest.getIdCountry());
+        dm.setIdTeam(driverDTORequest.getIdTeam());
 
         validateDriverFields(dm);
 
