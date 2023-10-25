@@ -1,7 +1,5 @@
 package com.uah.f1backend.configuration;
 
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
@@ -21,8 +19,7 @@ public class HttpExceptions {
     public static class TeamNotSavedException extends RuntimeException {}
 
     @ResponseStatus(code = NOT_FOUND, reason = "Team not found")
-    public static class TeamDoesntExistException extends RuntimeException {
-    }
+    public static class TeamDoesntExistException extends RuntimeException {}
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Team name already exists")
     public static class TeamNameInUseException extends RuntimeException {}
@@ -60,10 +57,11 @@ public class HttpExceptions {
 
     // Circuit Exceptions
     @ResponseStatus(code = NOT_FOUND, reason = "Circuit not found")
-    public static class CircuitDoesntExistException extends RuntimeException { }
+    public static class CircuitDoesntExistException extends RuntimeException {}
 
-    @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, city, id_country, image, laps, length, slow_turns, medium_turns, fast_turns]")
+    @ResponseStatus(
+            value = UNPROCESSABLE_ENTITY,
+            reason =
+                    "Needed fields: [name, city, id_country, image, laps, length, slow_turns, medium_turns, fast_turns]")
     public static class CircuitNotSavedException extends RuntimeException {}
-
-
 }

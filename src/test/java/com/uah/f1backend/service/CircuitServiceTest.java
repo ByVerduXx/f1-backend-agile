@@ -2,12 +2,13 @@ package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.CircuitModel;
-
 import com.uah.f1backend.model.dto.circuit.CircuitDTORequest;
 import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
+import java.util.ArrayList;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,18 +17,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 public class CircuitServiceTest {
-
-
 
     @Mock
     CircuitModelRepository circuitModelRepository;
+
     AutoCloseable closeable;
     CircuitService circuitService;
-
 
     @BeforeEach
     void initMocks() {
@@ -40,21 +36,20 @@ public class CircuitServiceTest {
         closeable.close();
     }
 
-//---------------------------------
+    // ---------------------------------
     @Test
-    void getAllCircuitsEmptyTest(){
+    void getAllCircuitsEmptyTest() {
         final var circuitList = new ArrayList<CircuitModel>();
         Mockito.doReturn(circuitList).when(circuitModelRepository).findAll();
         final var actualResultList = circuitService.getAllCircuits();
         Assertions.assertEquals(0, actualResultList.size());
     }
 
-
     @Test
-    void getAllCircuitsTest(){
+    void getAllCircuitsTest() {
         final var circuitList = new ArrayList<CircuitModel>();
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             final var cm = new CircuitModel();
             cm.setId(i);
             cm.setName(Integer.toString(i));
@@ -68,7 +63,6 @@ public class CircuitServiceTest {
             cm.setFast_turns(i);
 
             circuitList.add(cm);
-
         }
         Mockito.doReturn(circuitList).when(circuitModelRepository).findAll();
         final var actualResult = circuitService.getAllCircuits();
@@ -89,7 +83,7 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void getCircuitByNameTest(){
+    void getCircuitByNameTest() {
         final var cm = new CircuitModel();
         cm.setId(1);
         cm.setName("name");
@@ -106,12 +100,11 @@ public class CircuitServiceTest {
         final var actualResult = circuitService.getCircuitByName("name");
         final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
 
-
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getCircuitByIdTest(){
+    void getCircuitByIdTest() {
         final var cm = new CircuitModel();
         cm.setId(1);
         cm.setName("name");
@@ -123,18 +116,16 @@ public class CircuitServiceTest {
         cm.setSlow_turns(1);
         cm.setMedium_turns(1);
         cm.setFast_turns(1);
-        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(1L);
-
+        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(1);
 
         final var actualResult = circuitService.getCircuitById(1);
         final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
-
 
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    void getCircuitByNameNotFoundTest(){
+    void getCircuitByNameNotFoundTest() {
         Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findByName("name");
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
             circuitService.getCircuitByName("name");
@@ -142,15 +133,15 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void getCircuitByIdNotFoundTest(){
-        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById(1L);
+    void getCircuitByIdNotFoundTest() {
+        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById(1);
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
             circuitService.getCircuitById(1);
         });
     }
 
     @Test
-    void insertCircuitTest(){
+    void insertCircuitTest() {
         final var circuitToInsert = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
         final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
         final var circuit = CircuitMappers.toCircuitModel(circuitToInsert);
@@ -163,14 +154,14 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void insertCircuitObjectNullTest(){
+    void insertCircuitObjectNullTest() {
         Assertions.assertThrows(HttpExceptions.CircuitNotSavedException.class, () -> {
             circuitService.insertCircuit(null);
         });
     }
 
     @Test
-    void deleteCircuitByNameTest(){
+    void deleteCircuitByNameTest() {
         final var circuitName = "name";
         final var cm = new CircuitModel();
         cm.setId(1);
@@ -193,7 +184,7 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void deleteCircuitByIdTest(){
+    void deleteCircuitByIdTest() {
         final var circuitId = 1;
         final var cm = new CircuitModel();
         cm.setId(circuitId);
@@ -206,7 +197,7 @@ public class CircuitServiceTest {
         cm.setSlow_turns(1);
         cm.setMedium_turns(1);
         cm.setFast_turns(1);
-        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById((long) circuitId);
+        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(circuitId);
         Mockito.doNothing().when(circuitModelRepository).delete(cm);
 
         final var expectedResult = new DeletedCircuitDTOResponse("Circuit deleted", cm.getName());
@@ -216,7 +207,7 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void deleteCircuitByNameNotFoundTest(){
+    void deleteCircuitByNameNotFoundTest() {
         final var circuitName = "name";
         Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findByName(circuitName);
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
@@ -225,7 +216,7 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void updateCircuitByIdTest(){
+    void updateCircuitByIdTest() {
         final var circuitId = 1;
         final var cm = new CircuitModel();
         cm.setId(circuitId);
@@ -239,7 +230,7 @@ public class CircuitServiceTest {
         cm.setMedium_turns(1);
         cm.setFast_turns(1);
 
-        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById((long) circuitId);
+        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(circuitId);
         Mockito.doReturn(cm).when(circuitModelRepository).save(cm);
 
         final var circuitRequest = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
@@ -250,22 +241,21 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void deleteCircuitByIdNotFoundTest(){
+    void deleteCircuitByIdNotFoundTest() {
         final var circuitId = 1;
-        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById((long) circuitId);
+        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById(circuitId);
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
             circuitService.deleteCircuitById(circuitId);
         });
     }
 
     @Test
-    void updateCircuitByIdNotFoundTest(){
+    void updateCircuitByIdNotFoundTest() {
         final var circuitId = 1;
         final var c = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
-        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById((long) circuitId);
+        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById(circuitId);
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
             circuitService.updateCircuitById(circuitId, c);
         });
     }
-
 }

@@ -18,7 +18,7 @@ public class ColumnNameConstants {
     public static final String CIRCUIT_ID = "id";
     public static final String CIRCUIT_NAME = "name";
     public static final String CIRCUIT_CITY = "city";
-    public static final String CIRCUIT_IDCOUNTRY = "id_country";
+    public static final String CIRCUIT_ID_COUNTRY = "id_country";
     public static final String CIRCUIT_LAPS = "laps";
     public static final String CIRCUIT_LENGTH = "length";
     public static final String CIRCUIT_IMAGE = "image";

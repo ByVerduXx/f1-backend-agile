@@ -7,40 +7,39 @@ import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CircuitService {
     private final CircuitModelRepository circuitModelRepository;
-    public List<CircuitDTOResponse> getAllCircuits(){
+
+    public List<CircuitDTOResponse> getAllCircuits() {
         return CircuitMappers.toCircuitListDTOResponse(circuitModelRepository.findAll());
     }
 
-    public CircuitDTOResponse getCircuitByName(String name){
-        final var c = circuitModelRepository.findByName(name)
-                .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
+    public CircuitDTOResponse getCircuitByName(String name) {
+        final var c =
+                circuitModelRepository.findByName(name).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         return CircuitMappers.toCircuitDTOResponse(c);
     }
 
     // Retrieve the circuit matching the given id
-    public CircuitDTOResponse getCircuitById(Integer id){
-        final var c = circuitModelRepository.findById(Long.valueOf(id))
+    public CircuitDTOResponse getCircuitById(Integer id) {
+        final var c = circuitModelRepository
+                .findById(id)
                 .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         return CircuitMappers.toCircuitDTOResponse(c);
     }
 
-
-    public DeletedCircuitDTOResponse deleteCircuitByName(String name){
-        final var c = circuitModelRepository.findByName(name)
-                .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
+    public DeletedCircuitDTOResponse deleteCircuitByName(String name) {
+        final var c =
+                circuitModelRepository.findByName(name).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         circuitModelRepository.delete(c);
         return new DeletedCircuitDTOResponse("Circuit deleted", name);
     }
-
 
     public CircuitDTOResponse insertCircuit(CircuitDTORequest circuit) {
         final var cm = CircuitMappers.toCircuitModel(circuit);
@@ -50,15 +49,17 @@ public class CircuitService {
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
     }
 
-    public DeletedCircuitDTOResponse deleteCircuitById(Integer id){
-        final var c = circuitModelRepository.findById(Long.valueOf(id))
+    public DeletedCircuitDTOResponse deleteCircuitById(Integer id) {
+        final var c = circuitModelRepository
+                .findById(id)
                 .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
-        circuitModelRepository.deleteById(Long.valueOf(id));
+        circuitModelRepository.deleteById(id);
         return new DeletedCircuitDTOResponse("Circuit deleted", c.getName());
     }
 
-    public CircuitDTOResponse updateCircuitById(int circuitId, CircuitDTORequest c) {
-        CircuitModel cm = circuitModelRepository.findById(Long.valueOf(circuitId))
+    public CircuitDTOResponse updateCircuitById(Integer id, CircuitDTORequest c) {
+        CircuitModel cm = circuitModelRepository
+                .findById(id)
                 .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         cm.setName(c.getName());
         cm.setCity(c.getCity());
