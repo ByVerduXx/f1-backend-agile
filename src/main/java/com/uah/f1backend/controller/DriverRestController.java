@@ -29,11 +29,6 @@ public class DriverRestController {
         return ok(driverService.findDriverById(id));
     }
 
-    @GetMapping(params = "dorsal")
-    public ResponseEntity<DriverDTOResponse> obtainDriverByDorsal(@RequestParam Integer dorsal) {
-        return ok(driverService.findDriverByDorsal(dorsal));
-    }
-
     @PostMapping()
     public ResponseEntity<DriverDTOResponse> insertDriver(@RequestBody DriverDTORequest driverDTORequest) {
         return new ResponseEntity<>(driverService.insertDriver(driverDTORequest), HttpStatus.CREATED);
@@ -48,11 +43,5 @@ public class DriverRestController {
     public ResponseEntity<DriverDTOResponse> updateDriverById(
             @PathVariable Integer id, @RequestBody DriverDTORequest driverDTORequest) {
         return new ResponseEntity<>(driverService.updateDriverById(id, driverDTORequest), HttpStatus.CREATED);
-    }
-
-    @PutMapping(params = "dorsal")
-    public ResponseEntity<DriverDTOResponse> updateDriverByDorsal(
-            @RequestParam Integer dorsal, @RequestBody DriverDTORequest driverDTORequest) {
-        return new ResponseEntity<>(driverService.updateDriverByDorsal(dorsal, driverDTORequest), HttpStatus.CREATED);
     }
 }

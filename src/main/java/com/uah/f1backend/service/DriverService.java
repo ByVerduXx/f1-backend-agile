@@ -29,11 +29,6 @@ public class DriverService {
                 driverModelRepository.findById(id).orElseThrow(HttpExceptions.DriverDoesntExistException::new));
     }
 
-    public DriverDTOResponse findDriverByDorsal(Integer dorsal) {
-        return DriverMappers.toDriverDTOResponse(
-                driverModelRepository.findByDorsal(dorsal).orElseThrow(HttpExceptions.DriverDoesntExistException::new));
-    }
-
     public DriverDTOResponse insertDriver(DriverDTORequest driverDTORequest) {
         final var dm = DriverMappers.toDriverModel(driverDTORequest);
 
@@ -59,15 +54,6 @@ public class DriverService {
 
     public DriverDTOResponse updateDriverById(Integer id, DriverDTORequest driverDTORequest) {
         final var dm = driverModelRepository.findById(id).orElseThrow(HttpExceptions.DriverDoesntExistException::new);
-
-        dm.setName(driverDTORequest.getName());
-        dm.setLastName(driverDTORequest.getLastName());
-        dm.setInitial(driverDTORequest.getInitial());
-        dm.setTwitter(driverDTORequest.getTwitter());
-        dm.setPhoto(driverDTORequest.getPhoto());
-        dm.setIdCountry(driverDTORequest.getIdCountry());
-        dm.setIdTeam(driverDTORequest.getIdTeam());
-
         final var driverByDorsal = driverModelRepository.findByDorsal(driverDTORequest.getDorsal());
 
         if (driverByDorsal.isPresent() && !Objects.equals(driverByDorsal.get().getId(), id)) {
@@ -76,22 +62,14 @@ public class DriverService {
 
         validateDriverFields(dm);
 
-        return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
-    }
-
-    public DriverDTOResponse updateDriverByDorsal(Integer dorsal, DriverDTORequest driverDTORequest) {
-        final var dm =
-                driverModelRepository.findByDorsal(dorsal).orElseThrow(HttpExceptions.DriverDoesntExistException::new);
-
         dm.setName(driverDTORequest.getName());
         dm.setLastName(driverDTORequest.getLastName());
         dm.setInitial(driverDTORequest.getInitial());
+        dm.setDorsal(driverDTORequest.getDorsal());
         dm.setTwitter(driverDTORequest.getTwitter());
         dm.setPhoto(driverDTORequest.getPhoto());
         dm.setIdCountry(driverDTORequest.getIdCountry());
         dm.setIdTeam(driverDTORequest.getIdTeam());
-
-        validateDriverFields(dm);
 
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
     }

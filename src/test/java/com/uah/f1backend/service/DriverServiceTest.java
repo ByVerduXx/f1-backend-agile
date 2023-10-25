@@ -67,21 +67,6 @@ public class DriverServiceTest {
     }
 
     @Test
-    public void findDriverByDorsalTest() {
-        final var dm = dummyDriverModel();
-        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findByDorsal(dm.getDorsal());
-        final var actualResult = driverService.findDriverByDorsal(1);
-        final var expectedResult = dummyDriverDTOResponse();
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void findDriverByDorsalNotFoundTest() {
-        Mockito.doReturn(Optional.empty()).when(driverModelRepository).findByDorsal(1);
-        Assertions.assertThrows(DriverDoesntExistException.class, () -> driverService.findDriverByDorsal(1));
-    }
-
-    @Test
     public void insertDriverTest() {
         final var dm = dummyDriverModel();
         Mockito.doReturn(dm).when(driverModelRepository).save(dm);
@@ -110,23 +95,6 @@ public class DriverServiceTest {
         Mockito.doReturn(Optional.empty()).when(driverModelRepository).findById(1);
         Assertions.assertThrows(
                 DriverDoesntExistException.class, () -> driverService.updateDriverById(1, dummyDriverDTORequest()));
-    }
-
-    @Test
-    public void updateDriverByDorsalTest() {
-        final var dm = dummyDriverModel();
-        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findByDorsal(dm.getDorsal());
-        Mockito.doReturn(dm).when(driverModelRepository).save(dm);
-        final var actualResult = driverService.updateDriverByDorsal(dm.getDorsal(), dummyDriverDTORequest());
-        final var expectedResult = dummyDriverDTOResponse();
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void updateDriverByDorsalNotFoundTest() {
-        Mockito.doReturn(Optional.empty()).when(driverModelRepository).findByDorsal(1);
-        Assertions.assertThrows(
-                DriverDoesntExistException.class, () -> driverService.updateDriverByDorsal(1, dummyDriverDTORequest()));
     }
 
     @Test
