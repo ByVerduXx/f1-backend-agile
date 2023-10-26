@@ -64,4 +64,8 @@ public class HttpExceptions {
             reason =
                     "Needed fields: [name, city, id_country, image, laps, length, slow_turns, medium_turns, fast_turns]")
     public static class CircuitNotSavedException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit name already exists")
+    public static class CircuitNameInUseException extends RuntimeException {}
 }
+

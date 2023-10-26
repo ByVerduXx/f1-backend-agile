@@ -46,6 +46,9 @@ public class CircuitService {
         if (cm == null) {
             throw new HttpExceptions.CircuitNotSavedException();
         }
+        if (circuitModelRepository.findByName(circuit.getName()).isPresent()) {
+            throw new HttpExceptions.CircuitNameInUseException();
+        }
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
     }
 
