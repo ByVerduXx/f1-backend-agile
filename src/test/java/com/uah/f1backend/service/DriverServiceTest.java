@@ -1,10 +1,14 @@
 package com.uah.f1backend.service;
 
 import static com.uah.f1backend.configuration.HttpExceptions.*;
+import static com.uah.f1backend.utils.CountryUtils.*;
 import static com.uah.f1backend.utils.DriverUtils.*;
+import static com.uah.f1backend.utils.TeamUtils.*;
 
 import com.uah.f1backend.model.DriverModel;
+import com.uah.f1backend.repository.CountryModelRepository;
 import com.uah.f1backend.repository.DriverModelRepository;
+import com.uah.f1backend.repository.TeamModelRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.junit.jupiter.api.*;
@@ -17,13 +21,19 @@ public class DriverServiceTest {
     @Mock
     private DriverModelRepository driverModelRepository;
 
+    @Mock
+    private CountryModelRepository countryModelRepository;
+
+    @Mock
+    private TeamModelRepository teamModelRepository;
+
     private AutoCloseable closeable;
     private DriverService driverService;
 
     @BeforeEach
     public void initMocks() {
         this.closeable = MockitoAnnotations.openMocks(this);
-        this.driverService = new DriverService(driverModelRepository);
+        this.driverService = new DriverService(driverModelRepository, teamModelRepository, countryModelRepository);
     }
 
     @AfterEach
@@ -69,6 +79,12 @@ public class DriverServiceTest {
     @Test
     public void insertDriverTest() {
         final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.of(dummyTeamModel()))
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
         Mockito.doReturn(dm).when(driverModelRepository).save(dm);
         final var actualResult = driverService.insertDriver(dummyDriverDTORequest());
         final var expectedResult = dummyDriverDTOResponse();
@@ -81,9 +97,23 @@ public class DriverServiceTest {
     }
 
     @Test
+    public void insertDriverDorsalInUseTest() {
+        final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findByDorsal(dm.getDorsal());
+        Assertions.assertThrows(
+                DriverDorsalInUseException.class, () -> driverService.insertDriver(dummyDriverDTORequest()));
+    }
+
+    @Test
     public void updateDriverByIdTest() {
         final var dm = dummyDriverModel();
         Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
+        Mockito.doReturn(Optional.of(dummyTeamModel()))
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
         Mockito.doReturn(dm).when(driverModelRepository).save(dm);
         final var actualResult = driverService.updateDriverById(dm.getId(), dummyDriverDTORequest());
         final var expectedResult = dummyDriverDTOResponse();
@@ -95,6 +125,17 @@ public class DriverServiceTest {
         Mockito.doReturn(Optional.empty()).when(driverModelRepository).findById(1);
         Assertions.assertThrows(
                 DriverDoesntExistException.class, () -> driverService.updateDriverById(1, dummyDriverDTORequest()));
+    }
+
+    @Test
+    public void updateDriverDorsalInUseTest() {
+        final var dm = dummyDriverModel();
+        final var dm2 = dummy2DriverModel();
+        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
+        Mockito.doReturn(Optional.of(dm2)).when(driverModelRepository).findByDorsal(dm2.getDorsal());
+        Assertions.assertThrows(
+                DriverDorsalInUseException.class,
+                () -> driverService.updateDriverById(dm.getId(), dummy3DriverDTORequest()));
     }
 
     @Test

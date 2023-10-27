@@ -7,18 +7,6 @@ import java.util.List;
 
 public class DriverMappers {
 
-    public static DriverDTORequest toDriverDTORequest(DriverModel dm) {
-        return new DriverDTORequest(
-                dm.getName(),
-                dm.getLastName(),
-                dm.getInitial(),
-                dm.getDorsal(),
-                dm.getPhoto(),
-                dm.getTwitter(),
-                dm.getIdCountry(),
-                dm.getIdTeam());
-    }
-
     public static DriverDTOResponse toDriverDTOResponse(DriverModel dm) {
         return new DriverDTOResponse(
                 dm.getId(),
@@ -28,12 +16,8 @@ public class DriverMappers {
                 dm.getDorsal(),
                 dm.getPhoto(),
                 dm.getTwitter(),
-                dm.getIdCountry(),
-                dm.getIdTeam());
-    }
-
-    public static List<DriverDTORequest> toDriverDTORequests(List<DriverModel> dml) {
-        return dml.stream().map(DriverMappers::toDriverDTORequest).toList();
+                dm.getCountry().getId(),
+                dm.getTeam().getId());
     }
 
     public static List<DriverDTOResponse> toDriverDTOResponses(List<DriverModel> dml) {
@@ -49,8 +33,7 @@ public class DriverMappers {
             dm.setDorsal(ddreq.getDorsal());
             dm.setPhoto(ddreq.getPhoto());
             dm.setTwitter(ddreq.getTwitter());
-            dm.setIdCountry(ddreq.getIdCountry());
-            dm.setIdTeam(ddreq.getIdTeam());
+
             return dm;
         } catch (NullPointerException e) {
             return null;

@@ -9,7 +9,9 @@ import com.uah.f1backend.model.dto.driver.DeletedDriverDTOResponse;
 import com.uah.f1backend.model.dto.driver.DriverDTORequest;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
+import com.uah.f1backend.repository.CountryModelRepository;
 import com.uah.f1backend.repository.DriverModelRepository;
+import com.uah.f1backend.repository.TeamModelRepository;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DriverService {
     private final DriverModelRepository driverModelRepository;
+    private final TeamModelRepository teamModelRepository;
+    private final CountryModelRepository countryModelRepository;
 
     public List<DriverDTOResponse> findAllDrivers() {
         return DriverMappers.toDriverDTOResponses(driverModelRepository.findAll());
@@ -40,6 +44,16 @@ public class DriverService {
             throw new HttpExceptions.DriverDorsalInUseException();
         }
 
+        final var team = teamModelRepository
+                .findById(driverDTORequest.getIdTeam())
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        final var country = countryModelRepository
+                .findById(driverDTORequest.getIdCountry())
+                .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
+
+        dm.setTeam(team);
+        dm.setCountry(country);
+
         validateDriverFields(dm);
 
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
@@ -56,20 +70,28 @@ public class DriverService {
         final var dm = driverModelRepository.findById(id).orElseThrow(HttpExceptions.DriverDoesntExistException::new);
         final var driverByDorsal = driverModelRepository.findByDorsal(driverDTORequest.getDorsal());
 
-        if (driverByDorsal.isPresent() && !Objects.equals(driverByDorsal.get().getId(), id)) {
-            throw new HttpExceptions.DriverDorsalInUseException();
-        }
-
-        validateDriverFields(dm);
-
         dm.setName(driverDTORequest.getName());
         dm.setLastName(driverDTORequest.getLastName());
         dm.setInitial(driverDTORequest.getInitial());
         dm.setDorsal(driverDTORequest.getDorsal());
         dm.setTwitter(driverDTORequest.getTwitter());
         dm.setPhoto(driverDTORequest.getPhoto());
-        dm.setIdCountry(driverDTORequest.getIdCountry());
-        dm.setIdTeam(driverDTORequest.getIdTeam());
+
+        if (driverByDorsal.isPresent() && !Objects.equals(driverByDorsal.get().getId(), id)) {
+            throw new HttpExceptions.DriverDorsalInUseException();
+        }
+
+        final var team = teamModelRepository
+                .findById(driverDTORequest.getIdTeam())
+                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        final var country = countryModelRepository
+                .findById(driverDTORequest.getIdCountry())
+                .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
+
+        dm.setTeam(team);
+        dm.setCountry(country);
+
+        validateDriverFields(dm);
 
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
     }

@@ -39,6 +39,11 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Driver dorsal already exists")
     public static class DriverDorsalInUseException extends RuntimeException {}
 
+    // Country Exceptions
+
+    @ResponseStatus(code = NOT_FOUND, reason = "Country not found")
+    public static class CountryDoesntExistException extends RuntimeException {}
+
     // Car Exceptions
     @ResponseStatus(code = NOT_FOUND, reason = "Car not found")
     public static class CarDoesntExistException extends RuntimeException {}

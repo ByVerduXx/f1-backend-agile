@@ -1,5 +1,8 @@
 package com.uah.f1backend.utils;
 
+import static com.uah.f1backend.utils.CountryUtils.*;
+import static com.uah.f1backend.utils.TeamUtils.*;
+
 import com.uah.f1backend.model.DriverModel;
 import com.uah.f1backend.model.dto.driver.DeletedDriverDTOResponse;
 import com.uah.f1backend.model.dto.driver.DriverDTORequest;
@@ -14,6 +17,10 @@ public class DriverUtils {
 
     public static DriverDTORequest dummy2DriverDTORequest() {
         return new DriverDTORequest("name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", 1, 1);
+    }
+
+    public static DriverDTORequest dummy3DriverDTORequest() {
+        return new DriverDTORequest("name3", "lastname3", "nl3", 3, "photo3.png", "@twitter", 1, 1);
     }
 
     public static DriverDTOResponse dummyDriverDTOResponse() {
@@ -46,8 +53,22 @@ public class DriverUtils {
         dm.setDorsal(1);
         dm.setPhoto("photo.png");
         dm.setTwitter("@twitter");
-        dm.setIdCountry(1);
-        dm.setIdTeam(1);
+        dm.setCountry(dummyCountryModel());
+        dm.setTeam(dummyTeamModel());
+        return dm;
+    }
+
+    public static DriverModel dummy2DriverModel() {
+        final var dm = new DriverModel();
+        dm.setId(2);
+        dm.setName("name2");
+        dm.setLastName("lastname2");
+        dm.setInitial("nl2");
+        dm.setDorsal(3);
+        dm.setPhoto("photo2.png");
+        dm.setTwitter("@twitter");
+        dm.setCountry(dummyCountryModel());
+        dm.setTeam(dummyTeamModel());
         return dm;
     }
 
@@ -62,8 +83,8 @@ public class DriverUtils {
             dm.setDorsal(i);
             dm.setPhoto(String.format("photo%s.png", i));
             dm.setTwitter("@twitter" + i);
-            dm.setIdCountry(1);
-            dm.setIdTeam(1);
+            dm.setCountry(dummyCountryModel());
+            dm.setTeam(dummyTeamModel());
             dummyList.add(dm);
         }
         return dummyList;

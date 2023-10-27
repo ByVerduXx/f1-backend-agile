@@ -3,10 +3,7 @@ package com.uah.f1backend.model;
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.DRIVER_TABLE;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,9 +39,11 @@ public class DriverModel {
     @Column(name = DRIVER_TWITTER)
     private String twitter;
 
-    @Column(name = DRIVER_ID_COUNTRY)
-    private Integer idCountry;
+    @ManyToOne
+    @JoinColumn(name = DRIVER_ID_COUNTRY)
+    private CountryModel country;
 
-    @Column(name = DRIVER_ID_TEAM)
-    private Integer idTeam;
+    @ManyToOne
+    @JoinColumn(name = DRIVER_ID_TEAM)
+    private TeamModel team;
 }
