@@ -28,9 +28,7 @@ public class CircuitService {
 
     // Retrieve the circuit matching the given id
     public CircuitDTOResponse getCircuitById(Integer id) {
-        final var c = circuitModelRepository
-                .findById(id)
-                .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
+        final var c = circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         return CircuitMappers.toCircuitDTOResponse(c);
     }
 
@@ -53,17 +51,14 @@ public class CircuitService {
     }
 
     public DeletedCircuitDTOResponse deleteCircuitById(Integer id) {
-        final var c = circuitModelRepository
-                .findById(id)
-                .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
+        final var c = circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         circuitModelRepository.deleteById(id);
         return new DeletedCircuitDTOResponse("Circuit deleted", c.getName());
     }
 
     public CircuitDTOResponse updateCircuitById(Integer id, CircuitDTORequest c) {
-        CircuitModel cm = circuitModelRepository
-                .findById(id)
-                .orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
+        CircuitModel cm =
+                circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         cm.setName(c.getName());
         cm.setCity(c.getCity());
         cm.setId_country(c.getId_country());
