@@ -1,5 +1,7 @@
 package com.uah.f1backend.service;
 
+import static com.uah.f1backend.common.GenericValidations.isValidUrl;
+
 import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.CircuitDTORequest;
@@ -35,15 +37,10 @@ public class CircuitService {
         if (circuitModelRepository.findByName(circuit.getName()).isPresent()) {
             throw new HttpExceptions.CircuitNameInUseException();
         }
-        if (cm.getLaps() <= 0) {
-            throw new HttpExceptions.CircuitLapsLessThanZeroException();
-        }
-        if (cm.getLength() <= 0) {
-            throw new HttpExceptions.CircuitLenghtLessThanZeroException();
-        }
-        if (cm.getSlow_turns() + cm.getFast_turns() + cm.getMedium_turns() <= 0) {
-            throw new HttpExceptions.CircuitTurnsLessThanZeroException();
-        }
+
+        // Validate that fields matches the correct format
+        validateCircuitFields(cm);
+
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
     }
 
@@ -58,17 +55,6 @@ public class CircuitService {
         CircuitModel cm =
                 circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
 
-        // Validations of the model update
-        if (c.getLaps() <= 0) {
-            throw new HttpExceptions.CircuitLapsLessThanZeroException();
-        }
-        if (c.getLength() <= 0) {
-            throw new HttpExceptions.CircuitLenghtLessThanZeroException();
-        }
-        if (c.getSlow_turns() + c.getFast_turns() + c.getMedium_turns() <= 0) {
-            throw new HttpExceptions.CircuitTurnsLessThanZeroException();
-        }
-
         cm.setName(c.getName());
         cm.setCity(c.getCity());
         cm.setId_country(c.getId_country());
@@ -79,14 +65,33 @@ public class CircuitService {
         cm.setMedium_turns(c.getMedium_turns());
         cm.setFast_turns(c.getFast_turns());
 
-        // Validate that name doesn't exist in other db circuit (not copied at all)
+        // Validate that name doesn't exist in other db circuit
         final var circuitWithSameName = circuitModelRepository.findByName(cm.getName());
         final var isUsedName = circuitWithSameName.isPresent();
         if (isUsedName && !Objects.equals(circuitWithSameName.get().getId(), cm.getId())) {
             throw new HttpExceptions.CircuitInUseException();
         }
 
+        // Validate that fields matches the correct format
+        validateCircuitFields(cm);
+
         circuitModelRepository.save(cm);
         return CircuitMappers.toCircuitDTOResponse(cm);
+    }
+
+    // Circuit field format validations
+    private static void validateCircuitFields(CircuitModel cm) {
+        if (cm.getLaps() < 1) {
+            throw new HttpExceptions.CircuitLapsLessThanOneException();
+        }
+        if (cm.getLength() < 0) {
+            throw new HttpExceptions.CircuitLenghtLessThanZeroException();
+        }
+        if (cm.getSlow_turns() + cm.getFast_turns() + cm.getMedium_turns() < 2) {
+            throw new HttpExceptions.CircuitTurnsLessThanTwoException();
+        }
+        if (!isValidUrl(cm.getImage())) {
+            throw new HttpExceptions.InvalidUrlFormatException();
+        }
     }
 }
