@@ -51,6 +51,7 @@ public class CircuitUtils {
             cm.setSlow_turns(i);
             cm.setMedium_turns(i);
             cm.setFast_turns(i);
+            dummyList.add(cm);
         }
         return dummyList;
     }

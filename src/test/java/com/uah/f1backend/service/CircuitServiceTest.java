@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static com.uah.f1backend.utils.CircuitUtils.dummyListCircuitModel;
+import static com.uah.f1backend.utils.CircuitUtils.*;
 
 public class CircuitServiceTest {
 
@@ -75,22 +75,12 @@ public class CircuitServiceTest {
 
     @Test
     void getCircuitByIdTest() {
-        final var cm = new CircuitModel();
-        cm.setId(1);
-        cm.setName("name");
-        cm.setCity("city");
-        cm.setId_country(1);
-        cm.setImage("image");
-        cm.setLaps(1);
-        cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
+        final var cm = dummyCircuitModel();
+
         Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(1);
 
         final var actualResult = circuitService.getCircuitById(1);
-        final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
-
+        final var expectedResult =dummyCircuitDTOResponse();
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
@@ -104,8 +94,8 @@ public class CircuitServiceTest {
 
     @Test
     void insertCircuitTest() {
-        final var circuitToInsert = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
-        final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
+        final var circuitToInsert = dummyCircuitDTORequest();
+        final var expectedResult = dummyCircuitDTOResponse();
         final var circuit = CircuitMappers.toCircuitModel(circuitToInsert);
         circuit.setId(1);
 
@@ -125,17 +115,7 @@ public class CircuitServiceTest {
     @Test
     void deleteCircuitByIdTest() {
         final var circuitId = 1;
-        final var cm = new CircuitModel();
-        cm.setId(circuitId);
-        cm.setName("name");
-        cm.setCity("city");
-        cm.setId_country(1);
-        cm.setImage("image");
-        cm.setLaps(1);
-        cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
+        final var cm = dummyCircuitModel();
         Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(circuitId);
         Mockito.doNothing().when(circuitModelRepository).delete(cm);
 
@@ -148,23 +128,13 @@ public class CircuitServiceTest {
     @Test
     void updateCircuitByIdTest() {
         final var circuitId = 1;
-        final var cm = new CircuitModel();
-        cm.setId(circuitId);
-        cm.setName("name");
-        cm.setCity("city");
-        cm.setId_country(1);
-        cm.setImage("image");
-        cm.setLaps(1);
-        cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
+        final var cm = dummyCircuitModel();
 
         Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(circuitId);
         Mockito.doReturn(cm).when(circuitModelRepository).save(cm);
 
-        final var circuitRequest = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
-        final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
+        final var circuitRequest = dummyCircuitDTORequest();
+        final var expectedResult = dummyCircuitDTOResponse();
         final var actualResult = circuitService.updateCircuitById(circuitId, circuitRequest);
 
         Assertions.assertEquals(expectedResult, actualResult);
@@ -182,7 +152,7 @@ public class CircuitServiceTest {
     @Test
     void updateCircuitByIdNotFoundTest() {
         final var circuitId = 1;
-        final var c = new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
+        final var c = dummyCircuitDTORequest();
         Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findById(circuitId);
         Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
             circuitService.updateCircuitById(circuitId, c);

@@ -81,11 +81,11 @@ public class CircuitService {
         cm.setMedium_turns(c.getMedium_turns());
         cm.setFast_turns(c.getFast_turns());
 
-        // Validate that name doesn't exist in other db team
+        // Validate that name doesn't exist in other db circuit (not copied at all)
         final var circuitWithSameName = circuitModelRepository.findByName(cm.getName());
         final var isUsedName = circuitWithSameName.isPresent();
         if (isUsedName && !Objects.equals(circuitWithSameName.get().getId(), cm.getId())) {
-            throw new HttpExceptions.TeamNameInUseException();
+            throw new HttpExceptions.CircuitInUseException();
         }
 
 
