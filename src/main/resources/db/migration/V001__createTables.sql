@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `f1-agile`.`driver` (
   CONSTRAINT `fk_driver_team1`
     FOREIGN KEY (`id_team`)
     REFERENCES `f1-agile`.`team` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE SET NULL)
 ENGINE = InnoDB;
 
 
@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS `f1-agile`.`car` (
   CONSTRAINT `fk_car_team1`
     FOREIGN KEY (`id_team`)
     REFERENCES `f1-agile`.`team` (`id`)
-    ON DELETE SET NULL
-    ON UPDATE SET NULL)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
