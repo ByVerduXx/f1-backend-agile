@@ -39,7 +39,7 @@ public class CircuitUtils {
 
     public static List<CircuitModel> dummyListCircuitModel() {
         final var dummyList = new ArrayList<CircuitModel>();
-        for (var i = 0; i <= 3; i++) {
+        for (var i = 1; i <= 3; i++) {
             final var cm = new CircuitModel();
             cm.setId(i);
             cm.setName("name" + i);
@@ -52,6 +52,14 @@ public class CircuitUtils {
             cm.setMedium_turns(i);
             cm.setFast_turns(i);
             dummyList.add(cm);
+        }
+        return dummyList;
+    }
+
+    public static List<CircuitDTOResponse> dummyListCircuitDTOResponse() {
+        final var dummyList = new ArrayList<CircuitDTOResponse>();
+        for (var i = 1; i <= 3; i++) {
+            dummyList.add(new CircuitDTOResponse(i, "name" + i, "city", i, "image", i, i, i, i, i));
         }
         return dummyList;
     }

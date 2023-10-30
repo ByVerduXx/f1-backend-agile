@@ -5,7 +5,6 @@ import static com.uah.f1backend.utils.CircuitUtils.*;
 import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
-import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -47,39 +46,9 @@ public class CircuitServiceTest {
 
     @Test
     void getAllCircuitsTest() {
-        final var circuitList = new ArrayList<CircuitModel>();
-
-        for (int i = 0; i < 4; i++) {
-            final var cm = new CircuitModel();
-            cm.setId(i);
-            cm.setName(Integer.toString(i));
-            cm.setCity(Integer.toString(i));
-            cm.setId_country(i);
-            cm.setImage(Integer.toString(i));
-            cm.setLaps(i);
-            cm.setLength(i);
-            cm.setSlow_turns(i);
-            cm.setMedium_turns(i);
-            cm.setFast_turns(i);
-
-            circuitList.add(cm);
-        }
-        Mockito.doReturn(circuitList).when(circuitModelRepository).findAll();
+        Mockito.doReturn(dummyListCircuitModel()).when(circuitModelRepository).findAll();
         final var actualResult = circuitService.getAllCircuits();
-
-        for (int i = 0; i < 4; i++) {
-            var cir = actualResult.get(i);
-            Assertions.assertEquals(i, cir.getId());
-            Assertions.assertEquals(Integer.toString(i), cir.getName());
-            Assertions.assertEquals(Integer.toString(i), cir.getCity());
-            Assertions.assertEquals(i, cir.getId_country());
-            Assertions.assertEquals(Integer.toString(i), cir.getImage());
-            Assertions.assertEquals(i, cir.getLaps());
-            Assertions.assertEquals(i, cir.getLength());
-            Assertions.assertEquals(i, cir.getSlow_turns());
-            Assertions.assertEquals(i, cir.getMedium_turns());
-            Assertions.assertEquals(i, cir.getFast_turns());
-        }
+        Assertions.assertEquals(dummyListCircuitDTOResponse(), actualResult);
     }
 
     @Test
@@ -105,10 +74,8 @@ public class CircuitServiceTest {
     void insertCircuitTest() {
         final var circuitToInsert = dummyCircuitDTORequest();
         final var expectedResult = dummyCircuitDTOResponse();
-        final var circuit = CircuitMappers.toCircuitModel(circuitToInsert);
-        circuit.setId(1);
 
-        Mockito.doReturn(circuit).when(circuitModelRepository).save(circuit);
+        Mockito.doReturn(dummyCircuitModel()).when(circuitModelRepository).save(dummyCircuitModel());
 
         final var actualResult = circuitService.insertCircuit(circuitToInsert);
         Assertions.assertEquals(expectedResult, actualResult);
