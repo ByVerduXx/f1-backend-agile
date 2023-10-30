@@ -13,7 +13,7 @@ public class CircuitUtils {
         cm.setName("name");
         cm.setCity("city");
         cm.setId_country(1);
-        cm.setImage("image");
+        cm.setImage("image.png");
         cm.setLaps(1);
         cm.setLength(1);
         cm.setSlow_turns(1);
@@ -28,7 +28,7 @@ public class CircuitUtils {
         cm.setName("name2");
         cm.setCity("city2");
         cm.setId_country(2);
-        cm.setImage("image2");
+        cm.setImage("image2.png");
         cm.setLaps(2);
         cm.setLength(2);
         cm.setSlow_turns(2);
@@ -45,7 +45,7 @@ public class CircuitUtils {
             cm.setName("name" + i);
             cm.setCity("city");
             cm.setId_country(i);
-            cm.setImage("image");
+            cm.setImage("image.png");
             cm.setLaps(i);
             cm.setLength(i);
             cm.setSlow_turns(i);
@@ -59,24 +59,24 @@ public class CircuitUtils {
     public static List<CircuitDTOResponse> dummyListCircuitDTOResponse() {
         final var dummyList = new ArrayList<CircuitDTOResponse>();
         for (var i = 1; i <= 3; i++) {
-            dummyList.add(new CircuitDTOResponse(i, "name" + i, "city", i, "image", i, i, i, i, i));
+            dummyList.add(new CircuitDTOResponse(i, "name" + i, "city", i, "image.png", i, i, i, i, i));
         }
         return dummyList;
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponse() {
-        return new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
+        return new CircuitDTOResponse(1, "name", "city", 1, "image.png", 1, 1, 1, 1, 1);
     }
 
     public static CircuitDTORequest dummyCircuitDTORequest() {
-        return new CircuitDTORequest("name", "city", 1, "image", 1, 1, 1, 1, 1);
+        return new CircuitDTORequest("name", "city", 1, "image.png", 1, 1, 1, 1, 1);
     }
 
     public static CircuitDTORequest dummyCircuitDTORequest2() {
-        return new CircuitDTORequest("name2", "city2", 2, "image2", 2, 2, 2, 2, 2);
+        return new CircuitDTORequest("name2", "city2", 2, "image2.png", 2, 2, 2, 2, 2);
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponse2() {
-        return new CircuitDTOResponse(1, "name2", "city2", 2, "image2", 2, 2, 2, 2, 2);
+        return new CircuitDTOResponse(1, "name2", "city2", 2, "image2.png", 2, 2, 2, 2, 2);
     }
 }
