@@ -83,27 +83,6 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void getCircuitByNameTest() {
-        final var cm = new CircuitModel();
-        cm.setId(1);
-        cm.setName("name");
-        cm.setCity("city");
-        cm.setId_country(1);
-        cm.setImage("image");
-        cm.setLaps(1);
-        cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
-        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findByName("name");
-
-        final var actualResult = circuitService.getCircuitByName("name");
-        final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
-
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void getCircuitByIdTest() {
         final var cm = new CircuitModel();
         cm.setId(1);
@@ -122,14 +101,6 @@ public class CircuitServiceTest {
         final var expectedResult = new CircuitDTOResponse(1, "name", "city", 1, "image", 1, 1, 1, 1, 1);
 
         Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    void getCircuitByNameNotFoundTest() {
-        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findByName("name");
-        Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
-            circuitService.getCircuitByName("name");
-        });
     }
 
     @Test
@@ -161,29 +132,6 @@ public class CircuitServiceTest {
     }
 
     @Test
-    void deleteCircuitByNameTest() {
-        final var circuitName = "name";
-        final var cm = new CircuitModel();
-        cm.setId(1);
-        cm.setName("name");
-        cm.setCity("city");
-        cm.setId_country(1);
-        cm.setImage("image");
-        cm.setLaps(1);
-        cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
-        Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findByName(circuitName);
-        Mockito.doNothing().when(circuitModelRepository).delete(cm);
-
-        final var expectedResult = new DeletedCircuitDTOResponse("Circuit deleted", circuitName);
-        final var actualResult = circuitService.deleteCircuitByName(circuitName);
-
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
     void deleteCircuitByIdTest() {
         final var circuitId = 1;
         final var cm = new CircuitModel();
@@ -204,15 +152,6 @@ public class CircuitServiceTest {
         final var actualRestult = circuitService.deleteCircuitById(circuitId);
 
         Assertions.assertEquals(expectedResult, actualRestult);
-    }
-
-    @Test
-    void deleteCircuitByNameNotFoundTest() {
-        final var circuitName = "name";
-        Mockito.doReturn(Optional.empty()).when(circuitModelRepository).findByName(circuitName);
-        Assertions.assertThrows(HttpExceptions.CircuitDoesntExistException.class, () -> {
-            circuitService.deleteCircuitByName(circuitName);
-        });
     }
 
     @Test

@@ -34,10 +34,10 @@ public class CircuitService {
         if (circuitModelRepository.findByName(circuit.getName()).isPresent()) {
             throw new HttpExceptions.CircuitNameInUseException();
         }
-        if (cm.getLaps()<=0) {
+        if (cm.getLaps() <= 0) {
             throw new HttpExceptions.CircuitLapsLessThanZeroException();
         }
-        if (cm.getLength()<=0) {
+        if (cm.getLength() <= 0) {
             throw new HttpExceptions.CircuitLenghtLessThanZeroException();
         }
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
@@ -64,5 +64,4 @@ public class CircuitService {
         circuitModelRepository.save(cm);
         return CircuitMappers.toCircuitDTOResponse(cm);
     }
-
 }
