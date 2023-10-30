@@ -49,10 +49,22 @@ public class CircuitServiceTest {
 
     @Test
     void getAllCircuitsTest() {
-        final var circuitList = dummyListCircuitModel();
+        final var circuitList = new ArrayList<CircuitModel>();
+
 
         for (int i = 0; i < 4; i++) {
-            final var cm  = circuitList.get(i);
+            final var cm = new CircuitModel();
+            cm.setId(i);
+            cm.setName(Integer.toString(i));
+            cm.setCity(Integer.toString(i));
+            cm.setId_country(i);
+            cm.setImage(Integer.toString(i));
+            cm.setLaps(i);
+            cm.setLength(i);
+            cm.setSlow_turns(i);
+            cm.setMedium_turns(i);
+            cm.setFast_turns(i);
+
             circuitList.add(cm);
         }
         Mockito.doReturn(circuitList).when(circuitModelRepository).findAll();
@@ -72,6 +84,7 @@ public class CircuitServiceTest {
             Assertions.assertEquals(i, cir.getFast_turns());
         }
     }
+
 
     @Test
     void getCircuitByIdTest() {
