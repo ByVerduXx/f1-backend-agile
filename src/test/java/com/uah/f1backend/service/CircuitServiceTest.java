@@ -17,6 +17,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import static com.uah.f1backend.utils.CircuitUtils.dummyListCircuitModel;
+
 public class CircuitServiceTest {
 
     @Mock
@@ -47,21 +49,10 @@ public class CircuitServiceTest {
 
     @Test
     void getAllCircuitsTest() {
-        final var circuitList = new ArrayList<CircuitModel>();
+        final var circuitList = dummyListCircuitModel();
 
         for (int i = 0; i < 4; i++) {
-            final var cm = new CircuitModel();
-            cm.setId(i);
-            cm.setName(Integer.toString(i));
-            cm.setCity(Integer.toString(i));
-            cm.setId_country(i);
-            cm.setImage(Integer.toString(i));
-            cm.setLaps(i);
-            cm.setLength(i);
-            cm.setSlow_turns(i);
-            cm.setMedium_turns(i);
-            cm.setFast_turns(i);
-
+            final var cm  = circuitList.get(i);
             circuitList.add(cm);
         }
         Mockito.doReturn(circuitList).when(circuitModelRepository).findAll();

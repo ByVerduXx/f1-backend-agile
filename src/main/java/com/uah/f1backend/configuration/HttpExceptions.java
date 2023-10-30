@@ -73,4 +73,7 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have length > 0 ")
     public static class CircuitLenghtLessThanZeroException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have Turns > 0 ")
+    public static class CircuitTurnsLessThanZeroException extends RuntimeException {}
 }
