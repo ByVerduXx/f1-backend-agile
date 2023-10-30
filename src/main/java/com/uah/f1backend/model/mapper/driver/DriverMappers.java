@@ -8,6 +8,7 @@ import java.util.List;
 public class DriverMappers {
 
     public static DriverDTOResponse toDriverDTOResponse(DriverModel dm) {
+        final var idTeam = dm.getTeam() != null ? dm.getTeam().getId() : null;
         return new DriverDTOResponse(
                 dm.getId(),
                 dm.getName(),
@@ -17,7 +18,7 @@ public class DriverMappers {
                 dm.getPhoto(),
                 dm.getTwitter(),
                 dm.getCountry().getId(),
-                dm.getTeam().getId());
+                idTeam);
     }
 
     public static List<DriverDTOResponse> toDriverDTOResponses(List<DriverModel> dml) {

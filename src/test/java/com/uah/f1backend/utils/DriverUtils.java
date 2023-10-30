@@ -15,6 +15,10 @@ public class DriverUtils {
         return new DriverDTORequest("name", "lastname", "nl", 1, "photo.png", "@twitter", 1, 1);
     }
 
+    public static DriverDTORequest dummyDriverDTONullTeamRequest() {
+        return new DriverDTORequest("name", "lastname", "nl", 1, "photo.png", "@twitter", 1, null);
+    }
+
     public static DriverDTORequest dummy2DriverDTORequest() {
         return new DriverDTORequest("name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", 1, 1);
     }
@@ -25,6 +29,10 @@ public class DriverUtils {
 
     public static DriverDTOResponse dummyDriverDTOResponse() {
         return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", 1, 1);
+    }
+
+    public static DriverDTOResponse dummyDriverDTONullTeamResponse() {
+        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", 1, null);
     }
 
     public static DriverDTOResponse dummyDriverDTOResponseIT() {
@@ -55,6 +63,20 @@ public class DriverUtils {
         dm.setTwitter("@twitter");
         dm.setCountry(dummyCountryModel());
         dm.setTeam(dummyTeamModel());
+        return dm;
+    }
+
+    public static DriverModel dummyDriverNullTeamModel() {
+        final var dm = new DriverModel();
+        dm.setId(1);
+        dm.setName("name");
+        dm.setLastName("lastname");
+        dm.setInitial("nl");
+        dm.setDorsal(1);
+        dm.setPhoto("photo.png");
+        dm.setTwitter("@twitter");
+        dm.setCountry(dummyCountryModel());
+        dm.setTeam(null);
         return dm;
     }
 

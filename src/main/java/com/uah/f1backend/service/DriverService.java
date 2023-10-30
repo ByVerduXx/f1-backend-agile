@@ -44,14 +44,16 @@ public class DriverService {
             throw new HttpExceptions.DriverDorsalInUseException();
         }
 
-        final var team = teamModelRepository
-                .findById(driverDTORequest.getIdTeam())
-                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        if (driverDTORequest.getIdTeam() != null) {
+            final var team = teamModelRepository
+                    .findById(driverDTORequest.getIdTeam())
+                    .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+            dm.setTeam(team);
+        }
+
         final var country = countryModelRepository
                 .findById(driverDTORequest.getIdCountry())
                 .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
-
-        dm.setTeam(team);
         dm.setCountry(country);
 
         validateDriverFields(dm);
@@ -81,14 +83,16 @@ public class DriverService {
             throw new HttpExceptions.DriverDorsalInUseException();
         }
 
-        final var team = teamModelRepository
-                .findById(driverDTORequest.getIdTeam())
-                .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        if (driverDTORequest.getIdTeam() != null) {
+            final var team = teamModelRepository
+                    .findById(driverDTORequest.getIdTeam())
+                    .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+            dm.setTeam(team);
+        }
+
         final var country = countryModelRepository
                 .findById(driverDTORequest.getIdCountry())
                 .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
-
-        dm.setTeam(team);
         dm.setCountry(country);
 
         validateDriverFields(dm);

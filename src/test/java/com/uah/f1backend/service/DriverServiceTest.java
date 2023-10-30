@@ -92,6 +92,18 @@ public class DriverServiceTest {
     }
 
     @Test
+    public void insertDriverNullTeamTest() {
+        final var dm = dummyDriverNullTeamModel();
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Mockito.doReturn(dm).when(driverModelRepository).save(dm);
+        final var actualResult = driverService.insertDriver(dummyDriverDTONullTeamRequest());
+        final var expectedResult = dummyDriverDTONullTeamResponse();
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void insertDriverNullTest() {
         Assertions.assertThrows(DriverNotSavedException.class, () -> driverService.insertDriver(null));
     }
@@ -117,6 +129,19 @@ public class DriverServiceTest {
         Mockito.doReturn(dm).when(driverModelRepository).save(dm);
         final var actualResult = driverService.updateDriverById(dm.getId(), dummyDriverDTORequest());
         final var expectedResult = dummyDriverDTOResponse();
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void updateDriverByIdNullTeamTest() {
+        final var dm = dummyDriverNullTeamModel();
+        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Mockito.doReturn(dm).when(driverModelRepository).save(dm);
+        final var actualResult = driverService.updateDriverById(dm.getId(), dummyDriverDTONullTeamRequest());
+        final var expectedResult = dummyDriverDTONullTeamResponse();
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
