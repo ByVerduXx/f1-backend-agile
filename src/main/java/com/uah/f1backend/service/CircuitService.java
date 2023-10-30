@@ -9,7 +9,6 @@ import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +41,7 @@ public class CircuitService {
         if (cm.getLength() <= 0) {
             throw new HttpExceptions.CircuitLenghtLessThanZeroException();
         }
-        if (cm.getSlow_turns()+cm.getFast_turns()+cm.getMedium_turns() <= 0) {
+        if (cm.getSlow_turns() + cm.getFast_turns() + cm.getMedium_turns() <= 0) {
             throw new HttpExceptions.CircuitTurnsLessThanZeroException();
         }
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
@@ -56,18 +55,17 @@ public class CircuitService {
 
     public CircuitDTOResponse updateCircuitById(Integer id, CircuitDTORequest c) {
 
-
         CircuitModel cm =
                 circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
 
-        //Validations of the model update
+        // Validations of the model update
         if (c.getLaps() <= 0) {
             throw new HttpExceptions.CircuitLapsLessThanZeroException();
         }
         if (c.getLength() <= 0) {
             throw new HttpExceptions.CircuitLenghtLessThanZeroException();
         }
-        if (c.getSlow_turns()+c.getFast_turns()+c.getMedium_turns() <= 0) {
+        if (c.getSlow_turns() + c.getFast_turns() + c.getMedium_turns() <= 0) {
             throw new HttpExceptions.CircuitTurnsLessThanZeroException();
         }
 
@@ -87,7 +85,6 @@ public class CircuitService {
         if (isUsedName && !Objects.equals(circuitWithSameName.get().getId(), cm.getId())) {
             throw new HttpExceptions.CircuitInUseException();
         }
-
 
         circuitModelRepository.save(cm);
         return CircuitMappers.toCircuitDTOResponse(cm);

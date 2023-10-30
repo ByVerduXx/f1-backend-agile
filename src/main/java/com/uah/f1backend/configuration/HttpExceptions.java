@@ -67,6 +67,7 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit name already exists")
     public static class CircuitNameInUseException extends RuntimeException {}
+
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit already exists")
     public static class CircuitInUseException extends RuntimeException {}
 

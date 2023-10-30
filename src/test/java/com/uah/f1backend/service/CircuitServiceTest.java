@@ -1,9 +1,9 @@
 package com.uah.f1backend.service;
 
+import static com.uah.f1backend.utils.CircuitUtils.*;
+
 import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.CircuitModel;
-import com.uah.f1backend.model.dto.circuit.CircuitDTORequest;
-import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
@@ -16,8 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import static com.uah.f1backend.utils.CircuitUtils.*;
 
 public class CircuitServiceTest {
 
@@ -50,7 +48,6 @@ public class CircuitServiceTest {
     @Test
     void getAllCircuitsTest() {
         final var circuitList = new ArrayList<CircuitModel>();
-
 
         for (int i = 0; i < 4; i++) {
             final var cm = new CircuitModel();
@@ -85,7 +82,6 @@ public class CircuitServiceTest {
         }
     }
 
-
     @Test
     void getCircuitByIdTest() {
         final var cm = dummyCircuitModel();
@@ -93,7 +89,7 @@ public class CircuitServiceTest {
         Mockito.doReturn(Optional.of(cm)).when(circuitModelRepository).findById(1);
 
         final var actualResult = circuitService.getCircuitById(1);
-        final var expectedResult =dummyCircuitDTOResponse();
+        final var expectedResult = dummyCircuitDTOResponse();
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
