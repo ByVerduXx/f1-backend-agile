@@ -67,4 +67,11 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit name already exists")
     public static class CircuitNameInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit has to have al least 1 lap")
+    public static class CircuitLapsLessThanZeroException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have length > 0 ")
+    public static class CircuitLenghtLessThanZeroException extends RuntimeException {}
 }
+

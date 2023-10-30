@@ -22,11 +22,6 @@ public class CircuitRestController {
         return ResponseEntity.ok(circuitService.getAllCircuits());
     }
 
-    @GetMapping(params = "name")
-    public ResponseEntity<CircuitDTOResponse> getCircuits(@RequestParam String name) {
-        return ResponseEntity.ok(circuitService.getCircuitByName(name));
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<CircuitDTOResponse> getCircuit(@PathVariable Integer id) {
         return ResponseEntity.ok(circuitService.getCircuitById(id));

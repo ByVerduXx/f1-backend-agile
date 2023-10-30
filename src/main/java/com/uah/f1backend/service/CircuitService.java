@@ -20,23 +20,10 @@ public class CircuitService {
         return CircuitMappers.toCircuitListDTOResponse(circuitModelRepository.findAll());
     }
 
-    public CircuitDTOResponse getCircuitByName(String name) {
-        final var c =
-                circuitModelRepository.findByName(name).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
-        return CircuitMappers.toCircuitDTOResponse(c);
-    }
-
     // Retrieve the circuit matching the given id
     public CircuitDTOResponse getCircuitById(Integer id) {
         final var c = circuitModelRepository.findById(id).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
         return CircuitMappers.toCircuitDTOResponse(c);
-    }
-
-    public DeletedCircuitDTOResponse deleteCircuitByName(String name) {
-        final var c =
-                circuitModelRepository.findByName(name).orElseThrow(HttpExceptions.CircuitDoesntExistException::new);
-        circuitModelRepository.delete(c);
-        return new DeletedCircuitDTOResponse("Circuit deleted", name);
     }
 
     public CircuitDTOResponse insertCircuit(CircuitDTORequest circuit) {
@@ -46,6 +33,12 @@ public class CircuitService {
         }
         if (circuitModelRepository.findByName(circuit.getName()).isPresent()) {
             throw new HttpExceptions.CircuitNameInUseException();
+        }
+        if (cm.getLaps()<=0) {
+            throw new HttpExceptions.CircuitLapsLessThanZeroException();
+        }
+        if (cm.getLength()<=0) {
+            throw new HttpExceptions.CircuitLenghtLessThanZeroException();
         }
         return CircuitMappers.toCircuitDTOResponse(circuitModelRepository.save(cm));
     }
@@ -71,4 +64,5 @@ public class CircuitService {
         circuitModelRepository.save(cm);
         return CircuitMappers.toCircuitDTOResponse(cm);
     }
+
 }
