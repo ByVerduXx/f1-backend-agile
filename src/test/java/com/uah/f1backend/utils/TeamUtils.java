@@ -4,7 +4,6 @@ import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,13 @@ public class TeamUtils {
     }
 
     public static TeamDetailDTOResponse dummyTeamDetailDTOResponse() {
-        return new TeamDetailDTOResponse(1, "name", "logo.png", "@twitter", DriverUtils.dummyListDriverDTOResponse(), CarUtils.dummyListCarDTOResponse());
+        return new TeamDetailDTOResponse(
+                1,
+                "name",
+                "logo.png",
+                "@twitter",
+                DriverUtils.dummyListDriverDTOResponse(),
+                CarUtils.dummyListCarDTOResponse());
     }
 
     public static TeamDTOResponse dummyTeamDTOResponseOnIT(Integer id) {

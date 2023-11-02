@@ -1,14 +1,11 @@
 package com.uah.f1backend.model.dto.team;
 
-import com.uah.f1backend.model.CarModel;
-import com.uah.f1backend.model.DriverModel;
 import com.uah.f1backend.model.dto.car.CarDTOResponse;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @EqualsAndHashCode

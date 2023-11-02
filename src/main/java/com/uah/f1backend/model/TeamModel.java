@@ -4,9 +4,8 @@ import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.List;
+import lombok.*;
 
 @Entity(name = TEAM_TABLE)
 @Data

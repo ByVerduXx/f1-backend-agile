@@ -32,6 +32,7 @@ public class TeamRestController {
     public ResponseEntity<TeamDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamById(id));
     }
+
     @GetMapping("{id}/detail")
     public ResponseEntity<TeamDetailDTOResponse> obtainDetailById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamDetailById(id));

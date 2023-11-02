@@ -6,7 +6,6 @@ import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.model.mapper.car.CarMappers;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
-
 import java.util.List;
 
 public class TeamMappers {
@@ -37,7 +36,13 @@ public class TeamMappers {
     // Maps a given TeamModel object to TeamDetailDTOResponse object
     public static TeamDetailDTOResponse toTeamDetailDTOResponseMapper(TeamModel tm) {
         try {
-            return new TeamDetailDTOResponse(tm.getId(), tm.getName(), tm.getLogo(), tm.getTwitter(), DriverMappers.toDriverDTOResponses(tm.getDrivers()), CarMappers.toCarDTOResponses(tm.getCars()));
+            return new TeamDetailDTOResponse(
+                    tm.getId(),
+                    tm.getName(),
+                    tm.getLogo(),
+                    tm.getTwitter(),
+                    DriverMappers.toDriverDTOResponses(tm.getDrivers()),
+                    CarMappers.toCarDTOResponses(tm.getCars()));
         } catch (NullPointerException e) {
             return null;
         }
