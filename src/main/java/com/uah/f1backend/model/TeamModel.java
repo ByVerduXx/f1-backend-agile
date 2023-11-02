@@ -4,6 +4,7 @@ import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.*;
 
 @Entity(name = TEAM_TABLE)
@@ -26,4 +27,10 @@ public class TeamModel {
 
     @Column(name = TEAM_TWITTER)
     private String twitter;
+
+    @OneToMany(mappedBy = "team")
+    private List<CarModel> cars;
+
+    @OneToMany(mappedBy = "team")
+    private List<DriverModel> drivers;
 }

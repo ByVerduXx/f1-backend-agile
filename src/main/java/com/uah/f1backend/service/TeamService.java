@@ -8,6 +8,7 @@ import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
+import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.model.mapper.team.TeamMappers;
 import com.uah.f1backend.repository.TeamModelRepository;
 import java.util.List;
@@ -35,6 +36,12 @@ public class TeamService {
     public TeamDTOResponse getTeamById(Integer id) {
         final var team = teamModelRepository.findById(id).orElseThrow(HttpExceptions.TeamDoesntExistException::new);
         return TeamMappers.toTeamDTOResponseMapper(team);
+    }
+
+    // Retrieve the team with drivers and car details matching the given id
+    public TeamDetailDTOResponse getTeamDetailById(Integer id) {
+        final var team = teamModelRepository.findById(id).orElseThrow(HttpExceptions.TeamDoesntExistException::new);
+        return TeamMappers.toTeamDetailDTOResponseMapper(team);
     }
 
     // Add new team in the db
