@@ -82,6 +82,17 @@ public class TeamServiceTest {
     }
 
     @Test
+    void getTeamDetailByIdTest() {
+        final var team = dummyTeamWithDriversAndCarsModel();
+        Mockito.doReturn(Optional.of(team)).when(teamModelRepository).findById(team.getId());
+
+        final var actualResult = teamService.getTeamById(1);
+        final var expectedResult = dummyTeamDTOResponse();
+
+        Assertions.assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     void getTeamByNameNotFoundTest() {
         Mockito.doReturn(Optional.empty()).when(teamModelRepository).findByName("name");
         Assertions.assertThrows(HttpExceptions.TeamDoesntExistException.class, () -> {

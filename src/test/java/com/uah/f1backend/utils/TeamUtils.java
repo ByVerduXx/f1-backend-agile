@@ -3,6 +3,8 @@ package com.uah.f1backend.utils;
 import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
+import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,10 @@ public class TeamUtils {
 
     public static TeamDTOResponse dummyTeamDTOResponse() {
         return new TeamDTOResponse(1, "name", "logo.png", "@twitter");
+    }
+
+    public static TeamDetailDTOResponse dummyTeamDetailDTOResponse() {
+        return new TeamDetailDTOResponse(1, "name", "logo.png", "@twitter", DriverUtils.dummyListDriverDTOResponse(), CarUtils.dummyListCarDTOResponse());
     }
 
     public static TeamDTOResponse dummyTeamDTOResponseOnIT(Integer id) {
@@ -46,6 +52,17 @@ public class TeamUtils {
         tm.setName("name");
         tm.setLogo("logo.png");
         tm.setTwitter("@twitter");
+        return tm;
+    }
+
+    public static TeamModel dummyTeamWithDriversAndCarsModel() {
+        final var tm = new TeamModel();
+        tm.setId(1);
+        tm.setName("name");
+        tm.setLogo("logo.png");
+        tm.setTwitter("@twitter");
+        tm.setDrivers(DriverUtils.dummyListDriverModel());
+        tm.setCars(CarUtils.dummyListCarModel());
         return tm;
     }
 

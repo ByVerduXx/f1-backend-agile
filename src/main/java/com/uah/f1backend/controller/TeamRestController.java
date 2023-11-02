@@ -3,6 +3,7 @@ package com.uah.f1backend.controller;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTORequest;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
+import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.service.TeamService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,10 @@ public class TeamRestController {
     @GetMapping("{id}")
     public ResponseEntity<TeamDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamById(id));
+    }
+    @GetMapping("{id}/detail")
+    public ResponseEntity<TeamDetailDTOResponse> obtainDetailById(@PathVariable Integer id) {
+        return ResponseEntity.ok(teamService.getTeamDetailById(id));
     }
 
     @PostMapping

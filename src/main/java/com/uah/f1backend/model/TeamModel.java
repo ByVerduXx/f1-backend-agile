@@ -6,6 +6,8 @@ import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TAB
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity(name = TEAM_TABLE)
 @Data
 @EqualsAndHashCode
@@ -26,4 +28,10 @@ public class TeamModel {
 
     @Column(name = TEAM_TWITTER)
     private String twitter;
+
+    @OneToMany(mappedBy = "team")
+    private List<CarModel> cars;
+
+    @OneToMany(mappedBy = "team")
+    private List<DriverModel> drivers;
 }
