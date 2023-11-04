@@ -1,11 +1,13 @@
 package com.uah.f1backend.service;
 
 import static com.uah.f1backend.utils.CircuitUtils.*;
+import static com.uah.f1backend.utils.CountryUtils.dummyCountryModel;
 
 import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import com.uah.f1backend.repository.CircuitModelRepository;
+import com.uah.f1backend.repository.CountryModelRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
@@ -21,13 +23,16 @@ public class CircuitServiceTest {
     @Mock
     CircuitModelRepository circuitModelRepository;
 
+    @Mock
+    CountryModelRepository countryModelRepository;
+
     AutoCloseable closeable;
     CircuitService circuitService;
 
     @BeforeEach
     void initMocks() {
         closeable = MockitoAnnotations.openMocks(this);
-        circuitService = new CircuitService(circuitModelRepository);
+        circuitService = new CircuitService(circuitModelRepository, countryModelRepository);
     }
 
     @AfterEach
@@ -74,8 +79,13 @@ public class CircuitServiceTest {
     void insertCircuitTest() {
         final var circuitToInsert = dummyCircuitDTORequest();
         final var expectedResult = dummyCircuitDTOResponse();
+        final var cm = dummyCircuitModel();
 
         Mockito.doReturn(dummyCircuitModel()).when(circuitModelRepository).save(dummyCircuitModel());
+
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(cm.getCountry().getId());
 
         final var actualResult = circuitService.insertCircuit(circuitToInsert);
         Assertions.assertEquals(expectedResult, actualResult);

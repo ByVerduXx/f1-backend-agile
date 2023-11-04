@@ -6,12 +6,13 @@ import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import java.util.List;
 
 public class CircuitMappers {
+
     public static CircuitDTORequest toCircuitDTORequest(CircuitModel cm) {
         try {
             return new CircuitDTORequest(
                     cm.getName(),
                     cm.getCity(),
-                    cm.getId_country(),
+                    cm.getCountry().getId(),
                     cm.getImage(),
                     cm.getLaps(),
                     cm.getLength(),
@@ -29,7 +30,7 @@ public class CircuitMappers {
                     cm.getId(),
                     cm.getName(),
                     cm.getCity(),
-                    cm.getId_country(),
+                    cm.getCountry().getId(),
                     cm.getImage(),
                     cm.getLaps(),
                     cm.getLength(),
@@ -50,7 +51,6 @@ public class CircuitMappers {
             final var cm = new CircuitModel();
             cm.setName(cdr.getName());
             cm.setCity(cdr.getCity());
-            cm.setId_country(cdr.getId_country());
             cm.setImage(cdr.getImage());
             cm.setLaps(cdr.getLaps());
             cm.setLength(cdr.getLength());

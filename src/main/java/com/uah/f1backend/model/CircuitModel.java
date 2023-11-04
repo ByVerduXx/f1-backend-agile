@@ -27,8 +27,9 @@ public class CircuitModel {
     @Column(name = CIRCUIT_CITY)
     private String city;
 
-    @Column(name = CIRCUIT_ID_COUNTRY)
-    private Integer id_country;
+    @ManyToOne
+    @JoinColumn(name = CIRCUIT_COUNTRY)
+    private CountryModel country;
 
     @Column(name = CIRCUIT_IMAGE)
     private String image;

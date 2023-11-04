@@ -9,6 +9,7 @@ import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import com.uah.f1backend.model.mapper.circuit.CircuitMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
+import com.uah.f1backend.repository.CountryModelRepository;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CircuitService {
     private final CircuitModelRepository circuitModelRepository;
+    private final CountryModelRepository countryModelRepository;
 
     public List<CircuitDTOResponse> getAllCircuits() {
         return CircuitMappers.toCircuitListDTOResponse(circuitModelRepository.findAll());
@@ -31,12 +33,18 @@ public class CircuitService {
 
     public CircuitDTOResponse insertCircuit(CircuitDTORequest circuit) {
         final var cm = CircuitMappers.toCircuitModel(circuit);
+
         if (cm == null) {
             throw new HttpExceptions.CircuitNotSavedException();
         }
         if (circuitModelRepository.findByName(circuit.getName()).isPresent()) {
             throw new HttpExceptions.CircuitNameInUseException();
         }
+
+        final var country = countryModelRepository
+                .findById(circuit.getId_country())
+                .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
+        cm.setCountry(country);
 
         // Validate that fields matches the correct format
         validateCircuitFields(cm);
@@ -57,7 +65,6 @@ public class CircuitService {
 
         cm.setName(c.getName());
         cm.setCity(c.getCity());
-        cm.setId_country(c.getId_country());
         cm.setImage(c.getImage());
         cm.setLaps(c.getLaps());
         cm.setLength(c.getLength());

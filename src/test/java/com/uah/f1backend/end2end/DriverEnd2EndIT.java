@@ -14,9 +14,7 @@ import com.uah.f1backend.model.DriverModel;
 import com.uah.f1backend.model.dto.driver.DeletedDriverDTOResponse;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,57 +31,26 @@ public class DriverEnd2EndIT {
     private MockMvc mockMvc;
 
     @Autowired
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @BeforeEach
-    void emptyDataBase() {
-        entityManager.createQuery("DELETE FROM " + COUNTRY_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + COUNTRY_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + TEAM_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-        entityManager.createQuery("DELETE FROM " + DRIVER_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + DRIVER_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-    }
-
-    @AfterEach
-    void emptyDataBaseAfter() {
-        entityManager.createQuery("DELETE FROM " + COUNTRY_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + COUNTRY_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + TEAM_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-        entityManager.createQuery("DELETE FROM " + DRIVER_TABLE).executeUpdate();
-        entityManager
-                .createNativeQuery("ALTER TABLE " + DRIVER_TABLE + " AUTO_INCREMENT = 1")
-                .executeUpdate();
-    }
+    ObjectMapper objectMapper;
 
     @Test
     public void insertAndDeleteDriver() throws Exception {
-        final var driverDTORequest = dummyDriverDTORequest();
-        final var expectedDriverDTOResponse = dummyDriverDTOResponseIT();
 
         final var gson = new Gson();
+
+        final var country = dummyCountryModel();
+        country.setId(null);
+        entityManager.persist(country);
 
         final var team = dummyTeamModel();
         team.setId(null);
         entityManager.persist(team);
 
-        final var country = dummyCountryModel();
-        country.setId(null);
-        entityManager.persist(country);
+        final var driverDTORequest = dummyDriverDTORequestOnIT(country.getId(), team.getId());
+        final var expectedDriverDTOResponse = dummyDriverDTOResponseOnIT(country.getId(), team.getId());
 
         final var insertResponseAsString = mockMvc.perform(
                         post("/drivers").content(gson.toJson(driverDTORequest)).contentType(MediaType.APPLICATION_JSON))
@@ -119,8 +86,8 @@ public class DriverEnd2EndIT {
         Assertions.assertEquals(expectedDriverDTOResponse, actualResponseEntity);
 
         // Update the driver
-        final var updatedDriverDTORequest = dummy2DriverDTORequest();
-        final var updatedExpectedDriverDTOResponse = dummy2DriverDTOResponseIT();
+        final var updatedDriverDTORequest = dummy2DriverDTORequestOnIT(country.getId(), team.getId());
+        final var updatedExpectedDriverDTOResponse = dummy2DriverDTOResponseOnIT(country.getId(), team.getId());
 
         final var updateResponseAsString = mockMvc.perform(put("/drivers/" + insertResponseEntity.getId())
                         .content(gson.toJson(updatedDriverDTORequest))

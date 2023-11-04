@@ -3,7 +3,7 @@ package com.uah.f1backend.end2end;
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.CIRCUIT_ID;
 import static com.uah.f1backend.configuration.common.TableNameConstants.CIRCUIT_TABLE;
 import static com.uah.f1backend.utils.CircuitUtils.*;
-import static com.uah.f1backend.utils.CircuitUtils.dummyCircuitDTORequest;
+import static com.uah.f1backend.utils.CountryUtils.dummyCountryModel;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -14,10 +14,7 @@ import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
 import com.uah.f1backend.model.dto.circuit.DeletedCircuitDTOResponse;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
 @AutoConfigureMockMvc
+@SpringBootTest
 @Transactional
 public class CircuitEnd2EndIT {
 
@@ -39,20 +36,14 @@ public class CircuitEnd2EndIT {
     @Autowired
     ObjectMapper objectMapper;
 
-    @BeforeEach
-    void emptyDataBase() {
-        entityManager.createNativeQuery("TRUNCATE TABLE " + CIRCUIT_TABLE).executeUpdate();
-    }
-
-    @AfterEach
-    void emptyDataBaseAfter() {
-        entityManager.createNativeQuery("TRUNCATE TABLE " + CIRCUIT_TABLE).executeUpdate();
-    }
-
     @Test
     void CircuitCRUDTest() throws Exception {
 
-        final var circuitDTORequest = dummyCircuitDTORequest();
+        final var country = dummyCountryModel();
+        country.setId(null);
+        entityManager.persist(country);
+
+        final var circuitDTORequest = dummyCircuitDTORequestOnIT(country.getId());
 
         final var gson = new Gson();
 
@@ -67,7 +58,7 @@ public class CircuitEnd2EndIT {
 
         final var insertResponseEntity = objectMapper.readValue(insertResponseAsString, CircuitDTOResponse.class);
 
-        final var expectedCircuitDTOResponse = dummyCircuitDTOResponse();
+        final var expectedCircuitDTOResponse = dummyCircuitDTOResponseOnIT(country.getId());
 
         // Check that response object is the one expected
         Assertions.assertEquals(expectedCircuitDTOResponse, insertResponseEntity);
@@ -96,7 +87,7 @@ public class CircuitEnd2EndIT {
         Assertions.assertEquals(expectedCircuitDTOResponse, getResponseEntity);
 
         // Update circuit
-        final var updatedCircuitDTORequest = dummyCircuitDTORequest2();
+        final var updatedCircuitDTORequest = dummyCircuitDTORequest2OnIT(country.getId());
 
         final var updateResponseAsString = mockMvc.perform(put("/circuits/" + actualCircuitModel.getId())
                         .content(gson.toJson(updatedCircuitDTORequest))
@@ -107,7 +98,7 @@ public class CircuitEnd2EndIT {
                 .getContentAsString();
 
         final var updateResponseEntity = objectMapper.readValue(updateResponseAsString, CircuitDTOResponse.class);
-        final var updatedExpectedCircuitDTOResponse = dummyCircuitDTOResponse2();
+        final var updatedExpectedCircuitDTOResponse = dummyCircuitDTOResponse2OnIT(country.getId());
 
         Assertions.assertEquals(updatedExpectedCircuitDTOResponse, updateResponseEntity);
 
