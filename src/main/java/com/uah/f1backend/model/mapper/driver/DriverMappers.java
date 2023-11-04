@@ -3,6 +3,8 @@ package com.uah.f1backend.model.mapper.driver;
 import com.uah.f1backend.model.DriverModel;
 import com.uah.f1backend.model.dto.driver.DriverDTORequest;
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
+import com.uah.f1backend.model.mapper.country.CountryMappers;
+
 import java.util.List;
 
 public class DriverMappers {
@@ -17,7 +19,7 @@ public class DriverMappers {
                 dm.getDorsal(),
                 dm.getPhoto(),
                 dm.getTwitter(),
-                dm.getCountry().getId(),
+                CountryMappers.toCountryDTOResponse(dm.getCountry()),
                 idTeam);
     }
 
