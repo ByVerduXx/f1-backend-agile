@@ -1,7 +1,5 @@
 package com.uah.f1backend.end2end;
 
-import static com.uah.f1backend.configuration.common.TableNameConstants.CAR_TABLE;
-import static com.uah.f1backend.configuration.common.TableNameConstants.TEAM_TABLE;
 import static com.uah.f1backend.utils.CarUtils.*;
 import static com.uah.f1backend.utils.TeamUtils.dummyTeamModel;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,18 +35,6 @@ public class CarEnd2EndIT {
 
     @Autowired
     ObjectMapper objectMapper;
-
-    @BeforeEach
-    void emptyDataBase() {
-        entityManager.createQuery("DELETE FROM " + CAR_TABLE).executeUpdate();
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-    }
-
-    @AfterEach
-    void emptyDataBaseAfter() {
-        entityManager.createQuery("DELETE FROM " + CAR_TABLE).executeUpdate();
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-    }
 
     @Test
     void CarCRUDTest() throws Exception {
