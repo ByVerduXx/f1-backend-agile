@@ -88,7 +88,7 @@ public class DriverService {
                     .findById(driverDTORequest.getIdTeam())
                     .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
             dm.setTeam(team);
-        }else {
+        } else {
             dm.setTeam(null);
         }
 

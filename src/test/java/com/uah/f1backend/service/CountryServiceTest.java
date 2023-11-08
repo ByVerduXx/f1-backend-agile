@@ -1,7 +1,12 @@
 package com.uah.f1backend.service;
 
+import static com.uah.f1backend.configuration.HttpExceptions.*;
+import static com.uah.f1backend.utils.CountryUtils.*;
+
 import com.uah.f1backend.model.CountryModel;
 import com.uah.f1backend.repository.CountryModelRepository;
+import java.util.ArrayList;
+import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import java.util.ArrayList;
-import java.util.Optional;
-
-import static com.uah.f1backend.utils.CountryUtils.*;
-import static com.uah.f1backend.configuration.HttpExceptions.*;
 
 public class CountryServiceTest {
     @InjectMocks
@@ -64,11 +63,10 @@ public class CountryServiceTest {
     }
 
     @Test
-    public void findCountryByIdNotFoundTest(){
+    public void findCountryByIdNotFoundTest() {
         Mockito.doReturn(Optional.empty()).when(countryModelRepository).findById(1);
         Assertions.assertThrows(CountryDoesntExistException.class, () -> {
             countryService.obtainCountryById(1);
         });
     }
-
 }

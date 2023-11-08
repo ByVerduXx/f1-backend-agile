@@ -132,8 +132,8 @@ public class DriverServiceTest {
                 CountryDoesntExistException.class, () -> driverService.insertDriver(dummyDriverDTORequest()));
     }
 
-   @Test
-   public void insertDriverTeamNotFoundTest() {
+    @Test
+    public void insertDriverTeamNotFoundTest() {
         final var dm = dummyDriverModel();
         Mockito.doReturn(Optional.empty())
                 .when(teamModelRepository)
@@ -143,7 +143,7 @@ public class DriverServiceTest {
                 .findById(dm.getCountry().getId());
         Assertions.assertThrows(
                 TeamDoesntExistException.class, () -> driverService.insertDriver(dummyDriverDTORequest()));
-   }
+    }
 
     @Test
     public void updateDriverByIdTest() {
