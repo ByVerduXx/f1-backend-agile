@@ -15,12 +15,16 @@ public class DriverUtils {
         return new DriverDTORequest("name", "lastname", "nl", 1, "photo.png", "@twitter", 1, 1);
     }
 
+    public static DriverDTORequest dummyDriverDTORequestOnIT(Integer idCountry, Integer idTeam) {
+        return new DriverDTORequest("name", "lastname", "nl", 1, "photo.png", "@twitter", idCountry, idTeam);
+    }
+
     public static DriverDTORequest dummyDriverDTONullTeamRequest() {
         return new DriverDTORequest("name", "lastname", "nl", 1, "photo.png", "@twitter", 1, null);
     }
 
-    public static DriverDTORequest dummy2DriverDTORequest() {
-        return new DriverDTORequest("name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", 1, 1);
+    public static DriverDTORequest dummy2DriverDTORequestOnIT(Integer idCountry, Integer idTeam) {
+        return new DriverDTORequest("name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", idCountry, idTeam);
     }
 
     public static DriverDTORequest dummy3DriverDTORequest() {
@@ -29,6 +33,10 @@ public class DriverUtils {
 
     public static DriverDTOResponse dummyDriverDTOResponse() {
         return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(), 1);
+    }
+
+    public static DriverDTOResponse dummyDriverDTOResponseOnIT(Integer idCountry, Integer idTeam) {
+        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", idCountry, idTeam);
     }
 
     public static DriverDTOResponse dummyDriverDTONullTeamResponse() {

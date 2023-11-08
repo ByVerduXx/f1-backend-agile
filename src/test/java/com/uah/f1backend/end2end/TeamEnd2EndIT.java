@@ -13,9 +13,7 @@ import com.uah.f1backend.model.TeamModel;
 import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -40,16 +38,6 @@ public class TeamEnd2EndIT {
 
     @Autowired
     ObjectMapper objectMapper;
-
-    @BeforeEach
-    void emptyDataBase() {
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-    }
-
-    @AfterEach
-    void emptyDataBaseAfter() {
-        entityManager.createQuery("DELETE FROM " + TEAM_TABLE).executeUpdate();
-    }
 
     @Test
     void insertAndDeleteTeam() throws Exception {
