@@ -10,8 +10,8 @@ public class CountryUtils {
         return new CountryModel(1, "CO", "country");
     }
 
-    public static CountryDTOResponse dummyCountryDTOResponse() {
-        return new CountryDTOResponse(1, "CO", "country");
+    public static CountryDTOResponse dummyCountryDTOResponse(Integer idCountry) {
+        return new CountryDTOResponse(idCountry, "CO", "country");
     }
 
     public static List<CountryModel> dummyListCountryModel() {

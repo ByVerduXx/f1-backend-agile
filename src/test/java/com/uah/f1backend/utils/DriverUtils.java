@@ -33,26 +33,20 @@ public class DriverUtils {
 
     public static DriverDTOResponse dummyDriverDTOResponse() {
         return new DriverDTOResponse(
-                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(), 1);
+                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(1), 1);
     }
 
     public static DriverDTOResponse dummyDriverDTOResponseOnIT(Integer idCountry, Integer idTeam) {
-        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", idCountry, idTeam);
+        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(idCountry), idTeam);
+    }
+
+    public static DriverDTOResponse dummy2DriverDTOResponseOnIT(Integer idCountry, Integer idTeam) {
+        return new DriverDTOResponse(1, "name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", dummyCountryDTOResponse(idCountry), idTeam);
     }
 
     public static DriverDTOResponse dummyDriverDTONullTeamResponse() {
         return new DriverDTOResponse(
-                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(), null);
-    }
-
-    public static DriverDTOResponse dummyDriverDTOResponseIT() {
-        return new DriverDTOResponse(
-                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(), 1);
-    }
-
-    public static DriverDTOResponse dummy2DriverDTOResponseIT() {
-        return new DriverDTOResponse(
-                1, "name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", dummyCountryDTOResponse(), 1);
+                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(1), null);
     }
 
     public static List<DriverDTOResponse> dummyListDriverDTOResponse() {
@@ -66,7 +60,7 @@ public class DriverUtils {
                     i,
                     String.format("photo%s.png", i),
                     "@twitter" + i,
-                    dummyCountryDTOResponse(),
+                    dummyCountryDTOResponse(1),
                     1));
         }
         return dummyList;

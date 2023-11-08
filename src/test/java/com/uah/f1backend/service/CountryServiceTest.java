@@ -58,7 +58,7 @@ public class CountryServiceTest {
         final var cm = dummyCountryModel();
         Mockito.doReturn(Optional.of(cm)).when(countryModelRepository).findById(1);
         final var actualResult = countryService.obtainCountryById(cm.getId());
-        final var expectedResult = dummyCountryDTOResponse();
+        final var expectedResult = dummyCountryDTOResponse(1);
         Assertions.assertEquals(expectedResult, actualResult);
     }
 
