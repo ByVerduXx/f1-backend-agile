@@ -49,6 +49,8 @@ public class DriverService {
                     .findById(driverDTORequest.getIdTeam())
                     .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
             dm.setTeam(team);
+        }else{
+            dm.setTeam(null);
         }
 
         final var country = countryModelRepository
@@ -56,7 +58,10 @@ public class DriverService {
                 .orElseThrow(HttpExceptions.CountryDoesntExistException::new);
         dm.setCountry(country);
 
+        System.out.println(dm);
+
         validateDriverFields(dm);
+
 
         return DriverMappers.toDriverDTOResponse(driverModelRepository.save(dm));
     }
@@ -88,6 +93,8 @@ public class DriverService {
                     .findById(driverDTORequest.getIdTeam())
                     .orElseThrow(HttpExceptions.TeamDoesntExistException::new);
             dm.setTeam(team);
+        }else{
+            dm.setTeam(null);
         }
 
         final var country = countryModelRepository
@@ -107,9 +114,9 @@ public class DriverService {
     private static void validateDriverFields(DriverModel dm) {
 
         // Validate that photo is a valid url
-        if (!isValidUrl(dm.getPhoto())) {
+        /*if (!isValidUrl(dm.getPhoto())) {
             throw new HttpExceptions.InvalidUrlFormatException();
-        }
+        }*/
 
         // Validate that twitter is a valid Twitter account (can be empty)
         if (dm.getTwitter() != null && !isValidTwitter(dm.getTwitter())) {
