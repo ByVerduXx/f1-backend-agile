@@ -32,26 +32,46 @@ public class DriverUtils {
     }
 
     public static DriverDTOResponse dummyDriverDTOResponse() {
-        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", 1, 1);
+        return new DriverDTOResponse(
+                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(1), 1);
     }
 
     public static DriverDTOResponse dummyDriverDTOResponseOnIT(Integer idCountry, Integer idTeam) {
-        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", idCountry, idTeam);
-    }
-
-    public static DriverDTOResponse dummyDriverDTONullTeamResponse() {
-        return new DriverDTOResponse(1, "name", "lastname", "nl", 1, "photo.png", "@twitter", 1, null);
+        return new DriverDTOResponse(
+                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(idCountry), idTeam);
     }
 
     public static DriverDTOResponse dummy2DriverDTOResponseOnIT(Integer idCountry, Integer idTeam) {
-        return new DriverDTOResponse(1, "name2", "lastname2", "nl2", 1, "photo2.png", "@twitter", idCountry, idTeam);
+        return new DriverDTOResponse(
+                1,
+                "name2",
+                "lastname2",
+                "nl2",
+                1,
+                "photo2.png",
+                "@twitter",
+                dummyCountryDTOResponse(idCountry),
+                idTeam);
+    }
+
+    public static DriverDTOResponse dummyDriverDTONullTeamResponse() {
+        return new DriverDTOResponse(
+                1, "name", "lastname", "nl", 1, "photo.png", "@twitter", dummyCountryDTOResponse(1), null);
     }
 
     public static List<DriverDTOResponse> dummyListDriverDTOResponse() {
         final var dummyList = new ArrayList<DriverDTOResponse>();
         for (var i = 0; i < 3; i++) {
             dummyList.add(new DriverDTOResponse(
-                    i, "name" + i, "lastname" + i, "nl" + i, i, String.format("photo%s.png", i), "@twitter" + i, 1, 1));
+                    i,
+                    "name" + i,
+                    "lastname" + i,
+                    "nl" + i,
+                    i,
+                    String.format("photo%s.png", i),
+                    "@twitter" + i,
+                    dummyCountryDTOResponse(1),
+                    1));
         }
         return dummyList;
     }

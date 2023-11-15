@@ -12,11 +12,15 @@ import com.uah.f1backend.repository.TeamModelRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.junit.jupiter.api.*;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class DriverServiceTest {
+
+    @InjectMocks
+    private DriverService driverService;
 
     @Mock
     private DriverModelRepository driverModelRepository;
@@ -28,7 +32,6 @@ public class DriverServiceTest {
     private TeamModelRepository teamModelRepository;
 
     private AutoCloseable closeable;
-    private DriverService driverService;
 
     @BeforeEach
     public void initMocks() {
@@ -117,6 +120,32 @@ public class DriverServiceTest {
     }
 
     @Test
+    public void insertDriverCountryNotFoundTest() {
+        final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.of(dummyTeamModel()))
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.empty())
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Assertions.assertThrows(
+                CountryDoesntExistException.class, () -> driverService.insertDriver(dummyDriverDTORequest()));
+    }
+
+    @Test
+    public void insertDriverTeamNotFoundTest() {
+        final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.empty())
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Assertions.assertThrows(
+                TeamDoesntExistException.class, () -> driverService.insertDriver(dummyDriverDTORequest()));
+    }
+
+    @Test
     public void updateDriverByIdTest() {
         final var dm = dummyDriverModel();
         Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
@@ -161,6 +190,36 @@ public class DriverServiceTest {
         Assertions.assertThrows(
                 DriverDorsalInUseException.class,
                 () -> driverService.updateDriverById(dm.getId(), dummy3DriverDTORequest()));
+    }
+
+    @Test
+    public void updateDriverCountryNotFoundTest() {
+        final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
+        Mockito.doReturn(Optional.of(dummyTeamModel()))
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.empty())
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Assertions.assertThrows(
+                CountryDoesntExistException.class,
+                () -> driverService.updateDriverById(dm.getId(), dummyDriverDTORequest()));
+    }
+
+    @Test
+    public void updateDriverTeamNotFoundTest() {
+        final var dm = dummyDriverModel();
+        Mockito.doReturn(Optional.of(dm)).when(driverModelRepository).findById(dm.getId());
+        Mockito.doReturn(Optional.empty())
+                .when(teamModelRepository)
+                .findById(dm.getTeam().getId());
+        Mockito.doReturn(Optional.of(dummyCountryModel()))
+                .when(countryModelRepository)
+                .findById(dm.getCountry().getId());
+        Assertions.assertThrows(
+                TeamDoesntExistException.class,
+                () -> driverService.updateDriverById(dm.getId(), dummyDriverDTORequest()));
     }
 
     @Test
