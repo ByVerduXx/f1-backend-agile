@@ -3,6 +3,7 @@ package com.uah.f1backend.model.mapper.circuit;
 import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.CircuitDTORequest;
 import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
+import com.uah.f1backend.model.mapper.country.CountryMappers;
 import java.util.List;
 
 public class CircuitMappers {
@@ -30,7 +31,7 @@ public class CircuitMappers {
                     cm.getId(),
                     cm.getName(),
                     cm.getCity(),
-                    cm.getCountry().getId(),
+                    CountryMappers.toCountryDTOResponse(cm.getCountry()),
                     cm.getImage(),
                     cm.getLaps(),
                     cm.getLength(),
