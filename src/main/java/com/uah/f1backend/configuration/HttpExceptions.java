@@ -96,4 +96,8 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have at least 2 turns")
     public static class CircuitTurnsLessThanTwoException extends RuntimeException {}
+
+    // Simulation Exceptions
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
+    public static class SimulationNotValidException extends RuntimeException {}
 }
