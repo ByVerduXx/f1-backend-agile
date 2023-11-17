@@ -96,4 +96,18 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have at least 2 turns")
     public static class CircuitTurnsLessThanTwoException extends RuntimeException {}
+
+    // News Exceptions
+    @ResponseStatus(code = NOT_FOUND, reason = "News not found")
+    public static class NewsDoesntExistException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "News permalink already exists")
+    public static class NewsPermalinkInUseException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "News title already exists")
+    public static class NewsTitleInUseException extends RuntimeException {}
+    @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [permalink, title, text, publication_date, image (optional)]")
+    public static class NewsNotSavedException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "News permalink has to be at least 1 character")
+    public static class NewsPermalinkNotValidException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "News title has to be at least 1 character")
+    public static class NewsTitleNotValidException extends RuntimeException {}
 }
