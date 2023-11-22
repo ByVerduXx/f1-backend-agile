@@ -5,6 +5,7 @@ import com.uah.f1backend.model.dto.car.CarDTOResponse;
 import com.uah.f1backend.service.CarService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class CarRestController {
     @GetMapping("{id}")
     public ResponseEntity<CarDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(carService.getCarById(id));
+    }
+
+    @GetMapping("/team/{id}")
+    public ResponseEntity<List<CarDTOResponse>> findAllTeamCars(@PathVariable Integer id) {
+        return ResponseEntity.ok(carService.findAllTeamCars(id));
     }
 
     @PostMapping

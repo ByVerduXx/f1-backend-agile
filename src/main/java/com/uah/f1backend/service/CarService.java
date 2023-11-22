@@ -28,6 +28,9 @@ public class CarService {
         return CarMappers.toCarDTOResponse(
                 carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new));
     }
+    public List<CarDTOResponse> findAllTeamCars(Integer teamId) {
+        return CarMappers.toCarDTOResponses(carModelRepository.findAllByTeamId(teamId));
+    }
 
     public CarDTOResponse saveCar(CarDTORequest carDTORequest) {
         try {
@@ -113,4 +116,5 @@ public class CarService {
             throw new HttpExceptions.CarCodeInUseException();
         }
     }
+
 }
