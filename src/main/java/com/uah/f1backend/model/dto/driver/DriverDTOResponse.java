@@ -1,5 +1,6 @@
 package com.uah.f1backend.model.dto.driver;
 
+import com.uah.f1backend.model.dto.country.CountryDTOResponse;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 @EqualsAndHashCode
 @Getter
 public class DriverDTOResponse {
+
     private final Integer id;
 
     private final String name;
@@ -22,6 +24,7 @@ public class DriverDTOResponse {
 
     private final String twitter;
 
-    private final Integer idCountry;
+    private final CountryDTOResponse countryDTOResponse;
+
     private final Integer idTeam;
 }

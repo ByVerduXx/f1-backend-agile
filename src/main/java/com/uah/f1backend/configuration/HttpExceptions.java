@@ -71,4 +71,33 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Car consumption value has to be greater or equal to zero")
     public static class CarConsumptionNotValidException extends RuntimeException {}
+
+    // Circuit Exceptions
+    @ResponseStatus(code = NOT_FOUND, reason = "Circuit not found")
+    public static class CircuitDoesntExistException extends RuntimeException {}
+
+    @ResponseStatus(
+            value = UNPROCESSABLE_ENTITY,
+            reason =
+                    "Needed fields: [name, city, id_country, image, laps, length, slow_turns, medium_turns, fast_turns]")
+    public static class CircuitNotSavedException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit name already exists")
+    public static class CircuitNameInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit already exists")
+    public static class CircuitInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit has to have at least 1 lap")
+    public static class CircuitLapsLessThanOneException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have length >= 0 ")
+    public static class CircuitLenghtLessThanZeroException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Circuit needs to have at least 2 turns")
+    public static class CircuitTurnsLessThanTwoException extends RuntimeException {}
+
+    // Simulation Exceptions
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
+    public static class SimulationNotValidException extends RuntimeException {}
 }

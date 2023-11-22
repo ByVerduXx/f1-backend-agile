@@ -33,4 +33,14 @@ public class ColumnNameConstants {
     public static final String USER_USERNAME = "username";
     public static final String USER_ROLE = "role_id";
     public static final String USER_VALIDATED = "validated";
+    public static final String CIRCUIT_ID = "id";
+    public static final String CIRCUIT_NAME = "name";
+    public static final String CIRCUIT_CITY = "city";
+    public static final String CIRCUIT_COUNTRY = "id_country";
+    public static final String CIRCUIT_LAPS = "laps";
+    public static final String CIRCUIT_LENGTH = "length";
+    public static final String CIRCUIT_IMAGE = "image";
+    public static final String CIRCUIT_SLOW_TURNS = "slow_turns";
+    public static final String CIRCUIT_MEDIUM_TURNS = "medium_turns";
+    public static final String CIRCUIT_FAST_TURNS = "fast_turns";
 }
