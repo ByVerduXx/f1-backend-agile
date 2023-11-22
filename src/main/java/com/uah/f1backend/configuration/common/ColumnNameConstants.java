@@ -25,6 +25,14 @@ public class ColumnNameConstants {
     public static final String CAR_RS_GAIN_MEDIUM = "ers_gain_medium";
     public static final String CAR_ERS_GAIN_FAST = "ers_gain_fast";
     public static final String CAR_CONSUMPTION = "consumption";
+    public static final String USER_ID = "id";
+    public static final String USER_EMAIL = "username";
+    public static final String USER_PASSWORD = "password";
+    public static final String USER_NAME = "name";
+    public static final String USER_LAST_NAME = "last_name";
+    public static final String USER_USERNAME = "username";
+    public static final String USER_ROLE = "role_id";
+    public static final String USER_VALIDATED = "validated";
 
     public static final String CIRCUIT_ID = "id";
     public static final String CIRCUIT_NAME = "name";

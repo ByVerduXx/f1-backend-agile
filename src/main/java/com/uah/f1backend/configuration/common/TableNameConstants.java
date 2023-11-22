@@ -8,4 +8,5 @@ public class TableNameConstants {
     public static final String DRIVER_TABLE = "driver";
     public static final String CIRCUIT_TABLE = "track";
     public static final String NEWS_TABLE = "news";
+    public static final String USER_TABLE = "user";
 }
