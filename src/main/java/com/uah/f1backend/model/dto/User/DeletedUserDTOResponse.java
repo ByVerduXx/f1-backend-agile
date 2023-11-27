@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class DeletedUserDTOResponse {
-    private final Integer id;
+    private final String username;
     private final String message;
 }
