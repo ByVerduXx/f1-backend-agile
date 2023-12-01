@@ -1,4 +1,4 @@
-package com.uah.f1backend.model.dto.User;
+package com.uah.f1backend.model.dto.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

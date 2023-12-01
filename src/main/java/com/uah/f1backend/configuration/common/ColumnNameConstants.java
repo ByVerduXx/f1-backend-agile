@@ -43,4 +43,6 @@ public class ColumnNameConstants {
     public static final String CIRCUIT_SLOW_TURNS = "slow_turns";
     public static final String CIRCUIT_MEDIUM_TURNS = "medium_turns";
     public static final String CIRCUIT_FAST_TURNS = "fast_turns";
+    public static final String ROLE_ID = "id";
+    public static final String ROLE_NAME = "name";
 }
