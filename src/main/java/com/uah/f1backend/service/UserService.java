@@ -1,9 +1,9 @@
 package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
-import com.uah.f1backend.model.dto.User.DeletedUserDTOResponse;
-import com.uah.f1backend.model.dto.User.UserDTORequest;
-import com.uah.f1backend.model.dto.User.UserDTOResponse;
+import com.uah.f1backend.model.dto.user.DeletedUserDTOResponse;
+import com.uah.f1backend.model.dto.user.UserDTORequest;
+import com.uah.f1backend.model.dto.user.UserDTOResponse;
 import com.uah.f1backend.model.mapper.user.UserMappers;
 import com.uah.f1backend.repository.UserModelRepository;
 import lombok.RequiredArgsConstructor;

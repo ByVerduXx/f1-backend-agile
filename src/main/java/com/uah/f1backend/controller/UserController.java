@@ -1,8 +1,8 @@
 package com.uah.f1backend.controller;
 
-import com.uah.f1backend.model.dto.User.DeletedUserDTOResponse;
-import com.uah.f1backend.model.dto.User.UserDTORequest;
-import com.uah.f1backend.model.dto.User.UserDTOResponse;
+import com.uah.f1backend.model.dto.user.DeletedUserDTOResponse;
+import com.uah.f1backend.model.dto.user.UserDTORequest;
+import com.uah.f1backend.model.dto.user.UserDTOResponse;
 import com.uah.f1backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,12 +18,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserDTOResponse>> getUser() {
+    public ResponseEntity<List<UserDTOResponse>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTOResponse> getUser(Integer id) {
+    public ResponseEntity<UserDTOResponse> getUser(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 

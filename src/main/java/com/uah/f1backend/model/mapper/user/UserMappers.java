@@ -2,8 +2,8 @@ package com.uah.f1backend.model.mapper.user;
 
 
 import com.uah.f1backend.model.UserModel;
-import com.uah.f1backend.model.dto.User.UserDTORequest;
-import com.uah.f1backend.model.dto.User.UserDTOResponse;
+import com.uah.f1backend.model.dto.user.UserDTORequest;
+import com.uah.f1backend.model.dto.user.UserDTOResponse;
 
 
 import java.util.List;

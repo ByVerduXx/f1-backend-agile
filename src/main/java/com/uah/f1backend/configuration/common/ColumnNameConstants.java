@@ -33,7 +33,6 @@ public class ColumnNameConstants {
     public static final String USER_USERNAME = "username";
     public static final String USER_ROLE = "role_id";
     public static final String USER_VALIDATED = "validated";
-
     public static final String CIRCUIT_ID = "id";
     public static final String CIRCUIT_NAME = "name";
     public static final String CIRCUIT_CITY = "city";
@@ -44,6 +43,8 @@ public class ColumnNameConstants {
     public static final String CIRCUIT_SLOW_TURNS = "slow_turns";
     public static final String CIRCUIT_MEDIUM_TURNS = "medium_turns";
     public static final String CIRCUIT_FAST_TURNS = "fast_turns";
+    public static final String ROLE_ID = "id";
+    public static final String ROLE_NAME = "name";
 
     public static final String NEWS_ID = "id";
     public static final String NEWS_PERMALINK = "permalink";
