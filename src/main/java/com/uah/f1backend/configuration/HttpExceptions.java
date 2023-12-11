@@ -131,4 +131,7 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Username already in use")
     public static class UsernameInUseException extends RuntimeException {}
 
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Role does not exist")
+    public static class RoleDoesntExistException extends RuntimeException {}
+
 }

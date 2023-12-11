@@ -1,5 +1,6 @@
 package com.uah.f1backend.model.dto.user;
 
+import com.uah.f1backend.model.dto.role.RoleDTOResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +13,6 @@ public class UserDTOResponse {
     private final String name;
     private final String lastname;
     private final String username;
-    private final Integer role;
+    private final RoleDTOResponse role;
     private final Boolean validated;
 }

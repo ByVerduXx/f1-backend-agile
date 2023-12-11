@@ -4,27 +4,12 @@ package com.uah.f1backend.model.mapper.user;
 import com.uah.f1backend.model.UserModel;
 import com.uah.f1backend.model.dto.user.UserDTORequest;
 import com.uah.f1backend.model.dto.user.UserDTOResponse;
+import com.uah.f1backend.model.mapper.role.RoleMappers;
 
 
 import java.util.List;
 
 public class UserMappers {
-
-    public static UserDTORequest toUserDTORequest(UserModel um){
-        try{
-            return new UserDTORequest(
-                um.getEmail(),
-                um.getPassword(),
-                um.getName(),
-                um.getLastname(),
-                um.getUsername(),
-                um.getRole(),
-                um.getValidated()
-            );
-        }catch (NullPointerException e){
-            return null;
-        }
-    }
 
     public static UserDTOResponse toUserDTOResponse(UserModel um){
         try{
@@ -35,7 +20,7 @@ public class UserMappers {
                 um.getName(),
                 um.getLastname(),
                 um.getUsername(),
-                um.getRole(),
+                    RoleMappers.toRoleDTOResponse(um.getRole()),
                 um.getValidated()
             );
         }catch (NullPointerException e){
@@ -55,7 +40,7 @@ public class UserMappers {
             um.setName(udr.getName());
             um.setLastname(udr.getLastname());
             um.setUsername(udr.getUsername());
-            um.setRole(udr.getRole());
+
             um.setValidated(udr.getValidated());
             return um;
         }catch (NullPointerException e){

@@ -5,6 +5,7 @@ import com.uah.f1backend.model.dto.user.DeletedUserDTOResponse;
 import com.uah.f1backend.model.dto.user.UserDTORequest;
 import com.uah.f1backend.model.dto.user.UserDTOResponse;
 import com.uah.f1backend.model.mapper.user.UserMappers;
+import com.uah.f1backend.repository.RoleModelRepository;
 import com.uah.f1backend.repository.UserModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserModelRepository userRepository;
+    private final RoleModelRepository roleModelRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -38,6 +40,12 @@ public class UserService {
         if (userRepository.findByUsername(user.getEmail()).isPresent()) {
             throw new HttpExceptions.UsernameInUseException();
         }
+
+        final var role = roleModelRepository
+                .findById(user.getRoleId())
+                .orElseThrow(HttpExceptions.RoleDoesntExistException::new);
+
+        cm.setRole(role);
 
         return UserMappers.toUserDTOResponse(userRepository.save(cm));
     }
