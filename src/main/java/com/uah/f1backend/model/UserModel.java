@@ -36,8 +36,9 @@ public class UserModel {
     @Column(name = USER_USERNAME)
     private String username;
 
-    @Column(name = USER_ROLE)
-    private Integer role;
+    @OneToOne
+    @JoinColumn(name = USER_ROLE)
+    private RoleModel role;
 
     @Column(name = USER_VALIDATED)
     private Boolean validated;

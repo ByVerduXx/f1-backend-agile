@@ -101,8 +101,8 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
     public static class SimulationNotValidException extends RuntimeException {}
 
-    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User does not exists")
-    public static class UserDoesntExists extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User does not exist")
+    public static class UserDoesntExist extends RuntimeException {}
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Lack of a field")
     public static class UserNotSavedException extends RuntimeException {}
