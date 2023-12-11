@@ -7,6 +7,7 @@ import com.uah.f1backend.model.dto.user.UserDTOResponse;
 import com.uah.f1backend.model.mapper.user.UserMappers;
 import com.uah.f1backend.repository.UserModelRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.List;
 public class UserService {
     private final UserModelRepository userRepository;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public List<UserDTOResponse> getAllUsers() {
         return UserMappers.toUserDTOResponse(userRepository.findAll());
     }
 
     public UserDTOResponse getUserById(Integer id) {
-        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExists::new);
+        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExist::new);
         return UserMappers.toUserDTOResponse(c);
     }
 
@@ -40,13 +43,13 @@ public class UserService {
     }
 
     public DeletedUserDTOResponse deleteUserById(Integer id) {
-        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExists::new);
+        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExist::new);
         userRepository.deleteById(id);
         return new DeletedUserDTOResponse(c.getUsername(),"User deleted");
     }
 
     public UserDTOResponse updateUserById(Integer id, UserDTORequest user) {
-        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExists::new);
+        final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExist::new);
         final var cm = UserMappers.toUserModel(user);
 
         if (cm == null) {

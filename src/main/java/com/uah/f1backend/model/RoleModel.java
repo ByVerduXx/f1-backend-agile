@@ -23,5 +23,5 @@ public class RoleModel {
     private Integer id;
 
     @Column(name = ROLE_NAME)
-    private String role_name;
+    private String roleName;
 }
