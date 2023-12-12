@@ -85,7 +85,7 @@ public class NewsService {
     }
 
     private void isNewsPermalinkInUse(String permalink) {
-        if (newsModelRepository.findNewsModelByPermaLink(permalink).isPresent()) {
+        if (newsModelRepository.findNewsModelByPermalink(permalink).isPresent()) {
             throw new HttpExceptions.NewsPermalinkInUseException();
         }
     }
