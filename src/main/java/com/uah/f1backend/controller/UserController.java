@@ -1,8 +1,6 @@
 package com.uah.f1backend.controller;
 
-import com.uah.f1backend.model.dto.user.DeletedUserDTOResponse;
-import com.uah.f1backend.model.dto.user.UserDTORequest;
-import com.uah.f1backend.model.dto.user.UserDTOResponse;
+import com.uah.f1backend.model.dto.user.*;
 import com.uah.f1backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,8 +37,13 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<UserDTOResponse> deleteUserById
+    public ResponseEntity<UserDTOResponse> updateUserById
             (@PathVariable Integer id, @RequestBody UserDTORequest user) {
         return new ResponseEntity<>(userService.updateUserById(id, user), HttpStatus.CREATED);
+    }
+
+    @GetMapping("changePassword/{id}")
+    public ResponseEntity<ChangePasswordUserDTOResponse> changePassword(@PathVariable Integer id, @RequestBody ChangePasswordUserDTORequest request) {
+        return ResponseEntity.ok(userService.changePasswordUserByID(id, request));
     }
 }

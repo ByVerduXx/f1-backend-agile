@@ -1,9 +1,7 @@
 package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
-import com.uah.f1backend.model.dto.user.DeletedUserDTOResponse;
-import com.uah.f1backend.model.dto.user.UserDTORequest;
-import com.uah.f1backend.model.dto.user.UserDTOResponse;
+import com.uah.f1backend.model.dto.user.*;
 import com.uah.f1backend.model.mapper.user.UserMappers;
 import com.uah.f1backend.repository.RoleModelRepository;
 import com.uah.f1backend.repository.UserModelRepository;
@@ -78,5 +76,28 @@ public class UserService {
 
         return UserMappers.toUserDTOResponse(userRepository.save(c));
     }
+
+    public ChangePasswordUserDTOResponse changePasswordUserByID(Integer userId, ChangePasswordUserDTORequest request){
+        var user = userRepository.findById(userId).orElseThrow(HttpExceptions.UserDoesntExist::new);
+
+        if (!user.getPassword().equals(bCryptPasswordEncoder.encode(request.getOldPassword()))){
+            return new ChangePasswordUserDTOResponse(user.getId(), user.getUsername(), false);
+        }
+
+        var encodedPassword = encodePassword(request.getNewPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+
+        return new ChangePasswordUserDTOResponse(user.getId(), user.getUsername(), true);
+    }
+
+    public String encodePassword(String password) {
+        if (bCryptPasswordEncoder == null) {
+            bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        }
+        return bCryptPasswordEncoder.encode(password);
+    }
+
+
 
 }
