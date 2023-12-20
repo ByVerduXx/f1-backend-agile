@@ -3,12 +3,11 @@ package com.uah.f1backend.controller;
 import com.uah.f1backend.model.dto.news.NewsDTORequest;
 import com.uah.f1backend.model.dto.news.NewsDTOResponse;
 import com.uah.f1backend.service.NewsService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("news")

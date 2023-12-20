@@ -8,8 +8,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Entity(name = TableNameConstants.NEWS_TABLE)
 @Data
 @EqualsAndHashCode
@@ -37,5 +35,4 @@ public class NewsModel {
 
     @Column(name = ColumnNameConstants.NEWS_PUBLICATION_DATE)
     private String publication_date;
-
 }

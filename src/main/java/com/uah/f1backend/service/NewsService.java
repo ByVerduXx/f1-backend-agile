@@ -4,18 +4,11 @@ import com.uah.f1backend.configuration.HttpExceptions;
 import com.uah.f1backend.model.NewsModel;
 import com.uah.f1backend.model.dto.news.NewsDTORequest;
 import com.uah.f1backend.model.dto.news.NewsDTOResponse;
-import com.uah.f1backend.model.dto.news.NewsDTOResponse;
-import com.uah.f1backend.model.mapper.news.NewsMappers;
 import com.uah.f1backend.model.mapper.news.NewsMappers;
 import com.uah.f1backend.repository.NewsModelRepository;
-import com.uah.f1backend.repository.NewsModelRepository;
-import com.uah.f1backend.repository.TeamModelRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +43,6 @@ public class NewsService {
             NewsModel newsModel =
                     newsModelRepository.findById(id).orElseThrow(HttpExceptions.NewsDoesntExistException::new);
 
-
             isNewsPermalinkInUse(newsModel.getPermalink());
             isNewsTitleInUse(newsModel.getTitle());
 
@@ -69,7 +61,8 @@ public class NewsService {
     }
 
     public String deleteNews(Integer id) {
-        NewsModel newsModel = newsModelRepository.findById(id).orElseThrow(HttpExceptions.NewsDoesntExistException::new);
+        NewsModel newsModel =
+                newsModelRepository.findById(id).orElseThrow(HttpExceptions.NewsDoesntExistException::new);
         newsModelRepository.delete(newsModel);
         return "News with id " + id + " and title " + newsModel.getTitle() + " has been deleted";
     }
@@ -81,7 +74,6 @@ public class NewsService {
         if (news.getPermalink() == null || news.getPermalink().isEmpty()) {
             throw new HttpExceptions.NewsPermalinkNotValidException();
         }
-
     }
 
     private void isNewsPermalinkInUse(String permalink) {

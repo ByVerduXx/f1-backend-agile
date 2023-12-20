@@ -1,11 +1,8 @@
 package com.uah.f1backend.model.mapper.news;
 
 import com.uah.f1backend.model.NewsModel;
-import com.uah.f1backend.model.NewsModel;
 import com.uah.f1backend.model.dto.news.NewsDTORequest;
 import com.uah.f1backend.model.dto.news.NewsDTOResponse;
-import com.uah.f1backend.model.dto.news.NewsDTOResponse;
-
 import java.util.List;
 
 public class NewsMappers {
