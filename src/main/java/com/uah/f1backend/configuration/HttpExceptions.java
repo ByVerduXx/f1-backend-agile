@@ -110,4 +110,8 @@ public class HttpExceptions {
     public static class NewsPermalinkNotValidException extends RuntimeException {}
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "News title has to be at least 1 character")
     public static class NewsTitleNotValidException extends RuntimeException {}
+  
+    // Simulation Exceptions
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
+    public static class SimulationNotValidException extends RuntimeException {}
 }
