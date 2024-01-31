@@ -36,4 +36,11 @@ public class ColumnNameConstants {
     public static final String CIRCUIT_SLOW_TURNS = "slow_turns";
     public static final String CIRCUIT_MEDIUM_TURNS = "medium_turns";
     public static final String CIRCUIT_FAST_TURNS = "fast_turns";
+
+    public static final String NEWS_ID = "id";
+    public static final String NEWS_PERMALINK = "permalink";
+    public static final String NEWS_TITLE = "title";
+    public static final String NEWS_IMAGE = "image";
+    public static final String NEWS_TEXT = "text";
+    public static final String NEWS_PUBLICATION_DATE = "publication_date";
 }
