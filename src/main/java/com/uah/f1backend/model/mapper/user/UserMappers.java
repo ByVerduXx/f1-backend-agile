@@ -12,20 +12,16 @@ import java.util.List;
 public class UserMappers {
 
     public static UserDTOResponse toUserDTOResponse(UserModel um){
-        try{
-            return new UserDTOResponse(
-                um.getId(),
-                um.getEmail(),
-                um.getPassword(),
-                um.getName(),
-                um.getLastname(),
-                um.getUsername(),
-                    RoleMappers.toRoleDTOResponse(um.getRole()),
-                um.getValidated()
-            );
-        }catch (NullPointerException e){
-            return null;
-        }
+        return new UserDTOResponse(
+            um.getId(),
+            um.getEmail(),
+            um.getPassword(),
+            um.getName(),
+            um.getLastname(),
+            um.getUsername(),
+                RoleMappers.toRoleDTOResponse(um.getRole()),
+            um.getValidated()
+        );
     }
 
     public static List<UserDTOResponse> toUserDTOResponse(List<UserModel> cm){
@@ -33,22 +29,13 @@ public class UserMappers {
     }
 
     public static UserModel toUserModel(UserDTORequest udr){
-        try{
-            final var um = new UserModel();
-            um.setEmail(udr.getEmail());
-            um.setPassword(udr.getPassword());
-            um.setName(udr.getName());
-            um.setLastname(udr.getLastname());
-            um.setUsername(udr.getUsername());
+        final var um = new UserModel();
+        um.setEmail(udr.getEmail());
+        um.setPassword(udr.getPassword());
+        um.setName(udr.getName());
+        um.setLastname(udr.getLastname());
+        um.setUsername(udr.getUsername());
 
-            um.setValidated(udr.getValidated());
-            return um;
-        }catch (NullPointerException e){
-            return null;
-        }
+        return um;
     }
-
-
-
-
 }

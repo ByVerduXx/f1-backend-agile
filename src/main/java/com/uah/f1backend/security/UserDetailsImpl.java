@@ -59,4 +59,12 @@ public class UserDetailsImpl implements UserDetails {
     public String getLastName() {
         return user.getLastname();
     }
+
+    public boolean isValidated() {
+        return user.getValidated();
+    }
+
+    public Integer getId() {
+        return user.getId();
+    }
 }
