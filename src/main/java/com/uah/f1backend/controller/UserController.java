@@ -42,8 +42,23 @@ public class UserController {
         return new ResponseEntity<>(userService.updateUserById(id, user), HttpStatus.CREATED);
     }
 
-    @GetMapping("changePassword/{id}")
+    @PostMapping("changePassword/{id}")
     public ResponseEntity<ChangePasswordUserDTOResponse> changePassword(@PathVariable Integer id, @RequestBody ChangePasswordUserDTORequest request) {
         return ResponseEntity.ok(userService.changePasswordUserByID(id, request));
+    }
+
+    @PostMapping("changePassword")
+    public ResponseEntity<ChangePasswordUserDTOResponse> changePassword(@RequestBody ChangePasswordUserDTORequest request) {
+        return ResponseEntity.ok(userService.changePasswordUserAuthenticated(request));
+    }
+
+    @GetMapping("validate")
+    public ResponseEntity<List<UserDTOResponse>> validateUser() {
+        return ResponseEntity.ok(userService.findAllValidatePendingUsers());
+    }
+
+    @PostMapping("validate/{id}")
+    public ResponseEntity<String> validateUser(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.validateUser(id));
     }
 }

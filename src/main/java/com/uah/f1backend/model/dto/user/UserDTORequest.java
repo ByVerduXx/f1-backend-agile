@@ -12,5 +12,4 @@ public class UserDTORequest {
     private final String lastname;
     private final String username;
     private final Integer roleId;
-    private final Boolean validated;
 }
