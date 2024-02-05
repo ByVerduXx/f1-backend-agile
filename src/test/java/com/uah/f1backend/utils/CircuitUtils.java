@@ -19,9 +19,9 @@ public class CircuitUtils {
         cm.setImage("image.png");
         cm.setLaps(1);
         cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
+        cm.setSlowTurns(1);
+        cm.setMediumTurns(1);
+        cm.setFastTurns(1);
         return cm;
     }
 
@@ -34,9 +34,9 @@ public class CircuitUtils {
         cm.setImage("image2.png");
         cm.setLaps(2);
         cm.setLength(2);
-        cm.setSlow_turns(2);
-        cm.setMedium_turns(2);
-        cm.setFast_turns(2);
+        cm.setSlowTurns(2);
+        cm.setMediumTurns(2);
+        cm.setFastTurns(2);
         return cm;
     }
 
@@ -51,9 +51,9 @@ public class CircuitUtils {
             cm.setImage("image.png");
             cm.setLaps(i);
             cm.setLength(i);
-            cm.setSlow_turns(i);
-            cm.setMedium_turns(i);
-            cm.setFast_turns(i);
+            cm.setSlowTurns(i);
+            cm.setMediumTurns(i);
+            cm.setFastTurns(i);
             dummyList.add(cm);
         }
         return dummyList;

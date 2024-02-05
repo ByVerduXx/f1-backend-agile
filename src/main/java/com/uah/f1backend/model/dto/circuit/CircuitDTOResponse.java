@@ -16,7 +16,7 @@ public class CircuitDTOResponse {
     private final String image;
     private final Integer laps;
     private final Integer length;
-    private final Integer slow_turns;
-    private final Integer medium_turns;
-    private final Integer fast_turns;
+    private final Integer slowTurns;
+    private final Integer mediumTurns;
+    private final Integer fastTurns;
 }
