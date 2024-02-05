@@ -15,7 +15,7 @@ public class NewsMappers {
             newsModel.setPermalink(newsDTORequest.getPermalink());
             newsModel.setImage(newsDTORequest.getImage());
             newsModel.setText(newsDTORequest.getText());
-            newsModel.setPublication_date(newsDTORequest.getPublication_date());
+            newsModel.setPublicationDate(newsDTORequest.getPublicationDate());
 
             return newsModel;
         } catch (NullPointerException e) {
@@ -31,7 +31,7 @@ public class NewsMappers {
                     newsModel.getTitle(),
                     newsModel.getImage(),
                     newsModel.getText(),
-                    newsModel.getPublication_date());
+                    newsModel.getPublicationDate());
         } catch (NullPointerException e) {
             return null;
         }

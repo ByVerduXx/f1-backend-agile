@@ -3,6 +3,7 @@ package com.uah.f1backend.model;
 import com.uah.f1backend.configuration.common.ColumnNameConstants;
 import com.uah.f1backend.configuration.common.TableNameConstants;
 import jakarta.persistence.*;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,5 +35,5 @@ public class NewsModel {
     private String text;
 
     @Column(name = ColumnNameConstants.NEWS_PUBLICATION_DATE)
-    private String publication_date;
+    private Date publicationDate;
 }

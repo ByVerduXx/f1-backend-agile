@@ -50,7 +50,7 @@ public class NewsService {
             newsModel.setPermalink(newsDTORequest.getPermalink());
             newsModel.setImage(newsDTORequest.getImage());
             newsModel.setText(newsDTORequest.getText());
-            newsModel.setPublication_date(newsDTORequest.getPublication_date());
+            newsModel.setPublicationDate(newsDTORequest.getPublicationDate());
 
             validateNewsFields(newsModel);
 
