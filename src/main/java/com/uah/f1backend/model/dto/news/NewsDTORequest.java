@@ -1,5 +1,6 @@
 package com.uah.f1backend.model.dto.news;
 
+import java.util.Date;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,5 +14,5 @@ public class NewsDTORequest {
     private final String title;
     private final String image;
     private final String text;
-    private final String publication_date;
+    private final Date publicationDate;
 }

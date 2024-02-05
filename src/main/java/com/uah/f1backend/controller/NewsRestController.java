@@ -26,18 +26,18 @@ public class NewsRestController {
     }
 
     @PostMapping
-    public ResponseEntity<NewsDTOResponse> saveCar(@RequestBody NewsDTORequest newsDTORequest) {
+    public ResponseEntity<NewsDTOResponse> saveNews(@RequestBody NewsDTORequest newsDTORequest) {
         return new ResponseEntity<>(newsService.saveNews(newsDTORequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NewsDTOResponse> updateCar(
+    public ResponseEntity<NewsDTOResponse> updateNews(
             @PathVariable Integer id, @RequestBody NewsDTORequest newsDTORequest) {
         return new ResponseEntity<>(newsService.updateNews(id, newsDTORequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCar(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteNews(@PathVariable Integer id) {
         return ResponseEntity.ok(newsService.deleteNews(id));
     }
 }
