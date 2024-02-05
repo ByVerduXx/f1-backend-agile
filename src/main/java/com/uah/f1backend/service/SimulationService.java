@@ -73,9 +73,9 @@ public class SimulationService {
     }
 
     private static BigDecimal calculateStandardERSGainPerLap(CarModel car, CircuitModel circuit) {
-        final var ersGainSlowTurns = car.getErsGainSlow().multiply(BigDecimal.valueOf(circuit.getSlow_turns()));
-        final var ersGainMediumTurns = car.getErsGainMedium().multiply(BigDecimal.valueOf(circuit.getMedium_turns()));
-        final var ersGainFastTurns = car.getErsGainFast().multiply(BigDecimal.valueOf(circuit.getFast_turns()));
+        final var ersGainSlowTurns = car.getErsGainSlow().multiply(BigDecimal.valueOf(circuit.getSlowTurns()));
+        final var ersGainMediumTurns = car.getErsGainMedium().multiply(BigDecimal.valueOf(circuit.getMediumTurns()));
+        final var ersGainFastTurns = car.getErsGainFast().multiply(BigDecimal.valueOf(circuit.getFastTurns()));
 
         return ersGainSlowTurns.add(ersGainMediumTurns).add(ersGainFastTurns);
     }

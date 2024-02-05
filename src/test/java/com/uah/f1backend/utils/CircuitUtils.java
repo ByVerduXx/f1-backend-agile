@@ -1,5 +1,6 @@
 package com.uah.f1backend.utils;
 
+import static com.uah.f1backend.utils.CountryUtils.dummyCountryDTOResponse;
 import static com.uah.f1backend.utils.CountryUtils.dummyCountryModel;
 
 import com.uah.f1backend.model.CircuitModel;
@@ -18,9 +19,9 @@ public class CircuitUtils {
         cm.setImage("image.png");
         cm.setLaps(1);
         cm.setLength(1);
-        cm.setSlow_turns(1);
-        cm.setMedium_turns(1);
-        cm.setFast_turns(1);
+        cm.setSlowTurns(1);
+        cm.setMediumTurns(1);
+        cm.setFastTurns(1);
         return cm;
     }
 
@@ -33,9 +34,9 @@ public class CircuitUtils {
         cm.setImage("image2.png");
         cm.setLaps(2);
         cm.setLength(2);
-        cm.setSlow_turns(2);
-        cm.setMedium_turns(2);
-        cm.setFast_turns(2);
+        cm.setSlowTurns(2);
+        cm.setMediumTurns(2);
+        cm.setFastTurns(2);
         return cm;
     }
 
@@ -50,9 +51,9 @@ public class CircuitUtils {
             cm.setImage("image.png");
             cm.setLaps(i);
             cm.setLength(i);
-            cm.setSlow_turns(i);
-            cm.setMedium_turns(i);
-            cm.setFast_turns(i);
+            cm.setSlowTurns(i);
+            cm.setMediumTurns(i);
+            cm.setFastTurns(i);
             dummyList.add(cm);
         }
         return dummyList;
@@ -61,17 +62,20 @@ public class CircuitUtils {
     public static List<CircuitDTOResponse> dummyListCircuitDTOResponse() {
         final var dummyList = new ArrayList<CircuitDTOResponse>();
         for (var i = 1; i <= 3; i++) {
-            dummyList.add(new CircuitDTOResponse(i, "name" + i, "city", 1, "image.png", i, i, i, i, i));
+            dummyList.add(new CircuitDTOResponse(
+                    i, "name" + i, "city", dummyCountryDTOResponse(1), "image.png", i, i, i, i, i));
         }
         return dummyList;
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponse() {
-        return new CircuitDTOResponse(1, "name", "city", 1, "image.png", 1, 1, 1, 1, 1);
+
+        return new CircuitDTOResponse(1, "name", "city", dummyCountryDTOResponse(1), "image.png", 1, 1, 1, 1, 1);
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponseOnIT(Integer idCountry) {
-        return new CircuitDTOResponse(1, "name", "city", idCountry, "image.png", 1, 1, 1, 1, 1);
+        return new CircuitDTOResponse(
+                1, "name", "city", dummyCountryDTOResponse(idCountry), "image.png", 1, 1, 1, 1, 1);
     }
 
     public static CircuitDTORequest dummyCircuitDTORequest() {
@@ -91,10 +95,11 @@ public class CircuitUtils {
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponse2() {
-        return new CircuitDTOResponse(1, "name2", "city2", 1, "image2.png", 2, 2, 2, 2, 2);
+        return new CircuitDTOResponse(1, "name2", "city2", dummyCountryDTOResponse(1), "image2.png", 2, 2, 2, 2, 2);
     }
 
     public static CircuitDTOResponse dummyCircuitDTOResponse2OnIT(Integer idCountry) {
-        return new CircuitDTOResponse(1, "name2", "city2", idCountry, "image2.png", 2, 2, 2, 2, 2);
+        return new CircuitDTOResponse(
+                1, "name2", "city2", dummyCountryDTOResponse(idCountry), "image2.png", 2, 2, 2, 2, 2);
     }
 }

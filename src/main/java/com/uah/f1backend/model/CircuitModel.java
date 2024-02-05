@@ -41,11 +41,11 @@ public class CircuitModel {
     private Integer length;
 
     @Column(name = CIRCUIT_SLOW_TURNS)
-    private Integer slow_turns;
+    private Integer slowTurns;
 
     @Column(name = CIRCUIT_MEDIUM_TURNS)
-    private Integer medium_turns;
+    private Integer mediumTurns;
 
     @Column(name = CIRCUIT_FAST_TURNS)
-    private Integer fast_turns;
+    private Integer fastTurns;
 }

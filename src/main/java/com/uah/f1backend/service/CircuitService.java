@@ -68,9 +68,9 @@ public class CircuitService {
         cm.setImage(c.getImage());
         cm.setLaps(c.getLaps());
         cm.setLength(c.getLength());
-        cm.setSlow_turns(c.getSlow_turns());
-        cm.setMedium_turns(c.getMedium_turns());
-        cm.setFast_turns(c.getFast_turns());
+        cm.setSlowTurns(c.getSlowTurns());
+        cm.setMediumTurns(c.getMediumTurns());
+        cm.setFastTurns(c.getFastTurns());
 
         // Validate that name doesn't exist in other db circuit
         final var circuitWithSameName = circuitModelRepository.findByName(cm.getName());
@@ -94,7 +94,7 @@ public class CircuitService {
         if (cm.getLength() < 0) {
             throw new HttpExceptions.CircuitLenghtLessThanZeroException();
         }
-        if (cm.getSlow_turns() + cm.getFast_turns() + cm.getMedium_turns() < 2) {
+        if (cm.getSlowTurns() + cm.getFastTurns() + cm.getMediumTurns() < 2) {
             throw new HttpExceptions.CircuitTurnsLessThanTwoException();
         }
         if (!isValidUrl(cm.getImage())) {

@@ -43,9 +43,6 @@ public class NewsService {
             NewsModel newsModel =
                     newsModelRepository.findById(id).orElseThrow(HttpExceptions.NewsDoesntExistException::new);
 
-            isNewsPermalinkInUse(newsModel.getPermalink());
-            isNewsTitleInUse(newsModel.getTitle());
-
             newsModel.setTitle(newsDTORequest.getTitle());
             newsModel.setPermalink(newsDTORequest.getPermalink());
             newsModel.setImage(newsDTORequest.getImage());

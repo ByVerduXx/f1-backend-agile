@@ -3,6 +3,7 @@ package com.uah.f1backend.model.mapper.circuit;
 import com.uah.f1backend.model.CircuitModel;
 import com.uah.f1backend.model.dto.circuit.CircuitDTORequest;
 import com.uah.f1backend.model.dto.circuit.CircuitDTOResponse;
+import com.uah.f1backend.model.mapper.country.CountryMappers;
 import java.util.List;
 
 public class CircuitMappers {
@@ -16,9 +17,9 @@ public class CircuitMappers {
                     cm.getImage(),
                     cm.getLaps(),
                     cm.getLength(),
-                    cm.getSlow_turns(),
-                    cm.getMedium_turns(),
-                    cm.getFast_turns());
+                    cm.getSlowTurns(),
+                    cm.getMediumTurns(),
+                    cm.getFastTurns());
         } catch (NullPointerException e) {
             return null;
         }
@@ -30,13 +31,13 @@ public class CircuitMappers {
                     cm.getId(),
                     cm.getName(),
                     cm.getCity(),
-                    cm.getCountry().getId(),
+                    CountryMappers.toCountryDTOResponse(cm.getCountry()),
                     cm.getImage(),
                     cm.getLaps(),
                     cm.getLength(),
-                    cm.getSlow_turns(),
-                    cm.getMedium_turns(),
-                    cm.getFast_turns());
+                    cm.getSlowTurns(),
+                    cm.getMediumTurns(),
+                    cm.getFastTurns());
         } catch (NullPointerException e) {
             return null;
         }
@@ -54,9 +55,9 @@ public class CircuitMappers {
             cm.setImage(cdr.getImage());
             cm.setLaps(cdr.getLaps());
             cm.setLength(cdr.getLength());
-            cm.setSlow_turns(cdr.getSlow_turns());
-            cm.setMedium_turns(cdr.getMedium_turns());
-            cm.setFast_turns(cdr.getFast_turns());
+            cm.setSlowTurns(cdr.getSlowTurns());
+            cm.setMediumTurns(cdr.getMediumTurns());
+            cm.setFastTurns(cdr.getFastTurns());
             return cm;
 
         } catch (NullPointerException e) {
