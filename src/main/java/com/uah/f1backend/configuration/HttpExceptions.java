@@ -121,4 +121,27 @@ public class HttpExceptions {
     // Simulation Exceptions
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
     public static class SimulationNotValidException extends RuntimeException {}
+
+    //Survey Exceptions
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Survey not valid, needed fields: [permalink, title, text, limitDate]")
+    public static class SurveyNotSavedException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Driver ids required")
+    public static class SurveyDriverIdsRequiredException extends RuntimeException {}
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Driver ids are repeated")
+    public static class SurveyDriverIdsRepeatedException extends RuntimeException {}
+    @ResponseStatus(code = NOT_FOUND, reason = "Survey not found")
+    public static class SurveyDoesntExistException extends RuntimeException {}
+
+    //Vote Exceptions
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Vote not valid, needed fields: [voterName, voterEmail, surveyId, driverId]")
+    public static class VoteNotSavedException extends RuntimeException {}
+    @ResponseStatus(code = NOT_FOUND, reason = "Vote not found")
+    public static class VoteDoesntExistException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Vote already exists")
+    public static class VoteAlreadyExistsException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Survey doesn't contain driver")
+    public static class SurveyDoesntContainDriverException extends RuntimeException {}
+
 }

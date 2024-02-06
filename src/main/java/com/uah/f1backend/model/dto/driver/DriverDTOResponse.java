@@ -24,7 +24,7 @@ public class DriverDTOResponse {
 
     private final String twitter;
 
-    private final CountryDTOResponse countryDTOResponse;
+    private final CountryDTOResponse country;
 
     private final Integer idTeam;
 }
