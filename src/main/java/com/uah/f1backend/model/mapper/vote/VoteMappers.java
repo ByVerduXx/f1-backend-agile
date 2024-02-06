@@ -4,7 +4,6 @@ import com.uah.f1backend.model.VoteModel;
 import com.uah.f1backend.model.dto.vote.VoteDTORequest;
 import com.uah.f1backend.model.dto.vote.VoteDTOResponse;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
-
 import java.util.List;
 
 public class VoteMappers {
@@ -14,7 +13,7 @@ public class VoteMappers {
             voteModel.setVoterName(dto.getVoterName());
             voteModel.setVoterEmail(dto.getVoterEmail());
             return voteModel;
-        }catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             throw new NullPointerException();
         }
     }
@@ -26,7 +25,7 @@ public class VoteMappers {
                     model.getVoterName(),
                     model.getVoterEmail(),
                     DriverMappers.toDriverDTOResponse(model.getDriver()));
-        }catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             throw new NullPointerException();
         }
     }

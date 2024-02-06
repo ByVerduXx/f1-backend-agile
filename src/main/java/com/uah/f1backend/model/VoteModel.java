@@ -1,14 +1,14 @@
 package com.uah.f1backend.model;
 
+import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
+import static com.uah.f1backend.configuration.common.TableNameConstants.VOTE_TABLE;
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import static com.uah.f1backend.configuration.common.TableNameConstants.VOTE_TABLE;
-import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
-import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity(name = VOTE_TABLE)
 @Data

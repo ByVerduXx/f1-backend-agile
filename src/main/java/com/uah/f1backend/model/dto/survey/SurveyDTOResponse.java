@@ -2,12 +2,11 @@ package com.uah.f1backend.model.dto.survey;
 
 import com.uah.f1backend.model.dto.driver.DriverDTOResponse;
 import com.uah.f1backend.model.dto.vote.VoteDTOResponse;
+import java.util.Date;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor

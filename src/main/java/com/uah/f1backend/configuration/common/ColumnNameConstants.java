@@ -73,5 +73,4 @@ public class ColumnNameConstants {
     public static final String VOTE_DRIVER_ID = "id_driver";
     public static final String VOTE_VOTER_NAME = "voter_name";
     public static final String VOTE_VOTER_EMAIL = "voter_email";
-
 }

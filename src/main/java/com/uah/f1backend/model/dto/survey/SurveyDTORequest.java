@@ -1,11 +1,10 @@
 package com.uah.f1backend.model.dto.survey;
 
+import java.util.Date;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Date;
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor

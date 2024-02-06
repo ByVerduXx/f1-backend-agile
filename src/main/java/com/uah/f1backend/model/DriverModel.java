@@ -4,12 +4,11 @@ import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.DRIVER_TABLE;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity(name = DRIVER_TABLE)
 @Data
@@ -54,5 +53,4 @@ public class DriverModel {
 
     @OneToMany(mappedBy = DRIVER_VOTES_MAPPING)
     private List<VoteModel> votes;
-
 }

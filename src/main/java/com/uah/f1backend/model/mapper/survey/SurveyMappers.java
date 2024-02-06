@@ -5,7 +5,6 @@ import com.uah.f1backend.model.dto.survey.SurveyDTORequest;
 import com.uah.f1backend.model.dto.survey.SurveyDTOResponse;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
 import com.uah.f1backend.model.mapper.vote.VoteMappers;
-
 import java.util.List;
 
 public class SurveyMappers {
@@ -17,7 +16,7 @@ public class SurveyMappers {
             surveyModel.setDescription(surveyDTORequest.getDescription());
             surveyModel.setLimitDate(surveyDTORequest.getLimitDate());
             return surveyModel;
-        }catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             throw new NullPointerException();
         }
     }
@@ -31,8 +30,10 @@ public class SurveyMappers {
                     surveyModel.getDescription(),
                     surveyModel.getLimitDate(),
                     DriverMappers.toDriverDTOResponses(surveyModel.getDrivers()),
-                    surveyModel.getVotes() != null ? VoteMappers.toVoteDTOResponses(surveyModel.getVotes()) : List.of());
-        }catch (NullPointerException npe) {
+                    surveyModel.getVotes() != null
+                            ? VoteMappers.toVoteDTOResponses(surveyModel.getVotes())
+                            : List.of());
+        } catch (NullPointerException npe) {
             throw new NullPointerException();
         }
     }

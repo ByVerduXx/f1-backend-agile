@@ -1,16 +1,15 @@
 package com.uah.f1backend.controller;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.ResponseEntity.ok;
+
 import com.uah.f1backend.model.dto.vote.VoteDTORequest;
 import com.uah.f1backend.model.dto.vote.VoteDTOResponse;
 import com.uah.f1backend.service.VoteService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("votes")
@@ -34,7 +33,8 @@ public class VoteRestController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<VoteDTOResponse> updateVote(@PathVariable Integer id, @RequestBody VoteDTORequest voteDTORequest) {
+    public ResponseEntity<VoteDTOResponse> updateVote(
+            @PathVariable Integer id, @RequestBody VoteDTORequest voteDTORequest) {
         return new ResponseEntity<>(voteService.updateVote(id, voteDTORequest), CREATED);
     }
 
