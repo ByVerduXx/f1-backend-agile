@@ -12,10 +12,9 @@ import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.model.mapper.team.TeamMappers;
 import com.uah.f1backend.repository.TeamModelRepository;
+import com.uah.f1backend.repository.UserModelRepository;
 import java.util.List;
 import java.util.Objects;
-
-import com.uah.f1backend.repository.UserModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,8 +99,9 @@ public class TeamService {
 
         var user = securityService.getUserAuthenticated();
 
-        //team to modify is not the same as the user's team or the user is not an Admin
-        if (user.getRole().getRoleName().equals("ROLE_MANAGER") && !user.getTeam().getId().equals(id)) {
+        // team to modify is not the same as the user's team or the user is not an Admin
+        if (user.getRole().getRoleName().equals("ROLE_MANAGER")
+                && !user.getTeam().getId().equals(id)) {
             throw new HttpExceptions.TeamNotSavedException();
         }
 

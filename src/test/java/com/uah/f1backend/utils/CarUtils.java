@@ -99,8 +99,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                1);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequest2() {
@@ -110,8 +109,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                2);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestBadName() {
@@ -121,8 +119,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                1);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestBadCode() {
@@ -132,8 +129,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                1);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestBadErs() {
@@ -143,8 +139,7 @@ public class CarUtils {
                 BigDecimal.valueOf(-3.4),
                 BigDecimal.valueOf(-2.4),
                 BigDecimal.valueOf(-6.4),
-                BigDecimal.valueOf(1.4),
-                1);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestBadConsumption() {
@@ -154,8 +149,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(-1.4),
-                1);
+                BigDecimal.valueOf(-1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestIT(Integer id) {
@@ -165,8 +159,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                id);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTORequest dummyCarDTORequestIT2(Integer id) {
@@ -176,8 +169,7 @@ public class CarUtils {
                 BigDecimal.valueOf(3.4),
                 BigDecimal.valueOf(2.4),
                 BigDecimal.valueOf(6.4),
-                BigDecimal.valueOf(1.4),
-                id);
+                BigDecimal.valueOf(1.4));
     }
 
     public static CarDTOResponse dummyCarDTOResponseIT(String teamName) {

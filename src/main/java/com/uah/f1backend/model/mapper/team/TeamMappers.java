@@ -7,7 +7,6 @@ import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.model.mapper.car.CarMappers;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
 import com.uah.f1backend.model.mapper.user.UserMappers;
-
 import java.util.List;
 
 public class TeamMappers {

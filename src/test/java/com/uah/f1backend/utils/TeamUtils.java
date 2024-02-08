@@ -28,7 +28,8 @@ public class TeamUtils {
                 "logo.png",
                 "@twitter",
                 DriverUtils.dummyListDriverDTOResponse(),
-                CarUtils.dummyListCarDTOResponse());
+                CarUtils.dummyListCarDTOResponse(),
+                new ArrayList<>());
     }
 
     public static TeamDTOResponse dummyTeamDTOResponseOnIT(Integer id) {

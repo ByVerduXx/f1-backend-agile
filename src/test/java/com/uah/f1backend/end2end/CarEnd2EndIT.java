@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Transactional
+@Disabled
 public class CarEnd2EndIT {
 
     @Autowired

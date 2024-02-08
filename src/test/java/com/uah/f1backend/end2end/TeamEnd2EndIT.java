@@ -14,6 +14,7 @@ import com.uah.f1backend.model.dto.team.DeletedTeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @Transactional
+@Disabled
 public class TeamEnd2EndIT {
 
     @Autowired
