@@ -1,14 +1,13 @@
 package com.uah.f1backend.model.dto.country;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class CountryDTOResponse {
-    private final Integer id;
-    private final String code;
-    private final String name;
+    private Integer id;
+    private String code;
+    private String name;
 }

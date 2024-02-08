@@ -1,20 +1,18 @@
 package com.uah.f1backend.model.dto.car;
 
 import java.math.BigDecimal;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
+@NoArgsConstructor
 public class CarDTORequest {
 
-    private final String name;
-    private final String code;
-    private final BigDecimal ersGainSlow;
-    private final BigDecimal ersGainMedium;
-    private final BigDecimal ersGainFast;
-    private final BigDecimal consumption;
-    private final Integer teamId;
+    private String name;
+    private String code;
+    private BigDecimal ersGainSlow;
+    private BigDecimal ersGainMedium;
+    private BigDecimal ersGainFast;
+    private BigDecimal consumption;
 }

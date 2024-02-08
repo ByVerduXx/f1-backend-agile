@@ -1,11 +1,13 @@
 package com.uah.f1backend.model.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class ChangePasswordUserDTORequest {
-    private final String oldPassword;
-    private final String newPassword;
+    private String oldPassword;
+    private String newPassword;
 }

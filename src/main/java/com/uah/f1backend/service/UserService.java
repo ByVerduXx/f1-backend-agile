@@ -7,14 +7,12 @@ import com.uah.f1backend.model.mapper.user.UserMappers;
 import com.uah.f1backend.repository.RoleModelRepository;
 import com.uah.f1backend.repository.UserModelRepository;
 import com.uah.f1backend.security.UserDetailsImpl;
+import java.util.List;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +43,11 @@ public class UserService {
                 .orElseThrow(HttpExceptions.RoleDoesntExistException::new);
 
         cm.setRole(role);
-        cm.setValidated(false);
+        // If the user making the request is an admin, the user is validated instantly
+        cm.setValidated(SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .contains("ROLE_ADMIN"));
 
         return UserMappers.toUserDTOResponse(userRepository.save(cm));
     }
@@ -53,7 +55,7 @@ public class UserService {
     public DeletedUserDTOResponse deleteUserById(Integer id) {
         final var c = userRepository.findById(id).orElseThrow(HttpExceptions.UserDoesntExist::new);
         userRepository.deleteById(id);
-        return new DeletedUserDTOResponse(c.getUsername(),"User deleted");
+        return new DeletedUserDTOResponse(c.getUsername(), "User deleted");
     }
 
     public UserDTOResponse updateUserById(Integer id, UserDTORequest user) {
@@ -78,16 +80,17 @@ public class UserService {
         return UserMappers.toUserDTOResponse(userRepository.save(c));
     }
 
-    //Admin function
-    public ChangePasswordUserDTOResponse changePasswordUserByID(Integer userId, ChangePasswordUserDTORequest request){
+    // Admin function
+    public ChangePasswordUserDTOResponse changePasswordUserByID(Integer userId, ChangePasswordUserDTORequest request) {
         var user = userRepository.findById(userId).orElseThrow(HttpExceptions.UserDoesntExist::new);
 
         return getChangePasswordUserDTOResponse(request, user);
     }
 
-    //Users function
-    public ChangePasswordUserDTOResponse changePasswordUserAuthenticated(ChangePasswordUserDTORequest request){
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    // Users function
+    public ChangePasswordUserDTOResponse changePasswordUserAuthenticated(ChangePasswordUserDTORequest request) {
+        UserDetailsImpl userDetails = (UserDetailsImpl)
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var user = userRepository.findById(userDetails.getId()).orElseThrow(HttpExceptions.UserDoesntExist::new);
 
         return getChangePasswordUserDTOResponse(request, user);
@@ -104,7 +107,12 @@ public class UserService {
         return "User validated";
     }
 
-    private ChangePasswordUserDTOResponse getChangePasswordUserDTOResponse(ChangePasswordUserDTORequest request, UserModel user) {
+    public List<UserDTOResponse> findAllManagersWithoutTeam() {
+        return UserMappers.toUserDTOResponse(userRepository.findAllByRole_IdAndTeamIsNull(2));
+    }
+
+    private ChangePasswordUserDTOResponse getChangePasswordUserDTOResponse(
+            ChangePasswordUserDTORequest request, UserModel user) {
         if (!bCryptPasswordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             return new ChangePasswordUserDTOResponse(user.getId(), user.getUsername(), false);
         }
@@ -113,5 +121,4 @@ public class UserService {
         userRepository.save(user);
         return new ChangePasswordUserDTOResponse(user.getId(), user.getUsername(), true);
     }
-
 }

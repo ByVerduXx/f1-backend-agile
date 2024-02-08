@@ -1,13 +1,12 @@
 package com.uah.f1backend.model.dto.driver;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeletedDriverDTOResponse {
-    private final String message;
-    private final Integer id;
+    private String message;
+    private Integer id;
 }

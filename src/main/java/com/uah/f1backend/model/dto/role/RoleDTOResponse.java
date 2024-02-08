@@ -1,15 +1,12 @@
 package com.uah.f1backend.model.dto.role;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode
-@RequiredArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RoleDTOResponse {
-    private  Integer id;
+    private Integer id;
     private String roleName;
 }

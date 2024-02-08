@@ -22,7 +22,8 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> new UserDetailsImpl(userModelRepository.findFirstByUsername(username)
+        return username -> new UserDetailsImpl(userModelRepository
+                .findFirstByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found")));
     }
 
@@ -43,5 +44,4 @@ public class ApplicationConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

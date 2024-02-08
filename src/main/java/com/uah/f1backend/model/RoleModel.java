@@ -1,15 +1,14 @@
 package com.uah.f1backend.model;
 
+import static com.uah.f1backend.configuration.common.ColumnNameConstants.ROLE_ID;
+import static com.uah.f1backend.configuration.common.ColumnNameConstants.ROLE_NAME;
+import static com.uah.f1backend.configuration.common.TableNameConstants.ROLE_TABLE;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import static com.uah.f1backend.configuration.common.ColumnNameConstants.ROLE_ID;
-import static com.uah.f1backend.configuration.common.ColumnNameConstants.ROLE_NAME;
-import static com.uah.f1backend.configuration.common.TableNameConstants.ROLE_TABLE;
-
 
 @Entity(name = ROLE_TABLE)
 @Data

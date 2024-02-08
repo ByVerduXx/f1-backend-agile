@@ -1,9 +1,7 @@
 package com.uah.f1backend.model.mapper.role;
+
 import com.uah.f1backend.model.RoleModel;
 import com.uah.f1backend.model.dto.role.RoleDTOResponse;
-
-import java.util.List;
-
 
 public class RoleMappers {
 
@@ -14,9 +12,4 @@ public class RoleMappers {
     public static RoleModel toRoleModel(RoleDTOResponse rdr) {
         return new RoleModel(rdr.getId(), rdr.getRoleName());
     }
-
-
-
-
-
 }

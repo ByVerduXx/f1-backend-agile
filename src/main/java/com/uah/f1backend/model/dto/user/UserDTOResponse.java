@@ -1,18 +1,20 @@
 package com.uah.f1backend.model.dto.user;
 
 import com.uah.f1backend.model.dto.role.RoleDTOResponse;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTOResponse {
-    private final Integer id;
-    private final String email;
-    private final String password;
-    private final String name;
-    private final String lastname;
-    private final String username;
-    private final RoleDTOResponse role;
-    private final Boolean validated;
+    private Integer id;
+    private String email;
+    private String password;
+    private String name;
+    private String lastname;
+    private String username;
+    private RoleDTOResponse role;
+    private Boolean validated;
 }

@@ -1,12 +1,14 @@
 package com.uah.f1backend.model.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class ChangePasswordUserDTOResponse {
-    private final Integer id;
-    private final String username;
-    private final Boolean passwordIsChanged;
+    private Integer id;
+    private String username;
+    private Boolean passwordIsChanged;
 }

@@ -1,11 +1,13 @@
 package com.uah.f1backend.model.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class DeletedUserDTOResponse {
-    private final String username;
-    private final String message;
+    private String username;
+    private String message;
 }

@@ -20,6 +20,8 @@ public class CarService {
     private final CarModelRepository carModelRepository;
     private final TeamModelRepository teamModelRepository;
 
+    private final SecurityService securityService;
+
     public List<CarDTOResponse> getAllCars() {
         return CarMappers.toCarDTOResponses(carModelRepository.findAll());
     }
@@ -28,16 +30,18 @@ public class CarService {
         return CarMappers.toCarDTOResponse(
                 carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new));
     }
+
     public List<CarDTOResponse> findAllTeamCars(Integer teamId) {
         return CarMappers.toCarDTOResponses(carModelRepository.findAllByTeamId(teamId));
     }
 
     public CarDTOResponse saveCar(CarDTORequest carDTORequest) {
+
+        var user = securityService.getUserAuthenticated();
+
         try {
             CarModel carModel = CarMappers.toCarModel(carDTORequest);
-            carModel.setTeam(teamModelRepository
-                    .findById(carDTORequest.getTeamId())
-                    .orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+            carModel.setTeam(user.getTeam());
 
             isCarNameInUse(carModel.getName());
             isCarCodeInUse(carModel.getCode());
@@ -49,18 +53,33 @@ public class CarService {
     }
 
     public CarDTOResponse updateCar(Integer id, CarDTORequest carDTORequest) {
+
+        var user = securityService.getUserAuthenticated();
+
+        if (user.getTeam().getCars().stream().anyMatch(car -> Objects.equals(car.getId(), id))) {
+            throw new HttpExceptions.CarNotSavedException();
+        }
+
         try {
             CarModel carModel =
                     carModelRepository.findById(id).orElseThrow(HttpExceptions.CarDoesntExistException::new);
 
-            if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
+            /*if (!Objects.equals(carDTORequest.getTeamId(), carModel.getTeam().getId())) {
                 carModel.setTeam(teamModelRepository
                         .findById(carDTORequest.getTeamId())
                         .orElseThrow(HttpExceptions.TeamDoesntExistException::new));
+            }*/
+
+            var car = carModelRepository.findCarModelByName(carDTORequest.getName()).orElse(null);
+            if (car != null && !Objects.equals(car.getId(), id)) {
+                throw new HttpExceptions.CarNameInUseException();
             }
 
-            isCarNameInUse(carDTORequest.getName());
-            isCarCodeInUse(carDTORequest.getCode());
+            car = carModelRepository.findCarModelByCode(carDTORequest.getCode()).orElse(null);
+
+            if (car != null && !Objects.equals(car.getId(), id)) {
+                throw new HttpExceptions.CarCodeInUseException();
+            }
 
             carModel.setName(carDTORequest.getName());
             carModel.setCode(carDTORequest.getCode());
@@ -116,5 +135,4 @@ public class CarService {
             throw new HttpExceptions.CarCodeInUseException();
         }
     }
-
 }

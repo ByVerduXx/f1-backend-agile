@@ -1,9 +1,8 @@
 package com.uah.f1backend.configuration;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
-
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import static org.springframework.http.HttpStatus.*;
 
 public class HttpExceptions {
 
@@ -13,6 +12,9 @@ public class HttpExceptions {
 
     @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Invalid twitter format")
     public static class InvalidTwitterFormatException extends RuntimeException {}
+
+    @ResponseStatus(value = UNAUTHORIZED, reason = "Unauthorized")
+    public static class UnauthorizedException extends RuntimeException {}
 
     // Team Exceptions
     @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, logo, twitter (optional)]")
@@ -136,4 +138,7 @@ public class HttpExceptions {
 
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Passwords are not the same")
     public static class PasswordsNotTheSameException extends RuntimeException {}
+
+    @ResponseStatus(code = BAD_REQUEST, reason = "User must be a manager")
+    public static class UserMustBeManagerException extends RuntimeException {}
 }

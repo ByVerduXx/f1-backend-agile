@@ -1,10 +1,10 @@
 package com.uah.f1backend.model;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.USER_TABLE;
+
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity(name = USER_TABLE)
 @Data
@@ -40,4 +40,7 @@ public class UserModel {
     @Column(name = USER_VALIDATED)
     private Boolean validated;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = USER_TEAM)
+    private TeamModel team;
 }
