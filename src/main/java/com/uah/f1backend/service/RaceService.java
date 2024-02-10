@@ -1,17 +1,15 @@
 package com.uah.f1backend.service;
 
 import com.uah.f1backend.configuration.HttpExceptions;
-
 import com.uah.f1backend.model.RaceModel;
 import com.uah.f1backend.model.dto.race.RaceDTORequest;
 import com.uah.f1backend.model.dto.race.RaceDTOResponse;
 import com.uah.f1backend.model.mapper.race.RaceMappers;
 import com.uah.f1backend.repository.CircuitModelRepository;
 import com.uah.f1backend.repository.RaceModelRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +57,8 @@ public class RaceService {
     }
 
     public String deleteRace(Integer id) {
-        RaceModel raceModel = raceModelRepository.findById(id).orElseThrow(HttpExceptions.RaceDoesntExistException::new);
+        RaceModel raceModel =
+                raceModelRepository.findById(id).orElseThrow(HttpExceptions.RaceDoesntExistException::new);
         raceModelRepository.delete(raceModel);
         return "Race with id " + id + " and name " + raceModel.getName() + " has been deleted";
     }

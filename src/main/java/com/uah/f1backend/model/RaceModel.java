@@ -1,12 +1,11 @@
 package com.uah.f1backend.model;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.Date;
-
 import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.RACE_TABLE;
+
+import jakarta.persistence.*;
+import java.util.Date;
+import lombok.*;
 
 @Entity(name = RACE_TABLE)
 @Data

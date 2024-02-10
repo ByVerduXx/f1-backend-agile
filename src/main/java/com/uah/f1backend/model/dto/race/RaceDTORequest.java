@@ -1,10 +1,9 @@
 package com.uah.f1backend.model.dto.race;
 
+import java.util.Date;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Date;
 
 @Getter
 @RequiredArgsConstructor
