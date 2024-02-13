@@ -84,7 +84,7 @@ public class UserService {
     public ChangePasswordUserDTOResponse changePasswordUserByID(Integer userId, ChangePasswordUserDTORequest request) {
         var user = userRepository.findById(userId).orElseThrow(HttpExceptions.UserDoesntExist::new);
 
-        return getChangePasswordUserDTOResponse(request, user);
+        return getChangePasswordUserDTOResponse(request, user, true);
     }
 
     // Users function
@@ -93,7 +93,7 @@ public class UserService {
                 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         var user = userRepository.findById(userDetails.getId()).orElseThrow(HttpExceptions.UserDoesntExist::new);
 
-        return getChangePasswordUserDTOResponse(request, user);
+        return getChangePasswordUserDTOResponse(request, user, false);
     }
 
     public List<UserDTOResponse> findAllValidatePendingUsers() {
@@ -112,8 +112,8 @@ public class UserService {
     }
 
     private ChangePasswordUserDTOResponse getChangePasswordUserDTOResponse(
-            ChangePasswordUserDTORequest request, UserModel user) {
-        if (!bCryptPasswordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            ChangePasswordUserDTORequest request, UserModel user, boolean isAdmin) {
+        if (!isAdmin && !bCryptPasswordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             return new ChangePasswordUserDTOResponse(user.getId(), user.getUsername(), false);
         }
 

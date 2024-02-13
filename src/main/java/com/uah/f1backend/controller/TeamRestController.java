@@ -29,6 +29,18 @@ public class TeamRestController {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }
 
+    @GetMapping("manager")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<TeamDetailDTOResponse> obtainManagerTeam() {
+        return ResponseEntity.ok(teamService.getTeamByUserAuthenticated());
+    }
+
+    @PostMapping("addManager")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<TeamDetailDTOResponse> addManagerToTeam(@RequestBody Integer id) {
+        return ResponseEntity.ok(teamService.addManagerToTeam(id));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<TeamDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamById(id));

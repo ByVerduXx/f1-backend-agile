@@ -17,7 +17,6 @@ public class CarRestController {
     private final CarService carService;
 
     @GetMapping
-    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<CarDTOResponse>> obtainAll() {
         return ResponseEntity.ok(carService.getAllCars());
     }

@@ -32,11 +32,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> {
+                    cors.configurationSource(corsConfigurationSource());
+                })
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()
                         .requestMatchers(
-                                "/news/**", "/auth/**", "/v3/api-docs/**", "/swagger-ui/**") // TODO: add public routes
+                                 "/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/news/**", "/countries/**", "/circuits/**", "/teams/**", "/drivers/**", "cars/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
@@ -53,6 +58,7 @@ public class SecurityConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedHeaders(List.of("*"));
         config.setAllowedOriginPatterns(List.of("*"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
         config.setAllowCredentials(true);
