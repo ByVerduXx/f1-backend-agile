@@ -47,7 +47,8 @@ public class SecurityConfig {
                                 "/circuits/**",
                                 "/teams/**",
                                 "/drivers/**",
-                                "cars/**")
+                                "/cars/**",
+                                "/races/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

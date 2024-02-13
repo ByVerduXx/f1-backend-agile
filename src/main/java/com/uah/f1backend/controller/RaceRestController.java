@@ -7,12 +7,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("races")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class RaceRestController {
     private final RaceService raceService;
 
@@ -22,17 +22,20 @@ public class RaceRestController {
     }
 
     @PostMapping
-    public ResponseEntity<RaceDTOResponse> saveCRace(@RequestBody RaceDTORequest raceDTORequest) {
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<RaceDTOResponse> saveRace(@RequestBody RaceDTORequest raceDTORequest) {
         return new ResponseEntity<>(raceService.saveRace(raceDTORequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<RaceDTOResponse> updateRace(
             @PathVariable Integer id, @RequestBody RaceDTORequest raceDTORequest) {
         return new ResponseEntity<>(raceService.updateRace(id, raceDTORequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> deleteRace(@PathVariable Integer id) {
         return ResponseEntity.ok(raceService.deleteRace(id));
     }
