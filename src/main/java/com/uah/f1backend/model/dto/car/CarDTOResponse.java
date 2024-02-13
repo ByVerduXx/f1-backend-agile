@@ -5,15 +5,16 @@ import lombok.*;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class CarDTOResponse {
 
-    private final Integer id;
-    private final String name;
-    private final String code;
-    private final BigDecimal ersGainSlow;
-    private final BigDecimal ersGainMedium;
-    private final BigDecimal ersGainFast;
-    private final BigDecimal consumption;
-    private final String teamName;
+    private Integer id;
+    private String name;
+    private String code;
+    private BigDecimal ersGainSlow;
+    private BigDecimal ersGainMedium;
+    private BigDecimal ersGainFast;
+    private BigDecimal consumption;
+    private String teamName;
 }

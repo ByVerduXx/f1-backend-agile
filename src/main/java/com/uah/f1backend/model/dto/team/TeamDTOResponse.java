@@ -1,15 +1,14 @@
 package com.uah.f1backend.model.dto.team;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeamDTOResponse {
-    private final Integer id;
-    private final String name;
-    private final String logo;
-    private final String twitter;
+    private Integer id;
+    private String name;
+    private String logo;
+    private String twitter;
 }

@@ -4,8 +4,9 @@ import lombok.*;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeletedTeamDTOResponse {
-    private final String message;
-    private final String teamName;
+    private String message;
+    private String teamName;
 }

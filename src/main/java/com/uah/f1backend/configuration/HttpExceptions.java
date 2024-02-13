@@ -1,7 +1,6 @@
 package com.uah.f1backend.configuration;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.*;
 
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -13,6 +12,9 @@ public class HttpExceptions {
 
     @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Invalid twitter format")
     public static class InvalidTwitterFormatException extends RuntimeException {}
+
+    @ResponseStatus(value = UNAUTHORIZED, reason = "Unauthorized")
+    public static class UnauthorizedException extends RuntimeException {}
 
     // Team Exceptions
     @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, logo, twitter (optional)]")
@@ -121,4 +123,22 @@ public class HttpExceptions {
     // Simulation Exceptions
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
     public static class SimulationNotValidException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User does not exist")
+    public static class UserDoesntExist extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Lack of a field")
+    public static class UserNotSavedException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Username already in use")
+    public static class UsernameInUseException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Role does not exist")
+    public static class RoleDoesntExistException extends RuntimeException {}
+
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Passwords are not the same")
+    public static class PasswordsNotTheSameException extends RuntimeException {}
+
+    @ResponseStatus(code = BAD_REQUEST, reason = "User must be a manager")
+    public static class UserMustBeManagerException extends RuntimeException {}
 }
