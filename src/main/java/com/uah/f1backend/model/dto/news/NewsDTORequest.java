@@ -1,6 +1,7 @@
 package com.uah.f1backend.model.dto.news;
 
 import lombok.*;
+import java.util.Date;
 
 @Getter
 @AllArgsConstructor
@@ -12,5 +13,5 @@ public class NewsDTORequest {
     private String title;
     private String image;
     private String text;
-    private String publication_date;
+    private Date publicationDate;
 }

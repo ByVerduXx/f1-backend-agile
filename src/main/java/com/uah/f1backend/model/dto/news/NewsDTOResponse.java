@@ -1,6 +1,7 @@
 package com.uah.f1backend.model.dto.news;
 
 import lombok.*;
+import java.util.Date;
 
 @Getter
 @EqualsAndHashCode
@@ -13,5 +14,5 @@ public class NewsDTOResponse {
     private String title;
     private String image;
     private String text;
-    private String publication_date;
+    private Date publicationDate;
 }
