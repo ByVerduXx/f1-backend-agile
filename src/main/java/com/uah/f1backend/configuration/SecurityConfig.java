@@ -38,10 +38,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()
-                        .requestMatchers(
-                                 "/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
+                        .requestMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
                         .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/news/**", "/countries/**", "/circuits/**", "/teams/**", "/drivers/**", "cars/**")
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/news/**",
+                                "/countries/**",
+                                "/circuits/**",
+                                "/teams/**",
+                                "/drivers/**",
+                                "cars/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

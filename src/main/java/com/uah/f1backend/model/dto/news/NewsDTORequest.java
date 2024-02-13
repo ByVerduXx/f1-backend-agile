@@ -1,7 +1,7 @@
 package com.uah.f1backend.model.dto.news;
 
-import lombok.*;
 import java.util.Date;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
