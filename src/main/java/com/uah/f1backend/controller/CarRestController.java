@@ -25,6 +25,11 @@ public class CarRestController {
         return ResponseEntity.ok(carService.getCarById(id));
     }
 
+    @GetMapping("/team/{id}")
+    public ResponseEntity<List<CarDTOResponse>> findAllTeamCars(@PathVariable Integer id) {
+        return ResponseEntity.ok(carService.findAllTeamCars(id));
+    }
+
     @PostMapping
     public ResponseEntity<CarDTOResponse> saveCar(@RequestBody CarDTORequest carDTORequest) {
         return new ResponseEntity<>(carService.saveCar(carDTORequest), HttpStatus.CREATED);

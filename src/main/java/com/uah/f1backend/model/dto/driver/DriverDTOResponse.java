@@ -1,30 +1,29 @@
 package com.uah.f1backend.model.dto.driver;
 
 import com.uah.f1backend.model.dto.country.CountryDTOResponse;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Getter
 public class DriverDTOResponse {
 
-    private final Integer id;
+    private Integer id;
 
-    private final String name;
+    private String name;
 
-    private final String lastName;
+    private String lastName;
 
-    private final String initial;
+    private String initial;
 
-    private final Integer dorsal;
+    private Integer dorsal;
 
-    private final String photo;
+    private String photo;
 
-    private final String twitter;
+    private String twitter;
 
     private final CountryDTOResponse country;
 
-    private final Integer idTeam;
+    private Integer idTeam;
 }

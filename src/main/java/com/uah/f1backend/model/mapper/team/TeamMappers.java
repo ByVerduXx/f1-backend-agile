@@ -6,6 +6,7 @@ import com.uah.f1backend.model.dto.team.TeamDTOResponse;
 import com.uah.f1backend.model.dto.team.TeamDetailDTOResponse;
 import com.uah.f1backend.model.mapper.car.CarMappers;
 import com.uah.f1backend.model.mapper.driver.DriverMappers;
+import com.uah.f1backend.model.mapper.user.UserMappers;
 import java.util.List;
 
 public class TeamMappers {
@@ -42,7 +43,8 @@ public class TeamMappers {
                     tm.getLogo(),
                     tm.getTwitter(),
                     DriverMappers.toDriverDTOResponses(tm.getDrivers()),
-                    CarMappers.toCarDTOResponses(tm.getCars()));
+                    CarMappers.toCarDTOResponses(tm.getCars()),
+                    UserMappers.toUserDTOResponse(tm.getUsers()));
         } catch (NullPointerException e) {
             return null;
         }

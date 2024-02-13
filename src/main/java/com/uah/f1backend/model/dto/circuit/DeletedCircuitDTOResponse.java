@@ -1,13 +1,12 @@
 package com.uah.f1backend.model.dto.circuit;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeletedCircuitDTOResponse {
-    private final String message;
-    private final String circuitName;
+    private String message;
+    private String circuitName;
 }
