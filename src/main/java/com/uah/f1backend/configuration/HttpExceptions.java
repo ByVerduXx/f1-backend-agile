@@ -124,6 +124,13 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Simulation not valid, needed fields: [idCar, idCircuit]")
     public static class SimulationNotValidException extends RuntimeException {}
 
+    // Races Exceptions
+    @ResponseStatus(value = UNPROCESSABLE_ENTITY, reason = "Needed fields: [name, date, sprint, idCircuit]")
+    public static class RaceNotSavedException extends RuntimeException {}
+
+    @ResponseStatus(code = NOT_FOUND, reason = "Race not found")
+    public static class RaceDoesntExistException extends RuntimeException {}
+
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User does not exist")
     public static class UserDoesntExist extends RuntimeException {}
 

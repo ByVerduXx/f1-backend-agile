@@ -11,4 +11,5 @@ public class TableNameConstants {
 
     public static final String ROLE_TABLE = "role";
     public static final String NEWS_TABLE = "news";
+    public static final String RACE_TABLE = "race";
 }

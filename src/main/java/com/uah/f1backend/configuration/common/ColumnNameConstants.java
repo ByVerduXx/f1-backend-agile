@@ -53,4 +53,10 @@ public class ColumnNameConstants {
     public static final String NEWS_IMAGE = "image";
     public static final String NEWS_TEXT = "text";
     public static final String NEWS_PUBLICATION_DATE = "publication_date";
+
+    public static final String RACE_ID = "id";
+    public static final String RACE_NAME = "name";
+    public static final String RACE_DATE = "date";
+    public static final String RACE_SPRINT = "sprint";
+    public static final String RACE_CIRCUIT = "id_track";
 }
