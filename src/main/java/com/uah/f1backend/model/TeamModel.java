@@ -33,4 +33,7 @@ public class TeamModel {
 
     @OneToMany(mappedBy = "team")
     private List<DriverModel> drivers;
+
+    @OneToMany(mappedBy = "team")
+    private List<UserModel> users;
 }

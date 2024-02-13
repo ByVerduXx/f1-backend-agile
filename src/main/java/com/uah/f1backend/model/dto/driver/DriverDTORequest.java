@@ -1,26 +1,25 @@
 package com.uah.f1backend.model.dto.driver;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Getter
 public class DriverDTORequest {
 
-    private final String name;
+    private String name;
 
-    private final String lastName;
+    private String lastName;
 
-    private final String initial;
+    private String initial;
 
-    private final Integer dorsal;
+    private Integer dorsal;
 
-    private final String photo;
+    private String photo;
 
-    private final String twitter;
+    private String twitter;
 
-    private final Integer idCountry;
-    private final Integer idTeam;
+    private Integer idCountry;
+    private Integer idTeam;
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,17 +27,20 @@ public class NewsRestController {
     }
 
     @PostMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<NewsDTOResponse> saveNews(@RequestBody NewsDTORequest newsDTORequest) {
         return new ResponseEntity<>(newsService.saveNews(newsDTORequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<NewsDTOResponse> updateNews(
             @PathVariable Integer id, @RequestBody NewsDTORequest newsDTORequest) {
         return new ResponseEntity<>(newsService.updateNews(id, newsDTORequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> deleteNews(@PathVariable Integer id) {
         return ResponseEntity.ok(newsService.deleteNews(id));
     }

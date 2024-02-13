@@ -1,15 +1,14 @@
 package com.uah.f1backend.model.dto.simulation;
 
 import java.math.BigDecimal;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class DrivingModeDTO {
-    private final BigDecimal saving;
-    private final BigDecimal normal;
-    private final BigDecimal aggressive;
+    private BigDecimal saving;
+    private BigDecimal normal;
+    private BigDecimal aggressive;
 }

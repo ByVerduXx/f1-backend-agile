@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,6 +29,18 @@ public class TeamRestController {
         return ResponseEntity.ok(teamService.getTeamByName(name));
     }
 
+    @GetMapping("manager")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<TeamDetailDTOResponse> obtainManagerTeam() {
+        return ResponseEntity.ok(teamService.getTeamByUserAuthenticated());
+    }
+
+    @PostMapping("addManager")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<TeamDetailDTOResponse> addManagerToTeam(@RequestBody Integer id) {
+        return ResponseEntity.ok(teamService.addManagerToTeam(id));
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<TeamDTOResponse> obtainById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.getTeamById(id));
@@ -39,16 +52,19 @@ public class TeamRestController {
     }
 
     @PostMapping
+    @Secured("ROLE_MANAGER")
     public ResponseEntity<TeamDTOResponse> insertTeam(@RequestBody TeamDTORequest team) {
         return new ResponseEntity<>(teamService.insertTeam(team), HttpStatus.CREATED);
     }
 
     @DeleteMapping(params = "name")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DeletedTeamDTOResponse> deleteTeamByName(@RequestParam String name) {
         return ResponseEntity.ok(teamService.deleteTeamByName(name));
     }
 
     @DeleteMapping("{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DeletedTeamDTOResponse> deleteTeamById(@PathVariable Integer id) {
         return ResponseEntity.ok(teamService.deleteTeamById(id));
     }

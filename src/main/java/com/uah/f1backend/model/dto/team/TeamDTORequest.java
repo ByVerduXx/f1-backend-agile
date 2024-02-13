@@ -1,12 +1,14 @@
 package com.uah.f1backend.model.dto.team;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class TeamDTORequest {
-    private final String name;
-    private final String logo;
-    private final String twitter;
+    private String name;
+    private String logo;
+    private String twitter;
 }
