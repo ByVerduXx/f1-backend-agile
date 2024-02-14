@@ -163,6 +163,9 @@ public class HttpExceptions {
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User does not exist")
     public static class UserDoesntExist extends RuntimeException {}
 
+    @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "User not validated")
+    public static class UserNotValidatedException extends RuntimeException {}
+
     @ResponseStatus(code = UNPROCESSABLE_ENTITY, reason = "Lack of a field")
     public static class UserNotSavedException extends RuntimeException {}
 
