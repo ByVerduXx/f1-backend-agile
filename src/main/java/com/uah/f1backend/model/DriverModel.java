@@ -4,6 +4,7 @@ import static com.uah.f1backend.configuration.common.ColumnNameConstants.*;
 import static com.uah.f1backend.configuration.common.TableNameConstants.DRIVER_TABLE;
 
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,4 +47,10 @@ public class DriverModel {
     @ManyToOne
     @JoinColumn(name = DRIVER_ID_TEAM)
     private TeamModel team;
+
+    @ManyToMany(mappedBy = DRIVER_SURVEYS_MAPPING)
+    private List<SurveyModel> surveys;
+
+    @OneToMany(mappedBy = DRIVER_VOTES_MAPPING)
+    private List<VoteModel> votes;
 }

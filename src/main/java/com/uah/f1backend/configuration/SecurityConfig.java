@@ -48,12 +48,10 @@ public class SecurityConfig {
                                 "/teams/**",
                                 "/drivers/**",
                                 "/cars/**",
-                                "/races/**")
+                                "/races/**",
+                                "/surveys/**")
                         .permitAll()
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/users"
-                        )
+                        .requestMatchers(HttpMethod.POST, "/users")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
