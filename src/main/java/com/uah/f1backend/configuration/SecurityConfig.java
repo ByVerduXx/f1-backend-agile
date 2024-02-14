@@ -50,6 +50,11 @@ public class SecurityConfig {
                                 "/cars/**",
                                 "/races/**")
                         .permitAll()
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/users"
+                        )
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(

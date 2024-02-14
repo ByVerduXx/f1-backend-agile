@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTOResponse> insertUser(UserDTORequest user) {
+    public ResponseEntity<UserDTOResponse> insertUser(@RequestBody UserDTORequest user) {
         return ResponseEntity.ok(userService.insertUser(user));
     }
 
@@ -62,7 +63,14 @@ public class UserController {
     }
 
     @GetMapping("freeManagers")
+    @Secured("ROLE_MANAGER")
     public ResponseEntity<List<UserDTOResponse>> getFreeManagers() {
         return ResponseEntity.ok(userService.findAllManagersWithoutTeam());
+    }
+
+    @GetMapping("teamManagers/{id}")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<List<UserDTOResponse>> getTeamManagers(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.findAllManagersByTeamId(id));
     }
 }

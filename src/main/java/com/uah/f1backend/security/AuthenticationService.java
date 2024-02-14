@@ -22,6 +22,9 @@ public class AuthenticationService {
         var user = userRepository
                 .findFirstByUsername(request.getUsername())
                 .orElseThrow(HttpExceptions.UserDoesntExist::new);
+        if (!user.getValidated()) {
+            throw new HttpExceptions.UserNotValidatedException();
+        }
         var jwt = jwtService.generateToken(
                 Map.of("username", user.getUsername(), "role", user.getRole().getRoleName()),
                 new UserDetailsImpl(user));

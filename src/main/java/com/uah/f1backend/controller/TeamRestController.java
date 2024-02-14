@@ -37,8 +37,8 @@ public class TeamRestController {
 
     @PostMapping("addManager")
     @Secured("ROLE_MANAGER")
-    public ResponseEntity<TeamDetailDTOResponse> addManagerToTeam(@RequestBody Integer id) {
-        return ResponseEntity.ok(teamService.addManagerToTeam(id));
+    public ResponseEntity<TeamDetailDTOResponse> addManagerToTeam(@RequestBody String id) {
+        return ResponseEntity.ok(teamService.addManagerToTeam(Integer.parseInt(id)));
     }
 
     @GetMapping("{id}")
