@@ -16,6 +16,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<UserDTOResponse>> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
@@ -31,33 +32,39 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<DeletedUserDTOResponse> deleteUserById(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.deleteUserById(id));
     }
 
     @PutMapping("{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<UserDTOResponse> updateUserById(@PathVariable Integer id, @RequestBody UserDTORequest user) {
         return new ResponseEntity<>(userService.updateUserById(id, user), HttpStatus.CREATED);
     }
 
     @PostMapping("changePassword/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<ChangePasswordUserDTOResponse> changePassword(
             @PathVariable Integer id, @RequestBody ChangePasswordUserDTORequest request) {
         return ResponseEntity.ok(userService.changePasswordUserByID(id, request));
     }
 
     @PostMapping("changePassword")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<ChangePasswordUserDTOResponse> changePassword(
             @RequestBody ChangePasswordUserDTORequest request) {
         return ResponseEntity.ok(userService.changePasswordUserAuthenticated(request));
     }
 
     @GetMapping("validate")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<List<UserDTOResponse>> validateUser() {
         return ResponseEntity.ok(userService.findAllValidatePendingUsers());
     }
 
     @PostMapping("validate/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> validateUser(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.validateUser(id));
     }
