@@ -13,4 +13,6 @@ public interface UserModelRepository extends JpaRepository<UserModel, Integer> {
     List<UserModel> findAllByValidated(Boolean validated);
 
     List<UserModel> findAllByRole_IdAndTeamIsNull(Integer roleId);
+
+    List<UserModel> findAllByRole_IdAndTeam_Id(Integer roleId, Integer teamId);
 }

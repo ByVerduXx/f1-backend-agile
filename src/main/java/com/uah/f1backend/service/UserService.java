@@ -111,6 +111,10 @@ public class UserService {
         return UserMappers.toUserDTOResponse(userRepository.findAllByRole_IdAndTeamIsNull(2));
     }
 
+    public List<UserDTOResponse> findAllManagersByTeamId(Integer id) {
+        return UserMappers.toUserDTOResponse(userRepository.findAllByRole_IdAndTeam_Id(2, id));
+    }
+
     private ChangePasswordUserDTOResponse getChangePasswordUserDTOResponse(
             ChangePasswordUserDTORequest request, UserModel user, boolean isAdmin) {
         if (!isAdmin && !bCryptPasswordEncoder.matches(request.getOldPassword(), user.getPassword())) {
