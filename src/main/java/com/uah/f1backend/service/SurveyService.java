@@ -7,6 +7,8 @@ import com.uah.f1backend.model.dto.survey.SurveyDTOResponse;
 import com.uah.f1backend.model.mapper.survey.SurveyMappers;
 import com.uah.f1backend.repository.DriverModelRepository;
 import com.uah.f1backend.repository.SurveyModelRepository;
+
+import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,12 @@ public class SurveyService {
     private final SurveyModelRepository surveyModelRepository;
     private final DriverModelRepository driverModelRepository;
 
-    public List<SurveyDTOResponse> obtainAllSurveys() {
-        return SurveyMappers.toSurveyDTOResponses(surveyModelRepository.findAll());
+    public List<SurveyDTOResponse> obtainAllActiveSurveys() {
+        return SurveyMappers.toSurveyDTOResponses(surveyModelRepository.findAllByLimitDateAfter(new Date()));
+    }
+
+    public List<SurveyDTOResponse> obtainAllFinishedSurveys() {
+        return SurveyMappers.toSurveyDTOResponses(surveyModelRepository.findAllByLimitDateBefore(new Date()));
     }
 
     public SurveyDTOResponse obtainSurveyById(Integer id) {

@@ -23,7 +23,7 @@ public class DriverDTOResponse {
 
     private String twitter;
 
-    private final CountryDTOResponse country;
+    private CountryDTOResponse country;
 
     private Integer idTeam;
 }

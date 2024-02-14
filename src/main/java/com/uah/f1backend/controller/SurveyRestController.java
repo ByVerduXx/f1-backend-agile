@@ -17,8 +17,13 @@ public class SurveyRestController {
     private final SurveyService surveyService;
 
     @GetMapping
-    public ResponseEntity<List<SurveyDTOResponse>> obtainAll() {
-        return ResponseEntity.ok(surveyService.obtainAllSurveys());
+    public ResponseEntity<List<SurveyDTOResponse>> obtainAllActiveSurveys() {
+        return ResponseEntity.ok(surveyService.obtainAllActiveSurveys());
+    }
+
+    @GetMapping("/finished")
+    public ResponseEntity<List<SurveyDTOResponse>> obtainAllFinishedSurveys() {
+        return ResponseEntity.ok(surveyService.obtainAllFinishedSurveys());
     }
 
     @GetMapping("{id}")
