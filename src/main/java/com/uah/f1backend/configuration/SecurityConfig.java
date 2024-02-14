@@ -51,10 +51,7 @@ public class SecurityConfig {
                                 "/races/**",
                                 "/surveys/**")
                         .permitAll()
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/users"
-                        )
+                        .requestMatchers(HttpMethod.POST, "/users")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

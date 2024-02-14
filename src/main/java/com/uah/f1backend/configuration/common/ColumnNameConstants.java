@@ -45,7 +45,7 @@ public class ColumnNameConstants {
     public static final String USER_ROLE = "role_id";
     public static final String USER_TEAM = "team_id";
     public static final String USER_VALIDATED = "validated";
-    
+
     // Circuit
     public static final String CIRCUIT_ID = "id";
     public static final String CIRCUIT_NAME = "name";
