@@ -29,8 +29,6 @@ public class NewsService {
         try {
             NewsModel newsModel = NewsMappers.toNewsModel(newsDTORequest);
 
-            isNewsPermalinkInUse(newsModel.getPermalink());
-            isNewsTitleInUse(newsModel.getTitle());
             validateNewsFields(newsModel);
             return NewsMappers.toNewsDTOResponse(newsModelRepository.save(newsModel));
         } catch (NullPointerException e) {
@@ -43,8 +41,6 @@ public class NewsService {
             NewsModel newsModel =
                     newsModelRepository.findById(id).orElseThrow(HttpExceptions.NewsDoesntExistException::new);
 
-            isNewsPermalinkInUse(newsModel.getPermalink());
-            isNewsTitleInUse(newsModel.getTitle());
 
             newsModel.setTitle(newsDTORequest.getTitle());
             newsModel.setPermalink(newsDTORequest.getPermalink());
@@ -73,18 +69,6 @@ public class NewsService {
         }
         if (news.getPermalink() == null || news.getPermalink().isEmpty()) {
             throw new HttpExceptions.NewsPermalinkNotValidException();
-        }
-    }
-
-    private void isNewsPermalinkInUse(String permalink) {
-        if (newsModelRepository.findNewsModelByPermalink(permalink).isPresent()) {
-            throw new HttpExceptions.NewsPermalinkInUseException();
-        }
-    }
-
-    private void isNewsTitleInUse(String title) {
-        if (newsModelRepository.findNewsModelByTitle(title).isPresent()) {
-            throw new HttpExceptions.NewsTitleInUseException();
         }
     }
 }

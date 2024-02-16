@@ -12,7 +12,6 @@ public class UserMappers {
         return new UserDTOResponse(
                 um.getId(),
                 um.getEmail(),
-                um.getPassword(),
                 um.getName(),
                 um.getLastname(),
                 um.getUsername(),
