@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,14 @@ public class CarRestController {
         return ResponseEntity.ok(carService.findAllTeamCars(id));
     }
 
+    @GetMapping("/manager")
+    @Secured("ROLE_MANAGER")
+    public ResponseEntity<List<CarDTOResponse>> obtainManagerCars() {
+        return ResponseEntity.ok(carService.getManagerCars());
+    }
+
     @PostMapping
+    @Secured("ROLE_MANAGER")
     public ResponseEntity<CarDTOResponse> saveCar(@RequestBody CarDTORequest carDTORequest) {
         return new ResponseEntity<>(carService.saveCar(carDTORequest), HttpStatus.CREATED);
     }

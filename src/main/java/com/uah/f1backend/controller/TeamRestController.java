@@ -24,6 +24,12 @@ public class TeamRestController {
         return ResponseEntity.ok(teamService.getAllTeams());
     }
 
+    @GetMapping("details")
+    @Secured("ROLE_ADMIN")
+    public ResponseEntity<List<TeamDetailDTOResponse>> obtainAllDetails() {
+        return ResponseEntity.ok(teamService.getAllTeamsDetails());
+    }
+
     @GetMapping(params = "name")
     public ResponseEntity<TeamDTOResponse> obtainByName(@RequestParam String name) {
         return ResponseEntity.ok(teamService.getTeamByName(name));

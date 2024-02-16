@@ -81,4 +81,8 @@ public class TeamMappers {
             return null;
         }
     }
+
+    public static List<TeamDetailDTOResponse> toTeamDetailListDTOResponseMapper(List<TeamModel> all) {
+        return all.stream().map(TeamMappers::toTeamDetailDTOResponseMapper).toList();
+    }
 }
