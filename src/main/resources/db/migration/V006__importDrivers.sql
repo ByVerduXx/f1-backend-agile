@@ -1,5 +1,11 @@
-INSERT INTO driver (id, driver.name, last_name, initial, dorsal, photo, twitter, id_country,  id_team) VALUES
-        (1,'Fernando', 'Alonso', 'ALO', '14', 'alonso_photo.png','@FernandoAlonso', 164,  2),
-        (2,'Carlos', 'Sainz', 'SAI', '55', 'sainz_photo.png', '@Carlossainz55', 164, 1),
-        (3,'Max', 'Verstappen', 'VER', '33', 'verstappen_photo.png', '@Max33Verstappen', 122, 3),
-        (4,'Charles', 'Leclerc', 'LEC', '16', 'leclerc_photo.png', '@Charles_Leclerc', 113, 1);
+INSERT INTO driver (id, name, last_name, initial, dorsal, photo, twitter, id_country, id_team) VALUES
+                                                                                                    (1, 'Fernando', 'Alonso', 'ALO', 14, 'https://cdn-4.motorsport.com/images/mgl/0ZRQbbN0/s800/fernando-alonso-aston-martin-r.jpg', '@FernandoAlonso', 164, 2),
+                                                                                                    (2, 'Carlos', 'Sainz', 'SAI', 55, 'https://www.estadiodeportivo.com/imagenes/846a5ec3-7ab2-4115-a813-af08ff24ced9_1200x680.jpeg', '@Carlossainz55', 164, 1),
+                                                                                                    (3, 'Max', 'Verstappen', 'VER', 33, 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_Verstappen_2017_Malaysia_3.jpg/640px-Max_Verstappen_2017_Malaysia_3.jpg', '@Max33Verstappen', 122, 3),
+                                                                                                    (4, 'Charles', 'Leclerc', 'LEC', 16, 'https://cdn-3.motorsport.com/images/mgl/YMdm7R32/s8/charles-leclerc-ferrari.jpg', '@Charles_Leclerc', 113, 1),
+                                                                                                    (5, 'Lewis', 'Hamilton', 'HAM', 44, 'https://cdn-5.motorsport.com/images/mgl/0mb95oa2/s8/lewis-hamilton-mercedes-1.jpg', '@LewisHamilton', 185, 4),
+                                                                                                    (6, 'Valtteri', 'Bottas', 'BOT', 77, 'https://cdn-2.motorsport.com/images/mgl/Ypxd1gXY/s800/f1-australian-gp-2018-valtteri-bottas-mercedes-amg-f1.jpg', '@ValtteriBottas', 59, 8),
+                                                                                                    (7, 'Daniel', 'Ricciardo', 'RIC', 3, 'https://cdn-7.motorsport.com/images/mgl/2d1ZDk5Y/s800/daniel-ricciardo-racing-bulls.jpg', '@danielricciardo', 9, 2),
+                                                                                                    (8, 'Lando', 'Norris', 'NOR', 4, 'https://cdn-7.motorsport.com/images/mgl/2GzrEd10/s800/lando-norris-mclaren-1.jpg', '@LandoNorris', 185, 2),
+                                                                                                    (9, 'Sergio', 'Pérez', 'PER', 11, 'https://cdn-9.motorsport.com/images/mgl/0a9neZP0/s800/sergio-perez-red-bull-racing-1.jpg', '@SChecoPerez', 110, 3),
+                                                                                                    (10, 'Pierre', 'Gasly', 'GAS', 10, 'https://cdn-8.motorsport.com/images/mgl/2eADy3P2/s800/pierre-gasly-alpine.jpg', '@PierreGASLY', 60, 7);
