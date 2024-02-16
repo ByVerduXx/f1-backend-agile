@@ -31,11 +31,9 @@ public class VoteService {
     public VoteDTOResponse insertVote(VoteDTORequest voteDTORequest) {
         try {
             final var voteModel = VoteMappers.toVoteModel(voteDTORequest);
-            if (voteModelRepository.existsByVoterNameOrVoterEmailAndSurveyIdAndDriverId(
-                    voteModel.getVoterName(),
+            if (voteModelRepository.existsByVoterEmailAndSurveyId(
                     voteModel.getVoterEmail(),
-                    voteDTORequest.getSurveyId(),
-                    voteDTORequest.getDriverId())) {
+                    voteDTORequest.getSurveyId())) {
                 throw new VoteAlreadyExistsException();
             }
             final var survey = surveyModelRepository
