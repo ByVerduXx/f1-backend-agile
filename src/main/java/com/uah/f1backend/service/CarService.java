@@ -56,7 +56,7 @@ public class CarService {
 
         var user = securityService.getUserAuthenticated();
 
-        if (user.getTeam().getCars().stream().anyMatch(car -> Objects.equals(car.getId(), id))) {
+        if (user.getTeam().getCars().stream().noneMatch(car -> Objects.equals(car.getId(), id))) {
             throw new HttpExceptions.CarNotSavedException();
         }
 
@@ -136,5 +136,14 @@ public class CarService {
         if (carModelRepository.findCarModelByCode(code).isPresent()) {
             throw new HttpExceptions.CarCodeInUseException();
         }
+    }
+
+    public List<CarDTOResponse> getManagerCars() {
+        var user = securityService.getUserAuthenticated();
+        if (user.getTeam() == null) {
+            throw new HttpExceptions.TeamDoesntExistException();
+        }
+        return CarMappers.toCarDTOResponses(
+                carModelRepository.findAllByTeamId(user.getTeam().getId()));
     }
 }

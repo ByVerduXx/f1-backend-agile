@@ -172,4 +172,8 @@ public class TeamService {
             throw new HttpExceptions.InvalidTwitterFormatException();
         }
     }
+
+    public List<TeamDetailDTOResponse> getAllTeamsDetails() {
+        return TeamMappers.toTeamDetailListDTOResponseMapper(teamModelRepository.findAll());
+    }
 }
