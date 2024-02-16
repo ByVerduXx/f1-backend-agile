@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.OPTIONS, "/**")
                         .permitAll()
-                        .requestMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
+                        .requestMatchers("/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/error", "/votes/**")
                         .permitAll()
                         .requestMatchers(
                                 HttpMethod.GET,
