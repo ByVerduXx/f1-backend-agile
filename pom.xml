@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
+			<version>0.12.5</version>
 		</dependency>
 	</dependencies>
 
@@ -162,8 +162,8 @@
 							<include>src/main/java/**/*.java</include>
 							<include>src/test/java/**/*.java</include>
 						</includes>
-						<importOrder />
-						<removeUnusedImports />
+						<importOrder/>
+						<removeUnusedImports/>
 						<toggleOffOn/>
 						<trimTrailingWhitespace/>
 						<endWithNewline/>
